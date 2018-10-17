@@ -1,0 +1,27 @@
+{
+  "name": "amp-uncss",
+  "version": "1.0.0",
+  "description": "A tool to tree shake CSS in AMP HTML documents.",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "doc": "node_modules/jsdoc/jsdoc.js lib -r -d docs -R README.md -P package.json "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AndrewKGuan/AMP-UnCSS.git"
+  },
+  "author": "Andrew K Guan & Kendrick Schuettler",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AndrewKGuan/AMP-UnCSS/issues"
+  },
+  "homepage": "https://github.com/AndrewKGuan/AMP-UnCSS#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "jsdoc": "^3.5.5"
+  }
+}
