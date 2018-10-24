@@ -7,7 +7,7 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node_modules/mocha/bin/mocha tests",
     "doc": "node_modules/jsdoc/jsdoc.js lib -r -d docs -R README.md -P package.json "
   },
   "repository": {
@@ -22,6 +22,7 @@
   "homepage": "https://github.com/AndrewKGuan/AMP-UnCSS#readme",
   "dependencies": {},
   "devDependencies": {
-    "jsdoc": "^3.5.5"
+    "jsdoc": "^3.5.5",
+    "mocha": "^5.2.0"
   }
 }
