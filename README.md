@@ -21,3 +21,12 @@ Documentation can be found on the [official site](index.html).
 ## License
 
 AMP-UnCSS is licensed under the [Apache License, Version 2.0](LICENSE).
+
+## Assumptions
+
+- All input files are AMPed .html files
+- HTML Parsing: Due to the dynamic nature of certain AMP components such as`<amm-image>` and 
+`<amp-livelist>`, a virtual browser will need to be instantiated to guarantee correct optimizations.
+  - Type 0 and Type 1 optimizations operate with a simple static DOM parser
+  - Type 2 optimizations will require a full browser instance (via Puppeteer) and will require 100x 
+  the amount of time to complete.
