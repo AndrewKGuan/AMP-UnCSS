@@ -20,7 +20,9 @@
     "url": "https://github.com/AndrewKGuan/AMP-UnCSS/issues"
   },
   "homepage": "https://github.com/AndrewKGuan/AMP-UnCSS#readme",
-  "dependencies": {},
+  "dependencies": {
+    "jsom": "^1.0.0"
+  },
   "devDependencies": {
     "jsdoc": "^3.5.5",
     "mocha": "^5.2.0"
