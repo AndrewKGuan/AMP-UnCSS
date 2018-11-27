@@ -20,7 +20,10 @@
     "url": "https://github.com/AndrewKGuan/AMP-UnCSS/issues"
   },
   "homepage": "https://github.com/AndrewKGuan/AMP-UnCSS#readme",
-  "dependencies": {},
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "css": "^2.2.4"
+  },
   "devDependencies": {
     "jsdoc": "^3.5.5",
     "mocha": "^5.2.0"
