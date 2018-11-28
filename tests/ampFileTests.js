@@ -1,7 +1,10 @@
 const assert = require('assert');
 const AmpFile = require('../lib/main/AmpFile');
+const testFilePath = 'tests/test_files/testAmpFile.html'
+
 
 describe('AMP File Functions', function() {
+  const ampFile = new AmpFile('test');
 
   describe('#hasExceptionTags()', function() {
     const ampFileWithoutExceptionWithoutExceptionSet = {'elements': new Set()};
@@ -13,11 +16,10 @@ describe('AMP File Functions', function() {
       'elements': new Set()};
     const ampFileWithExceptionWithoutExceptionSet = {
       'elements': new Set(['amp-list'])};
+
     const ampFileWithExceptionWithExceptionSet = {
       _hasExceptionTags: true,
       'elements': new Set(['amp-bind'])};
-
-    const ampFile = new AmpFile('test');
 
     it(
         'An AmpFile without an exception and no exception set should return false',
@@ -49,4 +51,24 @@ describe('AMP File Functions', function() {
           assert.strictEqual(ampFile.hasExceptionTags.apply(ampFileWithExceptionWithExceptionSet), true);
         });
   });
+
+  describe("#getStats()", function() {
+    it('Should return minimum stats on unoptimized file', function() {
+      const testFile = new AmpFile(testFilePath);
+      const testStats = testFile.getStats();
+
+      assert.ok(testStats.startTime);
+
+      delete testStats.startTime;
+
+      assert.deepStrictEqual(testFile.getStats(), {
+        fileName: testFilePath,
+        status: 'running',
+        inputSize: 97877,
+        outputSize: 0,
+        endTime: 0,
+        selectorsRemoved: 0
+      })
+    })
+  })
 });
