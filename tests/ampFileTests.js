@@ -22,31 +22,31 @@ describe('AMP File Functions', function() {
     it(
         'An AmpFile without an exception and no exception set should return false',
         function() {
-          assert.equal(ampFile.hasExceptionTags.apply(ampFileWithoutExceptionWithoutExceptionSet), false);
+          assert.strictEqual(ampFile.hasExceptionTags.apply(ampFileWithoutExceptionWithoutExceptionSet), false);
         });
 
     it(
         'An AmpFile without an exception and with exception set "true" should return true',
         function() {
-          assert.equal(ampFile.hasExceptionTags.apply(ampFileWithoutExceptionWithExceptionSetTrue), true);
+          assert.strictEqual(ampFile.hasExceptionTags.apply(ampFileWithoutExceptionWithExceptionSetTrue), true);
         });
 
     it(
         'An AmpFile without an exception and with exception set "false" should return false',
         function() {
-          assert.equal(ampFile.hasExceptionTags.apply(ampFileWithoutExceptionWithExceptionSetFalse), false);
+          assert.strictEqual(ampFile.hasExceptionTags.apply(ampFileWithoutExceptionWithExceptionSetFalse), false);
         });
 
     it(
         'An AmpFile with an exception and without an exception set return true',
         function() {
-          assert.equal(ampFile.hasExceptionTags.apply(ampFileWithExceptionWithoutExceptionSet), true);
+          assert.strictEqual(ampFile.hasExceptionTags.apply(ampFileWithExceptionWithoutExceptionSet), true);
         });
 
     it(
         'An AmpFile with an exception and with exception set "true" should return true',
         function() {
-          assert.equal(ampFile.hasExceptionTags.apply(ampFileWithExceptionWithExceptionSet), true);
+          assert.strictEqual(ampFile.hasExceptionTags.apply(ampFileWithExceptionWithExceptionSet), true);
         });
   });
 });

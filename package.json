@@ -21,7 +21,8 @@
   },
   "homepage": "https://github.com/AndrewKGuan/AMP-UnCSS#readme",
   "dependencies": {
-    "jsom": "^1.0.0"
+    "cheerio": "^1.0.0-rc.2",
+    "css": "^2.2.4"
   },
   "devDependencies": {
     "jsdoc": "^3.5.5",
