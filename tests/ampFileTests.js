@@ -7,61 +7,35 @@ describe('AMP File Functions', function() {
   const ampFile = new AmpFile('test');
 
   describe('#hasExceptionTags()', function() {
-    const ampFileWithoutExceptionWithoutExceptionSet = {'elements': new Set()};
-    const ampFileWithoutExceptionWithExceptionSetTrue = {
-      '_hasExceptionTags': true,
-      'elements': new Set()};
-    const ampFileWithoutExceptionWithExceptionSetFalse = {
-      '_hasExceptionTags': false,
-      'elements': new Set()};
-    const ampFileWithExceptionWithoutExceptionSet = {
-      'elements': new Set(['amp-list'])};
-
-    const ampFileWithExceptionWithExceptionSet = {
-      _hasExceptionTags: true,
-      'elements': new Set(['amp-bind'])};
+    const ampFileWithException = {'exceptionElementTags': new Set(['amp-bind'])};
+    const ampFileWithoutException = {'exceptionElementTags': new Set([])};
 
     it(
-        'An AmpFile without an exception and no exception set should return false',
+        'An AmpFile without an exception return false',
         function() {
-          assert.strictEqual(ampFile.hasExceptionTags.apply(ampFileWithoutExceptionWithoutExceptionSet), false);
-        });
-
-    it(
-        'An AmpFile without an exception and with exception set "true" should return true',
-        function() {
-          assert.strictEqual(ampFile.hasExceptionTags.apply(ampFileWithoutExceptionWithExceptionSetTrue), true);
-        });
-
-    it(
-        'An AmpFile without an exception and with exception set "false" should return false',
-        function() {
-          assert.strictEqual(ampFile.hasExceptionTags.apply(ampFileWithoutExceptionWithExceptionSetFalse), false);
+          assert.strictEqual(
+              ampFile.hasExceptionTags.apply(ampFileWithoutException), false);
         });
 
     it(
         'An AmpFile with an exception and without an exception set return true',
         function() {
-          assert.strictEqual(ampFile.hasExceptionTags.apply(ampFileWithExceptionWithoutExceptionSet), true);
+          assert.strictEqual(
+              ampFile.hasExceptionTags.apply(ampFileWithException), true);
         });
 
-    it(
-        'An AmpFile with an exception and with exception set "true" should return true',
-        function() {
-          assert.strictEqual(ampFile.hasExceptionTags.apply(ampFileWithExceptionWithExceptionSet), true);
-        });
   });
 
-  describe("#getStats()", function() {
+  describe("#stats()", function() {
     it('Should return minimum stats on unoptimized file', function() {
       const testFile = new AmpFile(testFilePath);
-      const testStats = testFile.getStats();
+      const testStats = testFile.stats();
 
       assert.ok(testStats.startTime);
 
       delete testStats.startTime;
 
-      assert.deepStrictEqual(testFile.getStats(), {
+      assert.deepStrictEqual(testFile.stats(), {
         fileName: testFilePath,
         status: 'running',
         inputSize: 97877,

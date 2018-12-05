@@ -3,3 +3,4 @@ AMP-UnCSS.iml
 node_modules
 docs
 docs/
+lib/script.js

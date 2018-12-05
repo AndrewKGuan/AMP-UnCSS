@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html ⚡ lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <title>Test File</title>
+  <link rel="canonical" href="https://www.ampproject.org/">
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+  <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
+  <script async custom-element="amp-accordion" src="https://cdn.ampproject.org/v0/amp-accordion-0.1.js"></script>
+
+  <style amp-custom>
+    .root {
+      font-size: 8px;
+      font-family: "Roboto", sans-serif;
+    }
+    .home {
+      color: blue;
+    }
+    section>h3 {
+      color: red;
+    }
+    amp-sidebar {
+      font-size: 44px;
+    }
+    section[expanded='false'] {
+      color: orange;
+    }
+
+    section[expanded='true'] {
+      background-color: green;
+    }
+  </style>
+</head>
+<body class="root">
+<div class="home" id="home-div">
+  <h3>H3 Title</h3>
+  <amp-accordion>
+    <section id="acc-1">
+      <h3>Section 1 title</h3>
+      <div>Some data</div></section>
+    <section id="acc-2">
+      <h3>Section 2 title</h3>
+      <div>Some More data</div>
+    </section>
+    <section id="acc-3">
+      <h3>last Section Title</h3>
+      <div>
+        <blockquote>A BIG QUOTE!!</blockquote>
+      </div>
+    </section>
+  </amp-accordion>
+</div>
+
+</body>
+</html>

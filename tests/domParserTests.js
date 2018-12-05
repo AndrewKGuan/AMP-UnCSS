@@ -5,7 +5,7 @@ describe('DOM Parser Functions', function() {
   const testFileName = 'tests/test_files/testAmpFile.html';
 
   describe('#buildDomFromFile()', function() {
-    it('Should return a dom from a resolvable file', function(){
+    it('Should return a $ from a resolvable file', function(){
       assert.ok(DomParser.buildDomFromFile(testFileName));
     });
 
@@ -18,7 +18,7 @@ describe('DOM Parser Functions', function() {
       assert.ok(DomParser.extractDomData(testFileName))
     });
 
-    it('Should return a cheerio dom function', function checkForDom() {
+    it('Should return a cheerio $ function', function checkForDom() {
       assert.ok(DomParser.extractDomData(testFileName).dom);
       assert.strictEqual(typeof DomParser.extractDomData(testFileName).dom, 'function')
     });
