@@ -36,7 +36,7 @@ describe('AMP File Functions', function() {
       delete testStats.startTime;
 
       assert.deepStrictEqual(testFile.stats(), {
-        fileName: testFilePath,
+        fileName: testFilePath.split('/').pop(),
         status: 'running',
         inputSize: 97877,
         outputSize: 0,
