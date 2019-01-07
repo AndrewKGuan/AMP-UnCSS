@@ -32,3 +32,19 @@ AMP-UnCSS is licensed under the [Apache License, Version 2.0](LICENSE).
   - Type 0 and Type 1 optimizations operate with a simple static DOM parser
   - Type 2 optimizations will require a full browser instance (via Puppeteer) and will require 100x 
   the amount of time to complete.
+
+## Git Workflow
+
+Note: Local repo contains 'master' and working branches. Origin repo contains 'master', 'dev', 'KES_dev', & 'AKG_dev'
+
+1. ``master: git pull --rebase origin dev``
+2. ``master: git checkout -b <working-branch-name>``
+3. Do work and testing here.
+4. ``<working-branch-name>: git add (. / file-names)``
+5. ``<working-branch-name>: git commit -m "<commit message>``
+6. ``<working-branch-name: git checkout master``
+7. ``master: git pull --rebase upstream dev``
+8. Fix merge conflicts.
+9. Commit merge conflicts.
+10. ``master: git push origin <AKG||KES>_dev``
+11. Create merge request from ``<AKG||KES>_dev`` to ``dev``. Assign other contributer to review merge.  
