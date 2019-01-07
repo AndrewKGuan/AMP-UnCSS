@@ -6,15 +6,9 @@ module.exports =  function(options) {
     if (vinyl.isBuffer()) {
       let {optimizedHtmlString, reporting} = unCss(vinyl,{
         streamable: true,
+        reportDir: './output'
       }, cb);
       vinyl.contents = Buffer.from(optimizedHtmlString);
-      console.log(reporting);
-      console.log(
-          `total size reduction: ${reporting.inputSize - reporting.outputSize} bytes`
-      );
-      console.log(
-          `total time elapsed: ${Number((reporting.endTime - reporting.startTime) / 1000).toFixed(3)}s`);
-      console.log('------------------------------')
     }
 
     cb(null, vinyl);
