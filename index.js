@@ -4,10 +4,11 @@ const unCss= require('./lib/main/UnCss.js');
 module.exports =  function(options) {
   function gulpUnCss(vinyl, enc, cb) {
     if (vinyl.isBuffer()) {
-      let {optimizedHtmlString, reporting} = unCss(vinyl,{
-        streamable: true,
-        reportDir: './output'
-      }, cb);
+      let {optimizedHtmlString, reporting} = unCss(
+          vinyl,
+          Object.assign(options, {streamable: true}),
+          cb);
+
       vinyl.contents = Buffer.from(optimizedHtmlString);
     }
 
