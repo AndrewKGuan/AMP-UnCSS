@@ -1,18 +1,55 @@
-const through = require('through2');
-const unCss= require('./lib/main/UnCss.js');
+#! /usr/bin/env node
 
-module.exports =  function(options) {
-  function gulpUnCss(vinyl, enc, cb) {
-    if (vinyl.isBuffer()) {
-      let {optimizedHtmlString, reporting} = unCss(
-          vinyl,
-          Object.assign(options, {streamable: true}),
-          cb);
+const ampUnCSS = require("./lib/main/UnCss");
+const program = require("commander");
+const fs = require("fs")
 
-      vinyl.contents = Buffer.from(optimizedHtmlString);
+program
+  .version("0.1.0", "-v, --version")
+  .arguments('<directory>')
+  .option('-R, --recursive', "Searches given directory recursively for HTML files.")
+  .option('-l, --optimization-level <optimization-level>',
+      "The optimization level to execute.", parseInt)
+  .option('-t, --target-directory <target-directory>',
+      "Specify the target directory. Defaults to './dist'")
+  .option('-r, --report-directory <report-directory>',
+      "Specify the target directory for the optimization report. Will default to './reports'")
+  .option('-n, --report-name <report-name>',
+      "Name of optimization report. Defaults to 'amp_unCss_report.json'.")
+  .option('-m, --report-modifier <report-modifier>',
+      "Specify the naming modification to each file - i.e. 'filename+mod.html.")
+  .action(function(directory) {
+    const options = {
+      directory,
+      recursive: program.recursive,
+      optimizationLevel: program.optimizationLevel,
+      targetDirectory: program.targetDirectory,
+      reportDirectory: program.reportDirectory,
+      reportName: program.reportName,
+      reportModifier: program.reportModifer
+    };
+
+    if(!(options.optimizationLevel >= 0 && options.optimizationLevel <= 2)) {
+      console.error("<optimization-level> must be 0, 1, or 2. Default value is 2.");
+      process.exit(1)
     }
 
-    cb(null, vinyl);
-  }
-  return through.obj(gulpUnCss)
-};
+    const fileList = [];
+    (function dig(dir) {
+      fs.readdirSync(dir, {withFileTypes: true}).forEach(dirent => {
+          if(dirent.isFile()) {
+            if(dirent.name.split('.')[1] === "html") {
+              fileList.push(dir + "/" + dirent.name)
+            }
+          } else if (dirent.isDirectory()){
+            if(options.recursive) {
+              dig(dir + "/" + dirent.name)
+            }
+          }
+      })
+    })(options.directory);
+
+    ampUnCSS(fileList, options)
+  })
+    .parse(process.argv);
+
