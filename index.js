@@ -1,6 +1,6 @@
 #! /usr/bin/env node
 
-const ampUnCSS = require("./lib/main/UnCss");
+const ampUncss = require("./lib/main/UnCss");
 const program = require("commander");
 const fs = require("fs")
 
@@ -16,7 +16,7 @@ program
       "Specify the target directory for the optimization report. Will default to './reports'")
   .option('-n, --report-name <report-name>',
       "Name of optimization report. Defaults to 'amp_unCss_report.json'.")
-  .option('-m, --report-modifier <report-modifier>',
+  .option('-m, --report-decorator <report-decorator>',
       "Specify the naming modification to each file - i.e. 'filename+mod.html.")
   .action(function(directory) {
     const options = {
@@ -26,7 +26,7 @@ program
       targetDirectory: program.targetDirectory,
       reportDirectory: program.reportDirectory,
       reportName: program.reportName,
-      reportModifier: program.reportModifer
+      reportModifier: program.reportDecorator
     };
 
     if(!(options.optimizationLevel >= 0 && options.optimizationLevel <= 2)) {
@@ -49,7 +49,7 @@ program
       })
     })(options.directory);
 
-    ampUnCSS(fileList, options)
+    ampUncss(fileList, options)
   })
     .parse(process.argv);
 

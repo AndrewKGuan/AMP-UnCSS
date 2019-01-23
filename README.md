@@ -20,7 +20,7 @@ var files = ["my", "array", "of", "html", "files"],
       targetDirectory       : "./dist", 
       reportDirectory       : "./reports",
       reportName            : "amp_uncss_report.json",
-      modifier              : "amp_opt",      
+      filenameDecorator       : "amp_opt",      
     };
 
 /** Invoked with no options */
@@ -49,7 +49,7 @@ Options:
   -t, --target-directory <target-directory>      Specify the target directory. Defaults to './dist'
   -r, --report-directory <report-directory>      Specify the target directory for the optimization report. Will default to './reports'
   -n, --report-name <report-name>                Name of optimization report. Defaults to 'amp_unCss_report'.
-  -m, --report-modifier <report-modifier>        Specify the naming modification to each file - i.e. 'filename+mod.html.
+  -m, --filename-decorator <filename-decorator>    Specify the naming modification to each file - i.e. 'filename + decorator.html'.
   -h, --help                                     output usage information
 ```
 
@@ -60,15 +60,15 @@ Options:
 * __optimizationLevel__ (Number): Optimization level determines the maximum rendering of the virtual DOM during CSS tree-shaking.
   * 0 (default): non-dynamic DOM parsing. Will not render dynamic AMP element tags such as `<amp-list>` or `<amp-image>`.
   * 1: Dynamic DOM-parsing using Puppeteer. May slow down processing significantly for large file sets.
-   * 2: Extra optimizations including maximum specificity.
+  * 2: Extra optimizations including maximum specificity.
 
 * __targetDirectory__ (String): The name of the directory optimized files will write to. Defaults to `./dist`.
 
 * __reportDirectory__ (String): The name of the directory optimization report will write to. Defaults to `./reports`.
 
-* __reportName__ (String): The name of optimization report. Defaults to `amp_uncss_report`.
+* __reportName__ (String): The name of optimization report. Defaults to `amp_uncss_report`. Output type is JSON. 
 
-* __reportModifier__ (String): The modifier appended to input file names when written to target directory. E.g. `optimized` === `inputFile_optimized.html`.
+* __filenameDecorator__ (String): The decorator appended to input file names when written to target directory. E.g. `optimized` === `inputFile_optimized.html`.
  
  NOTE: If AMP UnCSS is run with reportDirectory containing `reportName.json`, all test data will be appended to existing report.  
 
