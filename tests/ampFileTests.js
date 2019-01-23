@@ -29,19 +29,19 @@ describe('AMP File Functions', function() {
   describe("#_stats()", function() {
     it('Should return minimum _stats on unoptimized file', function() {
       const testFile = new AmpFile(testFilePath);
-      const testStats = testFile._stats();
+      const testStats = testFile.stats();
 
       assert.ok(testStats.startTime);
 
       delete testStats.startTime;
 
-      assert.deepStrictEqual(testFile._stats(), {
+      assert.deepStrictEqual(testFile.stats(), {
         fileName: testFilePath.split('/').pop(),
         status: 'running',
         inputSize: 97877,
         outputSize: 0,
         endTime: 0,
-        selectorsRemoved: 0
+        selectorsRemoved: {}
       })
     })
   })
