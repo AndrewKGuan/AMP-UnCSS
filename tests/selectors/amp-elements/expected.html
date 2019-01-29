@@ -11,39 +11,201 @@
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
 
   <style amp-custom>
+    /* Adjacent */
+    span + span {
+      text-decoration: underline;
+    }
+
+    #battleground + div {
+      background: white;
+    }
+
+    /* Attribute */
+    em[hidden='false'] {
+      color: orange;
+    }
+
+    em[hidden='true'] {
+      background-color: green;
+    }
+
+    /* Child */
+    h1 > span {
+      color: crimson;
+    }
+
+    div > span {
+      color: #000;
+    }
+
+    /* Classes */
+    .red {
+      color: red;
+    }
+
+    .blue {
+      color: blue;
+    }
+
+    .green {
+      color: green;
+    }
+
+    /* Complex */
+    [data-section=''] > section > h4 [data-section-title] {
+      color: cyan;
+    }
+
+    [data-section=''] > section > h5 [data-section-title] {
+      color: cyan;
+    }
+
+    #battleground ~ main {
+        color: red;
+    }
+
+    /* Elements */
+    body {
+      font-size: 100%;
+    }
+
+    h1 {
+      font-size: 2rem;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+    }
+
+    p {
+      font-size: 1em;
+    }
+
+    span {
+      display: block;
+    }
+
+    /* AMP Elements */
     amp-accordion {
       border: 1px black;
     }
-  </style>
+
+
+     /* Escaped Pseudos */
+    .sm\:hover\:font-hairline {
+      height: 100px;
+    }
+
+    .sm\:hover\:font-hairline:hover {
+      font-weight: 100;
+    }
+
+    .sm\:hover\:font-hairline\:hover {
+      font-weight: 100;
+    }
+
+    .sm\:hover\:font-hairline\:valid {
+      color: red;
+    }
+
+    .sm\:valid\:font-bold:valid {
+      font-weight: 800;
+
+    <!--General Siblings-->
+    .red ~ span {
+      color: blue;
+    }
+
+    .blue ~ span {
+      color: green;
+    }
+
+    /* Ids */
+    #battleground {
+      box-shadow: 0 1px 3px rgba(0, 0, 0, .15);
+    }
+
+    #playground,
+    #fairground {
+      color: white;
+    }
+
+    /* Not() */
+    div:not(#bat):not(#man),
+    div:not(#battleground) {
+      display: inline-block;
+    }
+
+    /* nTh Child */
+    span:nth-child(odd) {
+      border-bottom: 1px solid red;
+    }
+
+    span:nth-child(2) {
+      border-bottom: 1px solid blue;
+    }
+
+    span:nth-child(3) {
+      border-bottom: 1px solid blue;
+    }
+
+    /* nTh-of-Type */
+    span:nth-of-type(2) {
+      border-bottom: 1px solid blue;
+    }
+
+    span:nth-of-type(4) {
+      border-bottom: 1px solid white;
+    }
+
+    /* Pseudo class with pseudo element */
+    h5:hover::before {
+      content: "@";
+    }
+
+    .unused:hover::before {
+      content: "!";
+    }
+
+
+    /* Pseudo */
+    h3:hover {
+      color: green;
+    }
+
+    .unused:hover {
+      color: gray;
+    }
+
+    /* Target */
+    h1:target {
+      color: blue;
+    }
+
+    h2:target {
+      color: red;
+    }
+
+    /* Vendor */
+    ::-moz-selection {
+      color: gold;
+      background: red;
+    }
+
+
+</style>
 
 </head>
 <body>
-<!--
-    Some Instructions:
+<!--[Some Instructions]:
     - Placing any <div> elements on this page other than
       div#battleground will break the "not" test!
     - Any changes made here **must** be reflected in
       /tests/output/selectors/index.html; otherwise, the
       "Pages should resemble the reference:Selectors" test
-      will fail!
--->
-<div id="battleground" data-section="">
+      will fail!-->
 
-  <amp-accordion>
-    <section id="acc-1">
-      <h3>Section 1 title</h3>
-      <div>Some data</div></section>
-    <section id="acc-2">
-      <h3>Section 2 title</h3>
-      <div>Some More data</div>
-    </section>
-    <section id="acc-3">
-      <h3>last Section Title</h3>
-      <div>
-        <blockquote>A BIG QUOTE!!</blockquote>
-      </div>
-    </section>
-  </amp-accordion>
+<div id="battleground" data-section="">
   <h1>
     <span class="red"> Red </span>
     vs.
@@ -55,10 +217,24 @@
       <span data-section-title>Cyan</span>
     </h4>
   </section>
+  <amp-accordion>
+    <section id="acc-1">
+      <h5>Section 1 title</h5>
+      <small> Little words!</small>
+    </section>
+    <section id="acc-2">
+      <h5>Section 2 title</h5>
+      <small> Little words!</small>
+    </section>
+    <section id="acc-3">
+      <h5>last Section Title</h5>
+      <small> Little words!</small>
+    </section>
+  </amp-accordion>
 </div>
 <h5 class="navy">Navy</h5>
 <main class="slideRightAndFade">
-  Slidin'
+  Slidin
 </main>
 <aside class="flashBounce">
   Your Attention, Please!

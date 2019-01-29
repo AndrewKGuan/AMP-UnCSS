@@ -1,7 +1,11 @@
-const assert = require('assert');
-const AmpFile = require('../lib/main/AmpFile');
-const testFilePath = 'tests/test_files/testAmpFile.html'
+const assert = require('assert'),
+      AmpFile = require('../lib/main/AmpFile'),
+      fs = require('fs'),
+      path = require('path');
+
+
 
 
 describe('unCss functions', function() {
+
 });

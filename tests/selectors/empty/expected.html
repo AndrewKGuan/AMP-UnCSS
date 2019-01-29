@@ -20,7 +20,7 @@
       background: white;
     }
 
-    /* Attribute */
+    /*  Attribute  */
     em[hidden='false'] {
       color: orange;
     }
@@ -84,7 +84,7 @@
     span {
       display: block;
     }
-    /* AMP Elements */
+    @file
     amp-sidebar {
       font-size: 44px;
     }
@@ -93,13 +93,8 @@
     }
 
     /* Empty */
-    main {
-    }
 
-    img {
-    }
-
-    /* Escaped Pseudos */
+     /* Escaped Pseudos */
     .sm\:hover\:font-hairline {
       height: 100px;
     }
@@ -118,8 +113,9 @@
 
     .sm\:valid\:font-bold:valid {
       font-weight: 800;
+    }
 
-    <!--General Siblings-->
+    /* General Siblings */
     .red ~ span {
       color: blue;
     }
@@ -153,7 +149,11 @@
       border-bottom: 1px solid blue;
     }
 
-    /* nTh-of-Type */
+    span:nth-child(3) {
+      border-bottom: 1px solid blue;
+    }
+
+    /* nTh-of-type */
     span:nth-of-type(2) {
       border-bottom: 1px solid blue;
     }
@@ -208,7 +208,7 @@
       /tests/output/selectors/index.html; otherwise, the
       "Pages should resemble the reference:Selectors" test
       will fail!-->
-<div id="battleground" data-section="">
+<div id="battleground" data-section>
   <h1>
     <span class="red"> Red </span>
     vs.
@@ -222,15 +222,15 @@
   </section>
   <amp-accordion>
     <section id="acc-1">
-      <h5>Section 1 title</h5>
+      <em>Section 1 title</em>
       <small> Little words!</small>
     </section>
     <section id="acc-2">
-      <h5>Section 2 title</h5>
+      <em>Section 2 title</em>
       <small> Little words!</small>
     </section>
     <section id="acc-3">
-      <h5>last Section Title</h5>
+      <em>last Section Title</em>
       <small> Little words!</small>
     </section>
   </amp-accordion>
