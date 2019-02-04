@@ -25,8 +25,6 @@ AMP-UnCSS is licensed under the [Apache License, Version 2.0](LICENSE).
 ## Assumptions
 
 - All input files are AMPed .html files
-- Input files include exactly (2) `<style amp-boilerplate>` elements. Any additional `<style>` 
-  elements will be consolidated into a single, optimized, `<style amp-custom>` element. 
 - HTML Parsing: Due to the dynamic nature of certain AMP components such as`<amm-image>` and 
 `<amp-livelist>`, a virtual browser will need to be instantiated to guarantee correct optimizations.
   - Type 0 and Type 1 optimizations operate with a simple static DOM parser

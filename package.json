@@ -22,11 +22,9 @@
   "homepage": "https://github.com/AndrewKGuan/AMP-UnCSS#readme",
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
-    "postcss": "^7.0.6",
-    "through2": "^3.0.0"
+    "css": "^2.2.4"
   },
   "devDependencies": {
-    "gulp": "^4.0.0",
     "jsdoc": "^3.5.5",
     "mocha": "^5.2.0"
   }
