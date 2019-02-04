@@ -7,7 +7,7 @@ describe('DOM Parser Functions', function() {
 
   describe('#buildDomFromFile()', function() {
     it('Should return a $ from a resolvable filePath', function(){
-      assert.ok(DomParser.buildDomFromFile(ampFileStub.filePath));
+      assert.ok(DomParser._loadContent(ampFileStub.filePath));
     });
 
     it('Should gracefully handle an unresolved filePath', function(){});
