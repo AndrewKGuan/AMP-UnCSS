@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html ⚡ lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <title>Test File</title>
+  <link rel="canonical" href="https://www.ampproject.org/">
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+  <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
+  <script async custom-element="amp-accordion" src="https://cdn.ampproject.org/v0/amp-accordion-0.1.js"></script>
+  <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+
+  <style amp-custom>
+    .root {
+      font-size: 8px;
+      font-family: "Roboto", sans-serif;
+    }
+    .home {
+      color: blue;
+    }
+    section>h3 {
+      color: red;
+    }
+    amp-sidebar {
+      font-size: 44px;
+    }
+    .unUsed {
+      width: 80px;
+    }
+    section[expanded='false'] {
+      color: orange;
+    }
+
+    section[expanded='true'] {
+      background-color: green;
+    }
+  </style>
+
+  <style>
+    #acc-1 {
+      font-size: 22px;
+      color: blueviolet;
+    }
+
+    #acc-2 {
+
+    }
+
+    ul {
+      font-family: 'Lucida Grande', 'Lucida Sans Unicode', arial, sans-serif;
+      height: 22px;
+    }
+  </style>
+</head>
+<body class="root">
+<div class="home" id="home-div">
+  <h3>H3 Title</h3>
+  <amp-accordion>
+    <section id="acc-1">
+      <h3>Section 1 title</h3>
+      <div>Some data</div></section>
+    <section id="acc-2">
+      <h3>Section 2 title</h3>
+      <div>Some More data</div>
+    </section>
+    <section id="acc-3">
+      <h3>last Section Title</h3>
+      <div>
+        <blockquote>A BIG QUOTE!!</blockquote>
+      </div>
+    </section>
+  </amp-accordion>
+</div>
+
+</body>
+</html>
