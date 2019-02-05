@@ -12,24 +12,27 @@ program
       "The optimization level to execute.", parseInt)
   .option('-t, --target-directory <target-directory>',
       "Specify the target directory. Defaults to './dist'")
-  .option('-r, --report-directory <report-directory>',
+  .option('-f, --file-name-decorator <file-name-decorator>',
+      "Specify the naming modification to each file - i.e. 'filename+mod.html.")
+  .option('-r, --report',
+      "Outputs an optimization report")
+  .option('-d, --report-directory <report-directory>',
       "Specify the target directory for the optimization report. Will default to './reports'")
   .option('-n, --report-name <report-name>',
       "Name of optimization report. Defaults to 'amp_unCss_report.json'.")
-  .option('-m, --report-decorator <report-decorator>',
-      "Specify the naming modification to each file - i.e. 'filename+mod.html.")
   .action(function(directory) {
     const options = {
       directory,
       recursive: program.recursive,
       optimizationLevel: program.optimizationLevel,
       targetDirectory: program.targetDirectory,
+      filenameDecorator: program.fileNameDecorator,
+      report: !!program.report || !!program.reportDirectory || !!program.reportName,
       reportDirectory: program.reportDirectory,
       reportName: program.reportName,
-      reportModifier: program.reportDecorator
     };
 
-    if(!(options.optimizationLevel >= 0 && options.optimizationLevel <= 2)) {
+    if(options.optimizationLevel && !(options.optimizationLevel >= 0 && options.optimizationLevel <= 2)) {
       console.error("<optimization-level> must be 0, 1, or 2. Default value is 2.");
       process.exit(1)
     }
@@ -49,7 +52,11 @@ program
       })
     })(options.directory);
 
-    ampUncss(fileList, options)
+    const opts = Object.keys(options).reduce((acc, key) => {
+      if(options[key]) acc[key] = options[key];
+      return acc
+    },{});
+    ampUncss(fileList, opts)
   })
     .parse(process.argv);
 
