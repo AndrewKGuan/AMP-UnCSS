@@ -1,7 +1,7 @@
 const assert = require('assert');
-const fs = require('fs')
+const fs = require('fs');
 const AmpFile = require('../lib/main/AmpFile');
-const testFilePath = 'tests/selectors'
+const testFilePath = 'tests/selectors';
 const cmd = require('./cli_utils/cmd.js');
 
 const processPath = 'index.js';
@@ -53,20 +53,26 @@ describe('AMP UnCSS CLI', function() {
   it('should have correct report name', async function() {
     const response0 = await cmd(processPath, [testFilePath, '-r','reports']);
     assert.ok(fs.existsSync('reports/amp_uncss_report.json'));
-    const response1 = await cmd(processPath, [testFilePath, '-r','reports', '-n','amp-report']);
+    const response1 = await cmd(processPath,
+        [testFilePath, '-r','reports', '-n','amp-report']);
     assert.ok(fs.existsSync('reports/amp-report.json'));
   });
   it('should not search for files recursively', async function() {
     const response = await cmd(processPath,[testFilePath, '-r']);
-    const report = JSON.parse(fs.readFileSync('reports/amp_uncss_report.json','utf-8'));
-    assert.ok(report.tests.length === 1 && report.tests[0].files.length === 5);
+    const report = JSON.parse(
+        fs.readFileSync('reports/amp_uncss_report.json','utf-8'));
+
+    assert.strictEqual(report.tests.length, 1);
+    assert.strictEqual(report.tests[0].files.length,1);
   });
-  // it('should search for files recursively', async function() {
-  //   const response = await cmd(processPath,
-  //       [testFilePath, '-R']);
-  //   const report = JSON.parse(fs.readFileSync('dist/','utf-8'));
-  //   assert.ok(report.tests.length === 1 && report.tests[0].files.length === 6);
-  // });
+  it('should search for files recursively', async function() {
+    const response = await cmd(processPath,[testFilePath, '-r', '-R']);
+    const report = JSON.parse(
+        fs.readFileSync('reports/amp_uncss_report.json','utf-8'));
+
+    assert.strictEqual(report.tests.length,1);
+    assert.strictEqual(report.tests[0].files.length, 5);
+  });
   it('should respond to defined optimization level', async function() {
     const response0 = await cmd(processPath,[testFilePath, '-r']),
           response1 = await cmd(processPath,[testFilePath, '-r', '-l','1']),
