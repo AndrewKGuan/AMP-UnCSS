@@ -1,22 +1,76 @@
 # AMP UnCSS ⚡
 
-AMP-UnCSS is a way to tree-shake unused CSS from complete AMP HTML documents. It is our attempt at alleviating the work required to manually clean up CSS styles in order to meet the AMP HTML 50KB CSS limit.
+AMP-UnCSS is a way to tree-shake unused CSS from complete AMP HTML documents. It is an attempt at 
+alleviating the work required to manually clean up CSS styles in order to meet the AMP HTML 50 kB CSS limit.
 
-## Installation Instructions
 
-#### For use with Webpack
+## Installation
+     $ npm install amp-uncss
+## Usage
 
-1. Install via NPM
+### Within Node.js:
 
-``$ npm install --save amp-uncss``
+```js
+var ampUncss = require('amp-unCss');
 
-2. Configure Webpack to include AMP-UnCSS plugin
+var files = ["my", "array", "of", "html", "files"],
+    options = {
+      streamable            : false,
+      optimizationLevel     : 1,
+      targetDirectory       : "./dist", 
+      reportDirectory       : "./reports",
+      reportName            : "amp_uncss_report.json",
+      filenameDecorator       : "amp_opt",      
+    };
 
-#### Chrome Extension
+/** Invoked with no options */
+ampUncss(files);
 
-## Documentation
+/** With options */
+ampUncss(files, options);
+```
 
-Documentation can be found on the [official site](index.html). 
+### At build-time
+AMP UnCSS can also be used in conjunction with other Javascript build systems including Gulp.
+* [gulp-amp-uncss](index.html)
+
+### From the command line:
+
+AMP UnCSS can be used directly from the command line.
+
+``` 
+ Usage: amp-uncss [options] <directory>
+     e.g amp-uncss -R -l 1 ./source/html
+ 
+Options:
+  -v, --version                                  output the version number
+  -R, --recursive                                Searches given directory recursively for HTML files.
+  -l, --optimization-level <optimization-level>  The optimization level to execute. 
+  -t, --target-directory <target-directory>      Specify the target directory. Defaults to './dist'
+  -r, --report-directory <report-directory>      Specify the target directory for the optimization report. Will default to './reports'
+  -n, --report-name <report-name>                Name of optimization report. Defaults to 'amp_unCss_report'.
+  -m, --filename-decorator <filename-decorator>    Specify the naming modification to each file - i.e. 'filename + decorator.html'.
+  -h, --help                                     output usage information
+```
+
+#### Options
+
+* __recursive__ : Searches given directory recursively for HTML files.
+
+* __optimizationLevel__ (Number): Optimization level determines the maximum rendering of the virtual DOM during CSS tree-shaking.
+  * 0 (default): non-dynamic DOM parsing. Will not render dynamic AMP element tags such as `<amp-list>` or `<amp-image>`.
+  * 1: Dynamic DOM-parsing using Puppeteer. May slow down processing significantly for large file sets.
+  * 2: Extra optimizations including maximum specificity.
+
+* __targetDirectory__ (String): The name of the directory optimized files will write to. Defaults to `./dist`.
+
+* __reportDirectory__ (String): The name of the directory optimization report will write to. Defaults to `./reports`.
+
+* __reportName__ (String): The name of optimization report. Defaults to `amp_uncss_report`. Output type is JSON. 
+
+* __filenameDecorator__ (String): The decorator appended to input file names when written to target directory. E.g. `optimized` === `inputFile_optimized.html`.
+ 
+ NOTE: If AMP UnCSS is run with reportDirectory containing `reportName.json`, all test data will be appended to existing report.  
 
 ## License
 

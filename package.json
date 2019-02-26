@@ -2,9 +2,12 @@
   "name": "amp-uncss",
   "version": "1.0.0",
   "description": "A tool to tree shake CSS in AMP HTML documents.",
-  "main": "index.js",
+  "main": "index_test.js",
   "directories": {
     "test": "tests"
+  },
+  "bin": {
+    "amp-uncss": "./index.js"
   },
   "scripts": {
     "test": "node_modules/mocha/bin/mocha tests",
@@ -22,10 +25,12 @@
   "homepage": "https://github.com/AndrewKGuan/AMP-UnCSS#readme",
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
+    "commander": "^2.19.0",
     "postcss": "^7.0.6",
     "through2": "^3.0.0"
   },
   "devDependencies": {
+    "concat-stream": "^2.0.0",
     "gulp": "^4.0.0",
     "jsdoc": "^3.5.5",
     "mocha": "^5.2.0"
