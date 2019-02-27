@@ -9,7 +9,7 @@ program
   .arguments('<directory>')
   .option('-R, --recursive', "Searches given directory recursively for HTML files.")
   .option('-l, --optimization-level <optimization-level>',
-      "The optimization level to execute.", parseInt)
+      "The optimization level to execute. Defaults to 0.", parseInt)
   .option('-t, --target-directory <target-directory>',
       "Specify the target directory. Defaults to './dist'")
   .option('-f, --file-name-decorator <file-name-decorator>',

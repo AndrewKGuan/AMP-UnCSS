@@ -45,7 +45,7 @@ AMP UnCSS can be used directly from the command line.
 Options:
   -v, --version                                  output the version number
   -R, --recursive                                Searches given directory recursively for HTML files.
-  -l, --optimization-level <optimization-level>  The optimization level to execute. 
+  -l, --optimization-level <optimization-level>  The optimization level to execute. Defaults to 0.
   -t, --target-directory <target-directory>      Specify the target directory. Defaults to './dist'
   -r, --report-directory <report-directory>      Specify the target directory for the optimization report. Will default to './reports'
   -n, --report-name <report-name>                Name of optimization report. Defaults to 'amp_unCss_report'.
