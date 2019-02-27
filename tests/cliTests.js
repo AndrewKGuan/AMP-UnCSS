@@ -18,86 +18,96 @@ describe('AMP UnCSS CLI', function() {
 
 
   it('should not create new report without prompting', async function() {
-    const response = await cmd(processPath,
-        [testFilePath]);
+    await cmd(processPath,[testFilePath]);
     assert.ok(!fs.existsSync('reports'));
   });
 
+
   it('should create new report with report flag', async function() {
-    const response = await cmd(processPath,
-        [testFilePath, '-r']);
+    await cmd(processPath,[testFilePath, '-r']);
     assert.ok(fs.existsSync('reports'));
     assert.ok(fs.existsSync('reports/amp_uncss_report.json'));
   });
 
+
   it('should create new report with report-name flag', async function() {
-    const response = await cmd(processPath,
-        [testFilePath, '-n', 'reports_file', '-r']);
+    await cmd(processPath,[testFilePath, '-n', 'reports_file', '-r']);
     assert.ok(fs.existsSync('reports'));
     assert.ok(fs.existsSync('reports/reports_file.json'));
   });
 
+
   it('should create new report with report-directory flag', async function() {
-    const response = await cmd(processPath,
-        [testFilePath, 'r','-d','reports_dir']);
+    await cmd(processPath,[testFilePath, 'r','-d','reports_dir']);
     assert.ok(fs.existsSync('reports_dir'));
     assert.ok(fs.existsSync('reports_dir/amp_uncss_report.json'));
   });
 
+
   it('should append existing report', async function() {
-    const response0 = await cmd(processPath,[testFilePath, '-r','-d','reports']),
-          response1 = await cmd(processPath,[testFilePath, '-r','-d','reports']);
+    await cmd(processPath,[testFilePath, '-r','-d','reports']);
+    await cmd(processPath,[testFilePath, '-r','-d','reports']);
     const report = JSON.parse(fs.readFileSync('reports/amp_uncss_report.json','utf-8'));
     assert.ok(report.tests.length === 2);
   });
+
   it('should have correct report name', async function() {
-    const response0 = await cmd(processPath, [testFilePath, '-r','reports']);
+    await cmd(processPath, [testFilePath, '-r','reports']);
     assert.ok(fs.existsSync('reports/amp_uncss_report.json'));
-    const response1 = await cmd(processPath,
-        [testFilePath, '-r','reports', '-n','amp-report']);
+    await cmd(processPath,[testFilePath, '-r','reports', '-n','amp-report']);
     assert.ok(fs.existsSync('reports/amp-report.json'));
   });
+
   it('should not search for files recursively', async function() {
-    const response = await cmd(processPath,[testFilePath, '-r']);
+    await cmd(processPath,[testFilePath, '-r']);
     const report = JSON.parse(
         fs.readFileSync('reports/amp_uncss_report.json','utf-8'));
 
     assert.strictEqual(report.tests.length, 1);
     assert.strictEqual(report.tests[0].files.length,1);
   });
+
   it('should search for files recursively', async function() {
-    const response = await cmd(processPath,[testFilePath, '-r', '-R']);
+    await cmd(processPath,[testFilePath, '-r', '-R']);
     const report = JSON.parse(
         fs.readFileSync('reports/amp_uncss_report.json','utf-8'));
 
     assert.strictEqual(report.tests.length,1);
     assert.strictEqual(report.tests[0].files.length, 5);
   });
+
   it('should respond to defined optimization level', async function() {
-    const response0 = await cmd(processPath,[testFilePath, '-r']),
-          response1 = await cmd(processPath,[testFilePath, '-r', '-l','1']),
-          response2 = await cmd(processPath,[testFilePath, '-r', '-l','2']);
+    await cmd(processPath,[testFilePath, '-r']);
+    await cmd(processPath,[testFilePath, '-r', '-l','1']);
+    await cmd(processPath,[testFilePath, '-r', '-l','2']);
     const report = JSON.parse(fs.readFileSync('reports/amp_uncss_report.json','utf-8'));
     assert.ok(report.tests.length === 3 && report.tests[0].options.optimizationLevel === 0);
     assert.ok(report.tests.length === 3 && report.tests[1].options.optimizationLevel === 1);
     assert.ok(report.tests.length === 3 && report.tests[2].options.optimizationLevel === 2);
   });
+
   it('should error on incorrect optimization level', async function() {
-    const response = await cmd(processPath,[testFilePath, '-l','3']);
-    console.log(response)
-    assert.strictEqual(response, "<optimization-level> must be 0, 1, or 2. Default value is 2.");
+    const msg = await assertThrowsAsynchronously();
+    // Have to utilize includes() rather than testing msg.error because cmd()
+    // function returns a String type, not an Error type due to the underlying
+    // child_process mechanism.
+    assert.ok(msg.includes("<optimization-level> must be 0, 1, or 2. Default value is 0."));
   });
+
   it('should output to the correct directory', async function() {
-    const response = await cmd(processPath,[testFilePath, '-t','output']);
+    await cmd(processPath,[testFilePath, '-t','output']);
     assert.ok(fs.existsSync('output'));
   });
+
   it('should output correct file names', async function() {
-    const response = await cmd(processPath,
-        [testFilePath, '-r','-m','_shook']);
-    const report = JSON.parse(fs.readFileSync('reports/amp_uncss_report.json','utf-8'));
-    assert.ok(report.tests[0].files.every(d => {
-      return d.fileName.includes('_shook.html')
-    }));
+    const filenameDecorator = '_shook';
+    await cmd(processPath, [testFilePath, '-r','-f', filenameDecorator]);
+
+    fs.readdirSync('dist/', {withFileTypes: true}).forEach(dirent => {
+      if(dirent.isFile()) {
+        assert.ok(dirent.name.includes(filenameDecorator));
+      }
+    });
   });
 });
 
@@ -113,4 +123,9 @@ function deleteRecursive(path) {
     });
     fs.rmdirSync(path);
   }
+}
+function assertThrowsAsynchronously() {
+  return cmd(processPath,[testFilePath, '-l','3'])
+      .then(d => console.log('ok'))
+      .catch(e => e);
 }

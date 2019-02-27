@@ -33,8 +33,7 @@ program
     };
 
     if(options.optimizationLevel && !(options.optimizationLevel >= 0 && options.optimizationLevel <= 2)) {
-      console.error("<optimization-level> must be 0, 1, or 2. Default value is 2.");
-      process.exit(1)
+      throw RangeError("<optimization-level> must be 0, 1, or 2. Default value is 0.");
     }
 
     const fileList = [];

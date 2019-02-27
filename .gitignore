@@ -5,3 +5,5 @@ docs
 docs/
 lib/script.js
 output
+dist
+reports
