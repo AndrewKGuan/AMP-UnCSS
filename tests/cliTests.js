@@ -8,6 +8,17 @@ const processPath = 'index.js';
 
 describe('AMP UnCSS CLI', function() {
   beforeEach(done=> {
+    // Delete UnCss artifacts before each test
+    if(fs.existsSync('output')) deleteRecursive('output');
+    if(fs.existsSync('reports')) deleteRecursive('reports');
+    if(fs.existsSync('dist')) deleteRecursive('dist');
+    if(fs.existsSync('reports_dir')) deleteRecursive('reports_dir');
+
+    done()
+  });
+
+  after(done => {
+    // Delete UnCss artifacts after test block
     if(fs.existsSync('output')) deleteRecursive('output');
     if(fs.existsSync('reports')) deleteRecursive('reports');
     if(fs.existsSync('dist')) deleteRecursive('dist');
