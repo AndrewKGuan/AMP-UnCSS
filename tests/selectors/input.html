@@ -208,6 +208,15 @@
       background: red;
     }
 
+    /* Keyframes & animations*/
+    @keyframes color-fade {
+      from {background-color: red;}
+      to {background-color: blue}
+    }
+
+    .animated {
+      animation: color-fade 4s infinite;
+    }
 
 </style>
 
@@ -224,13 +233,13 @@
     <span class="blue"> Blue </span>
   </h1>
   <h3>Green on hover</h3>
-  <section>
+  <section class="animated">
     <h4>
       <span data-section-title>Cyan</span>
     </h4>
   </section>
   <amp-accordion>
-    <section id="acc-1">
+    <section id="acc-1" >
       <em>Section 1 title</em>
       <small> Little words!</small>
     </section>

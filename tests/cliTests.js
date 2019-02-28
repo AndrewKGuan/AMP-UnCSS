@@ -137,6 +137,6 @@ function deleteRecursive(path) {
 }
 function assertThrowsAsynchronously() {
   return cmd(processPath,[testFilePath, '-l','3'])
-      .then(d => console.log('ok'))
+      .then(d => d)
       .catch(e => e);
 }
