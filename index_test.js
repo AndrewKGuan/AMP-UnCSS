@@ -6,7 +6,12 @@ module.exports =  function(options) {
     if (vinyl.isBuffer()) {
       let {optimizedHtmlString, reporting} = unCss(
           vinyl,
-          Object.assign(options, {streamable: true}),
+          Object.assign(options,
+              {
+                streamable: true,
+                report: !!options.report || !!options.reportDirectory || !!options.reportName
+              }
+          ),
           cb);
 
       vinyl.contents = Buffer.from(optimizedHtmlString);
