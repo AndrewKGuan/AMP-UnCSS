@@ -9,7 +9,7 @@ program
   .arguments('<directory>')
   .option('-R, --recursive', "Searches given directory recursively for HTML files.")
   .option('-l, --optimization-level <optimization-level>',
-      "The optimization level to execute.", parseInt)
+      "The optimization level to execute. Defaults to 0.", parseInt)
   .option('-t, --target-directory <target-directory>',
       "Specify the target directory. Defaults to './dist'")
   .option('-f, --file-name-decorator <file-name-decorator>',
@@ -20,6 +20,8 @@ program
       "Specify the target directory for the optimization report. Will default to './reports'")
   .option('-n, --report-name <report-name>',
       "Name of optimization report. Defaults to 'amp_unCss_report.json'.")
+  .option('-s, --specific',
+      "specifies that given location is a file rather than dictionary")
   .action(function(directory) {
     const options = {
       directory,
@@ -30,27 +32,31 @@ program
       report: !!program.report || !!program.reportDirectory || !!program.reportName,
       reportDirectory: program.reportDirectory,
       reportName: program.reportName,
+      specific: program.specific
     };
 
     if(options.optimizationLevel && !(options.optimizationLevel >= 0 && options.optimizationLevel <= 2)) {
-      console.error("<optimization-level> must be 0, 1, or 2. Default value is 2.");
-      process.exit(1)
+      throw RangeError("<optimization-level> must be 0, 1, or 2. Default value is 0.");
     }
 
     const fileList = [];
-    (function dig(dir) {
-      fs.readdirSync(dir, {withFileTypes: true}).forEach(dirent => {
-          if(dirent.isFile()) {
-            if(dirent.name.split('.')[1] === "html") {
-              fileList.push(dir + "/" + dirent.name)
+    if(options.specific) {
+      fileList.push(options.directory)
+    } else {
+      (function dig(dir) {
+        fs.readdirSync(dir, {withFileTypes: true}).forEach(dirent => {
+            if(dirent.isFile()) {
+              if(dirent.name.split('.')[1] === "html") {
+                fileList.push(dir + "/" + dirent.name)
+              }
+            } else if (dirent.isDirectory()){
+              if(options.recursive) {
+                dig(dir + "/" + dirent.name)
+              }
             }
-          } else if (dirent.isDirectory()){
-            if(options.recursive) {
-              dig(dir + "/" + dirent.name)
-            }
-          }
-      })
-    })(options.directory);
+        })
+      })(options.directory);
+    }
 
     const opts = Object.keys(options).reduce((acc, key) => {
       if(options[key]) acc[key] = options[key];

@@ -1,3 +1,4 @@
 div:not(#battleground) {
   display: inline-block;
+  font-weight: 200;
 }

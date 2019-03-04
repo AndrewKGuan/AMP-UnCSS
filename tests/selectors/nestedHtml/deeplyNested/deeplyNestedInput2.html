@@ -147,11 +147,6 @@
       display: inline-block;
     }
 
-    div:not(#battleground) {
-      display: inline-block;
-      font-weight: 200;
-    }
-
     /* nTh Child */
     span:nth-child(odd) {
       border-bottom: 1px solid red;
@@ -208,40 +203,6 @@
       background: red;
     }
 
-    /* Keyframes & animations*/
-    @keyframes color-fade {
-      from {background-color: red;}
-      to {background-color: blue}
-    }
-
-    .animated {
-      animation: color-fade 4s infinite;
-    }
-
-    /* Comma Separated Selectors */
-    h1, h3, .slideRightAndFade {
-      margin-top: 15px;
-    }
-
-    h1, h3, .slideRightAndFade::after {
-      content: '+';
-      background-color: #00AA88;
-    }
-
-    .navy, blockquote, .unused {
-      margin-left: 40px;
-    }
-
-    blockquote, .unused::before, #alsoUnused {
-      margin-left: 40px;
-    }
-
-    blockquote, .unused, #alsoUnused {
-      margin-left: 40px;
-    }
-
-
-
 
 </style>
 
@@ -250,7 +211,10 @@
 <!--[Some Instructions]:
     - Placing any <div> elements on this page other than
       div#battleground will break the "not" test!
--->
+    - Any changes made here **must** be reflected in
+      /tests/output/selectors/index.html; otherwise, the
+      "Pages should resemble the reference:Selectors" test
+      will fail!-->
 <div id="battleground" data-section>
   <h1>
     <span class="red"> Red </span>
@@ -258,13 +222,13 @@
     <span class="blue"> Blue </span>
   </h1>
   <h3>Green on hover</h3>
-  <section class="animated">
+  <section>
     <h4>
       <span data-section-title>Cyan</span>
     </h4>
   </section>
   <amp-accordion>
-    <section id="acc-1" >
+    <section id="acc-1">
       <em>Section 1 title</em>
       <small> Little words!</small>
     </section>

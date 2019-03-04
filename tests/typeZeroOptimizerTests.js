@@ -59,7 +59,12 @@ describe('Type 0 Optimizer Functions', function() {
 
     if(tests[test].unused) {
       it(`Should not include unused ${test} selectors in CSS`, () => {
-        assert.ok(!type0Html.includes(rfs(path.join(__dirname,`selectors/unused/${test}`))));
+
+        rfs(path.join(__dirname,`selectors/unused/${test}`))
+            .split('/*Separator*/')
+            .forEach(block => {
+              assert.ok(!type0Html.includes(block))
+            });
       });
     }
   });

@@ -1,0 +1,8 @@
+@keyframes color-fade {
+  from {background-color: red;}
+  to {background-color: blue}
+}
+
+.animated {
+  animation: color-fade 4s infinite;
+}
