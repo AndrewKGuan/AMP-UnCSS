@@ -20,6 +20,8 @@ program
       "Specify the target directory for the optimization report. Will default to './reports'")
   .option('-n, --report-name <report-name>',
       "Name of optimization report. Defaults to 'amp_unCss_report.json'.")
+  .option('-s, --specific',
+      "specifies that given location is a file rather than dictionary")
   .action(function(directory) {
     const options = {
       directory,
@@ -30,6 +32,7 @@ program
       report: !!program.report || !!program.reportDirectory || !!program.reportName,
       reportDirectory: program.reportDirectory,
       reportName: program.reportName,
+      specific: program.specific
     };
 
     if(options.optimizationLevel && !(options.optimizationLevel >= 0 && options.optimizationLevel <= 2)) {
@@ -37,19 +40,23 @@ program
     }
 
     const fileList = [];
-    (function dig(dir) {
-      fs.readdirSync(dir, {withFileTypes: true}).forEach(dirent => {
-          if(dirent.isFile()) {
-            if(dirent.name.split('.')[1] === "html") {
-              fileList.push(dir + "/" + dirent.name)
+    if(options.specific) {
+      fileList.push(options.directory)
+    } else {
+      (function dig(dir) {
+        fs.readdirSync(dir, {withFileTypes: true}).forEach(dirent => {
+            if(dirent.isFile()) {
+              if(dirent.name.split('.')[1] === "html") {
+                fileList.push(dir + "/" + dirent.name)
+              }
+            } else if (dirent.isDirectory()){
+              if(options.recursive) {
+                dig(dir + "/" + dirent.name)
+              }
             }
-          } else if (dirent.isDirectory()){
-            if(options.recursive) {
-              dig(dir + "/" + dirent.name)
-            }
-          }
-      })
-    })(options.directory);
+        })
+      })(options.directory);
+    }
 
     const opts = Object.keys(options).reduce((acc, key) => {
       if(options[key]) acc[key] = options[key];
