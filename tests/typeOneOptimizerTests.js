@@ -2,7 +2,7 @@ const assert = require('assert');
 const path = require('path');
 const AmpFile = require('../lib/main/AmpFile');
 const fs = require('fs');
-const typeZeroOptimizations = require('../lib/main/typeZeroOptimizations');
+const typeOneOptimizations = require('../lib/main/typeOneOptimizations');
 
 const inputHtml = 'tests/selectors/input.html';
 
@@ -32,10 +32,10 @@ unused.forEach(unusedTestType => {
 
 let type0Html = false;
 
-describe('Type 0 Optimizer Functions', function() {
+describe('Type 1 Optimizer Functions', function() {
   before(async () => {
     const defaultOptions = {
-      optimizationLevel : 0,
+      optimizationLevel : 1,
       streamable: false,
       reportName: 'amp_uncss_report.json',
       reportDirectory: 'reports',
@@ -44,7 +44,7 @@ describe('Type 0 Optimizer Functions', function() {
       report: false
     };
     const ampFile = await new AmpFile(inputHtml).prep(defaultOptions);
-    const resultingHtml = typeZeroOptimizations
+    const resultingHtml = typeOneOptimizations
         .optimize(ampFile)
         .prepData(defaultOptions)
         .optimizedHtml

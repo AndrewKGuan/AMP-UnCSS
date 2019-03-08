@@ -5,42 +5,33 @@ const cheerioInt = require('../lib/interfaces/CheerioInterface');
 const fileLoc = './tests/selectors/input.html';
 const html = fs.readFileSync(fileLoc, 'utf-8');
 
+describe('CheerioInterface', () => {
 
-let pageRep = false;
+  const pageRep = new cheerioInt(html).init();
 
-describe('CheerioInterface', async () => {
-
-  before(async () => {
-    pageRep = await new cheerioInt(html).init()
-  });
-
-  after(async () => {
-    pageRep.shutdown();
-  });
-
-  it('should execute .init() the first time', async () => {
+  it('should execute .init() the first time', () => {
     assert.ok(pageRep.page);
   });
-  it('should shortcut .init() the second time', async () => {
+  it('should shortcut .init() the second time', () => {
     const page1 = pageRep.page;
-    const page2  = await pageRep.init();
+    const page2  =  pageRep.init();
     assert.ok(page1 === page2);
   });
-  it('should count the correct number of "span"', async () => {
-    let count = await pageRep.count('span');
-    assert.strictEqual(count, 3)
+  it('should count the correct number of "span"', () => {
+    let count =  pageRep.count('span');
+    assert.strictEqual(count, 4)
   });
-  it('should count the correct number of ".special-span"', async () => {
-    let count = await pageRep.count('.special-span');
+  it('should count the correct number of ".special-span"', () => {
+    let count =  pageRep.count('.special-span');
     assert.strictEqual(count, 2)
   });
-  it('should count the correct number of "#extra-special-span"', async () => {
-    let count = await pageRep.count('#extra-special-span');
+  it('should count the correct number of "#extra-special-span"', () => {
+    let count =  pageRep.count('#extra-special-span');
     assert.strictEqual(count, 1)
   });
-  it('should count the correct number of ".unused"', async () => {
-    let count = await pageRep.count('.unused');
+  it('should count the correct number of ".unused"', () => {
+    let count =  pageRep.count('.unused');
     assert.strictEqual(count, 0)
   });
-  it('should update the amp-img tag dom structure correctly', async ()=>{});
+  it('should update the amp-img tag dom structure correctly', ()=>{});
 });
