@@ -22,7 +22,7 @@ program
       "Name of optimization report. Defaults to 'amp_unCss_report.json'.")
   .option('-s, --specific',
       "specifies that given location is a file rather than dictionary")
-  .action(function(directory) {
+  .action(async function(directory) {
     const options = {
       directory,
       recursive: program.recursive,
@@ -62,7 +62,7 @@ program
       if(options[key]) acc[key] = options[key];
       return acc
     },{});
-    ampUncss(fileList, opts)
+     await ampUncss(opts).run(fileList)
   })
     .parse(process.argv);
 
