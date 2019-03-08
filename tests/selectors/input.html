@@ -239,66 +239,102 @@
       margin-left: 40px;
     }
 
+    /* amp-img and img Selectors */
+    amp-img {
+      border-color: red
+    }
+    img {
+      border-color: red
+    }
+    span + img {
+      border-color: green
+    }
+
+    .test-image-outer > .test-image-inner > img {
+      border-bottom-color: blue;
+    }
+
+    img.test-image-inner {
+      border-color: orange;
+    }
 
 
+  </style>
+  </head>
+  <body>
+  <!--[Some Instructions]:
+      - Placing any <div> elements on this page other than
+        div#battleground will break the "not" test!
+  -->
+    <div id="battleground" data-section>
+      <h1>
+        <span class="red special-span"> Red </span>
+        vs.
+        <span id="extra-special-span" class="blue"> Blue </span>
+      </h1>
+      <h3>Green on hover</h3>
+      <section class="animated">
+        <h4>
+          <span data-section-title class="special-span">Cyan</span>
+        </h4>
+      </section>
+      <amp-accordion>
+        <section id="acc-1" >
+          <em>Section 1 title</em>
+          <small> Little words!</small>
+        </section>
+        <section id="acc-2">
+          <em>Section 2 title</em>
+          <small> Little words!</small>
+        </section>
+        <section id="acc-3">
+          <em>last Section Title</em>
+          <small> Little words!</small>
+        </section>
+      </amp-accordion>
+    </div>
+    <h5 class="navy">Navy</h5>
+    <main class="slideRightAndFade">
+      Slidin
+    </main>
+    <aside class="flashBounce">
+      Your Attention, Please!
+    </aside>
+    <amp-img
+        class="test-image"
+        alt="A view of the sea"
+        src="https://amp.dev/static/img/news/amp_conf.jpg"
+        width="900"
+        height="675"
+        layout="responsive"
+    >
+      <span fallback>offline</span>
+    </amp-img>
+    <amp-img
+        class="test-image-outer"
+        alt="A view of the sea"
+        src="https://ampbyexample.com/img/amp.jpg"
+        width="900"
+        height="675"
+        layout="responsive"
+    >
+      <amp-img
+          class="test-image-inner"
+          alt="A view of the sea"
+          src="https://amp.dev/static/img/news/amp_conf.jpg"
+          width="900"
+          height="675"
+          layout="responsive"
+      >
 
-</style>
-
-</head>
-<body>
-<!--[Some Instructions]:
-    - Placing any <div> elements on this page other than
-      div#battleground will break the "not" test!
--->
-<div id="battleground" data-section>
-  <h1>
-    <span class="red special-span"> Red </span>
-    vs.
-    <span id="extra-special-span" class="blue"> Blue </span>
-  </h1>
-  <h3>Green on hover</h3>
-  <section class="animated">
-    <h4>
-      <span data-section-title class="special-span">Cyan</span>
-    </h4>
-  </section>
-  <amp-accordion>
-    <section id="acc-1" >
-      <em>Section 1 title</em>
-      <small> Little words!</small>
-    </section>
-    <section id="acc-2">
-      <em>Section 2 title</em>
-      <small> Little words!</small>
-    </section>
-    <section id="acc-3">
-      <em>last Section Title</em>
-      <small> Little words!</small>
-    </section>
-  </amp-accordion>
-</div>
-<h5 class="navy">Navy</h5>
-<main class="slideRightAndFade">
-  Slidin
-</main>
-<aside class="flashBounce">
-  Your Attention, Please!
-</aside>
-<!--<amp-img-->
-    <!--class="test-image"-->
-    <!--alt="A view of the sea"-->
-    <!--src="https://amp.dev/static/img/news/amp_conf.jpg"-->
-    <!--width="900"-->
-    <!--height="675"-->
-    <!--layout="responsive"-->
-<!--&gt;-->
-<!--</amp-img>-->
-<noscript>
-  <h6 class="noscript-one">
-    YELLOW
-  </h6>
-</noscript>
-<h3 hidden="true">Hidden</h3>
-<section class="sm:hover:font-hairline"></section>
-</body>
+      </amp-img>
+    </amp-img>
+    <noscript>
+      <h6 class="noscript-one">
+        YELLOW
+      </h6>
+    </noscript>
+    <h3 hidden="true">Hidden</h3>
+    <section class="sm:hover:font-hairline"></section>
+  </body>
 </html>
