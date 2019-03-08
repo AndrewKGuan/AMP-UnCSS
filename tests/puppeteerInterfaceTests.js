@@ -28,7 +28,7 @@ describe('PuppeteerInterface', async () => {
   });
   it('should count the correct number of "span"', async () => {
     let count = await pageRep.count('span');
-    assert.strictEqual(count, 3)
+    assert.strictEqual(count, 4)
   });
   it('should count the correct number of ".special-span"', async () => {
     let count = await pageRep.count('.special-span');
