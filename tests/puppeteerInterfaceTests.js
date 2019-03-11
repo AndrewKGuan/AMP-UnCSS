@@ -1,5 +1,6 @@
 const assert = require('assert');
-const fs = require('fs');
+const fs = require('fs'),
+    puppeteer = require('puppeteer');
 const pupInt = require('../lib/interfaces/PuppeteerInterface');
 
 const fileLoc = './tests/selectors/input.html';
@@ -7,15 +8,16 @@ const html = fs.readFileSync(fileLoc, 'utf-8');
 
 
 let pageRep = false;
-
+let browser;
 describe('PuppeteerInterface', async () => {
 
   before(async () => {
-    pageRep = await new pupInt(html).init()
+    browser = await puppeteer.launch()
+    pageRep = await new pupInt(html).init(browser)
   });
 
   after(async () => {
-    pageRep.shutdown();
+    browser.close();
   });
 
   it('should execute .init() the first time', async () => {
@@ -23,7 +25,7 @@ describe('PuppeteerInterface', async () => {
   });
   it('should shortcut .init() the second time', async () => {
     const page1 = pageRep.page;
-    const page2  = await pageRep.init();
+    const page2  = await pageRep.init(browser);
     assert.ok(page1 === page2);
   });
   it('should count the correct number of "span"', async () => {

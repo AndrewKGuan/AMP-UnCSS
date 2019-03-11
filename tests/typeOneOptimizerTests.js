@@ -1,5 +1,6 @@
 const assert = require('assert');
-const path = require('path');
+const path = require('path'),
+    puppeteer = require('puppeteer');
 const AmpFile = require('../lib/main/AmpFile');
 const fs = require('fs');
 const typeOneOptimizations = require('../lib/main/typeOneOptimizations');
@@ -31,9 +32,11 @@ unused.forEach(unusedTestType => {
 });
 
 let type0Html = false;
+let browser;
 
 describe('Type 1 Optimizer Functions', function() {
   before(async () => {
+    browser = await puppeteer.launch();
     const defaultOptions = {
       optimizationLevel : 1,
       streamable: false,
@@ -43,7 +46,7 @@ describe('Type 1 Optimizer Functions', function() {
       filenameDecorator: null,
       report: false
     };
-    const ampFile = await new AmpFile(inputHtml).prep(defaultOptions);
+    const ampFile = await new AmpFile(inputHtml).prep(defaultOptions, browser);
     const resultingHtml = typeOneOptimizations
         .optimize(ampFile)
         .prepData(defaultOptions)
