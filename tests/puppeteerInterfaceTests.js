@@ -3,9 +3,10 @@ const fs = require('fs'),
     puppeteer = require('puppeteer');
 const pupInt = require('../lib/interfaces/PuppeteerInterface');
 
-const fileLoc = './tests/selectors/input.html';
+const fileLoc = './tests/selectors/staticDom.html';
+const fileLoc2 = './tests/selectors/rendered.html';
 const html = fs.readFileSync(fileLoc, 'utf-8');
-
+const renderedHtml = fs.readFileSync(fileLoc2, 'utf-8');
 
 let pageRep = false;
 let browser;
@@ -16,9 +17,6 @@ describe('PuppeteerInterface', async () => {
     pageRep = await new pupInt(html).init(browser)
   });
 
-  after(async () => {
-    browser.close();
-  });
 
   it('should execute .init() the first time', async () => {
     assert.ok(pageRep.page);
@@ -43,5 +41,42 @@ describe('PuppeteerInterface', async () => {
   it('should count the correct number of ".unused"', async () => {
     let count = await pageRep.count('.unused');
     assert.strictEqual(count, 0)
+  });
+
+  it('should query span', async () => {
+    let spanQuery = await pageRep.queryAll('span');
+    let allQuery = await pageRep.queryAll('*');
+
+    assert.strictEqual(spanQuery.length, 4)
+    assert.strictEqual(allQuery.length, 50)
+  });
+
+  // it('should return the correct raw html',async () => {
+  //   let pageHtml = await pageRep.getHtml();
+  //   assert.strictEqual(
+  //       pageHtml.replace(/\r\n/g, '\n')
+  //           .replace(/\n/g,"")
+  //           .replace(/\s*/g,'')
+  //           .replace(/="{2}/g, ""),
+  //       renderedHtml.replace(/\r\n/g, '\n')
+  //           .replace(/\n/g,"")
+  //           .replace(/\s*/g,'')
+  //           .replace(/="{2}/g, ""));
+  // });
+
+  it('should remove custom styles', async () => {
+    assert.strictEqual(await pageRep.count('style[amp-custom=""]'),1);
+    await pageRep.removeCustomStyles();
+    assert.strictEqual(await pageRep.count('style[amp-custom=""]'),0)
+  });
+
+  it('should append custom style', async () => {
+    assert.strictEqual(await pageRep.count('style[amp-custom=""]'),0)
+    await pageRep.appendCustomStyle("h1{color: blue}")
+    assert.strictEqual(await pageRep.count('style[amp-custom=""]'),1)
+  })
+
+  after(async () => {
+    await browser.close();
   });
 });
