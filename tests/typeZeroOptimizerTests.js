@@ -4,7 +4,7 @@ const AmpFile = require('../lib/main/AmpFile');
 const fs = require('fs');
 const typeZeroOptimizations = require('../lib/main/typeZeroOptimizations');
 
-const inputHtml = 'tests/selectors/input.html';
+const inputHtml = 'tests/selectors/staticDom.html';
 
 
 const expected = fs.readdirSync(path.join(__dirname, 'selectors/expected')),
@@ -44,9 +44,10 @@ describe('Type 0 Optimizer Functions', function() {
       report: false
     };
     const ampFile = await new AmpFile(inputHtml).prep(defaultOptions);
-    const resultingHtml = typeZeroOptimizations
+    await typeZeroOptimizations
         .optimize(ampFile)
-        .prepData(defaultOptions)
+        .rewriteWithNewCss(defaultOptions);
+    const resultingHtml = ampFile
         .optimizedHtml
         .replace(/\n/g,'')
         .replace(/\s*/g,'');

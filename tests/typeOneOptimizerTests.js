@@ -5,7 +5,7 @@ const AmpFile = require('../lib/main/AmpFile');
 const fs = require('fs');
 const typeOneOptimizations = require('../lib/main/typeOneOptimizations');
 
-const inputHtml = 'tests/selectors/input.html';
+const inputHtml = 'tests/selectors/dynamicDom.html';
 
 
 const expected = fs.readdirSync(path.join(__dirname, 'selectors/expected')),
@@ -36,7 +36,7 @@ let browser;
 
 describe('Type 1 Optimizer Functions', function() {
   before(async () => {
-    browser = await puppeteer.launch();
+    browser = await puppeteer.launch({headless:true});
     const defaultOptions = {
       optimizationLevel : 1,
       streamable: false,
@@ -47,9 +47,13 @@ describe('Type 1 Optimizer Functions', function() {
       report: false
     };
     const ampFile = await new AmpFile(inputHtml).prep(defaultOptions, browser);
-    const resultingHtml = typeOneOptimizations
+    await typeOneOptimizations
         .optimize(ampFile)
-        .prepData(defaultOptions)
+        .then(ampFile => {
+          return ampFile.rewriteWithNewCss(defaultOptions)
+        });
+
+    const resultingHtml = ampFile
         .optimizedHtml
         .replace(/\n/g,'')
         .replace(/\s*/g,'');
@@ -79,6 +83,9 @@ describe('Type 1 Optimizer Functions', function() {
       });
     }
   });
+  after(async () => {
+    browser.close()
+  })
 });
 
 /** fs.readFileSync sugar */
