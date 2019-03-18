@@ -5,3 +5,7 @@ blockquote, .unused::before, #alsoUnused {
 blockquote, .unused, #alsoUnused {
   margin-left: 40px;
 }
+/*Separator*/
+p:hover, .unused::after {
+  color:orange;
+}
