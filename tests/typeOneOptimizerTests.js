@@ -50,8 +50,8 @@ describe('Type 1 Optimizer Functions', function() {
     const ampFile = await new AmpFile(inputHtml, defaultOptions , browser).prep();
     await typeOneOptimizations
         .optimize(ampFile)
-        .then(ampFile => {
-          return ampFile.rewriteHtmlWithNewCss(defaultOptions)
+        .then(async ampFile => {
+          return await ampFile.rewriteHtmlWithNewCss(defaultOptions)
         });
 
     const resultingHtml = ampFile
@@ -61,7 +61,6 @@ describe('Type 1 Optimizer Functions', function() {
 
     if(resultingHtml) {
       type1Html = resultingHtml;
-      fs.writeFileSync('./html.html', type1Html)
     }
   });
 
