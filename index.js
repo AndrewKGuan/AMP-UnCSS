@@ -62,7 +62,31 @@ program
       if(options[key]) acc[key] = options[key];
       return acc
     },{});
-     await ampUncss(opts).run(fileList)
+     await ampUncss(fileList, opts)
+         .init()
+         .then(uc => {
+           uc.run()
+               .then(res => {
+                 console.log("Files processed: " + res.length);
+                 uc.end()
+                     .then((data) => {
+                       console.log("Process completed successfully.");
+                       return data
+                     })
+                     .catch(err => {
+                       console.log("Error closing browser.")
+                       throw err
+                     })
+               })
+               .catch(err => {
+                 console.log("Error running uncss within CLI context.")
+                 throw err;
+               })
+         })
+         .catch(err => {
+           console.log("Error occurred while executing UnCss.init()");
+           throw err
+         })
   })
     .parse(process.argv);
 
