@@ -6,7 +6,11 @@
   <title>Test File</title>
   <link rel="canonical" href="https://www.ampproject.org/">
   <script async src="https://cdn.ampproject.org/v0.js"></script>
+  <script async custom-element="amp-accordion" src="https://cdn.ampproject.org/v0/amp-accordion-0.1.js"></script>
   <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
+  <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
+  <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
+
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
 
   <style amp-custom>
@@ -133,6 +137,7 @@
     /* Ids */
     #battleground {
       box-shadow: 0 1px 3px rgba(0, 0, 0, .15);
+      max-width: 300px;
     }
 
     #playground,
@@ -146,7 +151,7 @@
       display: inline-block;
     }
 
-    div:not(#battleground) {
+    h3:not(.h3) {
       display: inline-block;
       font-weight: 200;
     }
@@ -258,6 +263,18 @@
       border-color: orange;
     }
 
+    /* dynamic AMP components*/
+    #amp-carousel {
+      color: darkred;
+    }
+
+    [role='listitem'] {
+      font-size: small;
+    }
+
+    amp-list > div {
+      width: 300px;
+    }
 
   </style>
   </head>
@@ -272,7 +289,7 @@
         vs.
         <span id="extra-special-span" class="blue"> Blue </span>
       </h1>
-      <h3>Green on hover</h3>
+      <h3 class="h3" >Green on hover</h3>
       <section class="animated">
         <h4>
           <span data-section-title class="special-span">Cyan</span>
@@ -288,8 +305,17 @@
           <small> Little words!</small>
         </section>
         <section id="acc-3">
-          <em>last Section Title</em>
+          <em>Section 3 Title</em>
           <small> Little words!</small>
+        </section>
+        <section>
+          <em>Section 4 Title</em>
+          <amp-list class="list" layout="fixed-height" height="100"
+                    src="https://ampbyexample.com/json/examples.json">
+            <template type="amp-mustache">
+              <div id="{{title}}"><a src="{{title}}">{{title}} - {{url}}</a> </div>
+            </template>
+          </amp-list>
         </section>
       </amp-accordion>
     </div>
@@ -334,7 +360,7 @@
         YELLOW
       </h6>
     </noscript>
-    <h3 hidden="true">Hidden</h3>
+    <h3 class="h3" hidden="true">Hidden</h3>
     <section class="sm:hover:font-hairline"></section>
   </body>
 </html>
