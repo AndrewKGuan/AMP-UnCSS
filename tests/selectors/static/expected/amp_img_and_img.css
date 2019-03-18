@@ -1,0 +1,13 @@
+amp-img {
+  border-color: red
+}
+img {
+  border-color: red
+}
+span + img {
+  border-color: green
+}
+
+.test-image-outer > .test-image-inner > img {
+  border-bottom-color: blue;
+}
