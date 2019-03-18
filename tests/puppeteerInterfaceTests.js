@@ -51,14 +51,14 @@ describe('PuppeteerInterface', async function() {
     let spanQuery = await pageRep.queryAll('span');
     let allQuery = await pageRep.queryAll('*');
 
-    assert.strictEqual(spanQuery.length, 4);
+    assert.strictEqual(spanQuery.count, 4);
 
     // If this fails, rerun test with after() block commented out.
     // There is a good chance that the AMP component scripts are loading extra
     // scripts on the page. Therefore this test will be flaky as long as script
     // behavior is variable. Have seen query return anywhere between 49 and 56
     // elements.
-    assert.strictEqual(allQuery.length, 49)
+    assert.strictEqual(allQuery.count, 49)
   });
 
   // it('should return the correct raw html',async () => {
