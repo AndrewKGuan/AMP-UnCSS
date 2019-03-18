@@ -5,11 +5,11 @@ const AmpFile = require('../lib/main/AmpFile');
 const fs = require('fs');
 const typeOneOptimizations = require('../lib/main/typeOneOptimizations');
 
-const inputHtml = 'tests/selectors/dynamicDom.html';
+const inputHtml = 'tests/selectors/dynamic/dynamicDom.html';
+// const inputHtml = '/usr/local/google/home/schuettlerk/IdeaProjects/AMP-UnCSS/tests/selectors/dynamic/dynamicDom.html'
 
-
-const expected = fs.readdirSync(path.join(__dirname, 'selectors/expected')),
-    unused = fs.readdirSync(path.join(__dirname, 'selectors/unused'));
+const expected = fs.readdirSync(path.join(__dirname, 'selectors/dynamic/expected')),
+    unused = fs.readdirSync(path.join(__dirname, 'selectors/dynamic/unused'));
 
 
 const tests = expected.reduce((acc, testType) => {
@@ -31,12 +31,13 @@ unused.forEach(unusedTestType => {
   }
 });
 
-let type0Html = false;
+let type1Html = false;
 let browser;
 
 describe('Type 1 Optimizer Functions', function() {
+  this.timeout(0)
   before(async () => {
-    browser = await puppeteer.launch({headless:true});
+    browser = await puppeteer.launch();
     const defaultOptions = {
       optimizationLevel : 1,
       streamable: false,
@@ -46,11 +47,11 @@ describe('Type 1 Optimizer Functions', function() {
       filenameDecorator: null,
       report: false
     };
-    const ampFile = await new AmpFile(inputHtml).prep(defaultOptions, browser);
+    const ampFile = await new AmpFile(inputHtml, defaultOptions , browser).prep();
     await typeOneOptimizations
         .optimize(ampFile)
         .then(ampFile => {
-          return ampFile.rewriteWithNewCss(defaultOptions)
+          return ampFile.rewriteHtmlWithNewCss(defaultOptions)
         });
 
     const resultingHtml = ampFile
@@ -59,7 +60,8 @@ describe('Type 1 Optimizer Functions', function() {
         .replace(/\s*/g,'');
 
     if(resultingHtml) {
-      type0Html = resultingHtml;
+      type1Html = resultingHtml;
+      fs.writeFileSync('./html.html', type1Html)
     }
   });
 
@@ -68,17 +70,20 @@ describe('Type 1 Optimizer Functions', function() {
 
     if(tests[test].expected) {
       it(`Should include expected ${test} selectors in CSS`, () => {
-        assert.ok(type0Html.includes(rfs(path.join(__dirname,`selectors/expected/${test}`))));
+        assert.ok(
+            type1Html.includes(
+                rfs(path.join(__dirname,`selectors/dynamic/expected/${test}`))
+            ));
       });
     }
 
     if(tests[test].unused) {
       it(`Should not include unused ${test} selectors in CSS`, () => {
 
-        rfs(path.join(__dirname,`selectors/unused/${test}`))
+        rfs(path.join(__dirname,`selectors/dynamic/unused/${test}`))
             .split('/*Separator*/')
             .forEach(block => {
-              assert.ok(!type0Html.includes(block))
+              assert.strictEqual(type1Html.indexOf(block), -1)
             });
       });
     }

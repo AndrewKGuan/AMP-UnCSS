@@ -75,7 +75,7 @@ describe('AMP UnCSS CLI', function() {
         fs.readFileSync('reports/amp_uncss_report.json','utf-8'));
 
     assert.strictEqual(report.tests.length, 1);
-    assert.strictEqual(report.tests[0].files.length,3);
+    assert.strictEqual(report.tests[0].files.length,1);
   });
 
   it('should search for files recursively', async function() {

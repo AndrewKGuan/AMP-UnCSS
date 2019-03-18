@@ -5,49 +5,48 @@ const assert = require('assert'),
 const AmpFile = require('../lib/main/AmpFile'),
     CheerioInterface = require('../lib/interfaces/CheerioInterface'),
     PuppeteerInterface = require('../lib/interfaces/PuppeteerInterface');
+    defaultConfig = require('../lib/utils/defaultOptions');
 
-const staticDomHtmlPath = 'tests/selectors/staticDom.html',
-    dynamicDomHtmlPath = 'tests/selectors/dynamicDom.html'
+const staticDomHtmlPath = 'tests/selectors/static/staticDom.html',
+    dynamicDomHtmlPath = 'tests/selectors/dynamic/dynamicDom.html';
 
 
-describe('AmpFile.js Functions', async () => {
-
-  let staticAf = new AmpFile(staticDomHtmlPath),
-      dynamicAf = new AmpFile(dynamicDomHtmlPath),
-      staticOpts = {optimizationLevel: 0},
-      dynamicOpts = {optimizationLevel: 1},
+describe('AmpFile.js Functions', async function(){
+  this.timeout(10000)
+  let staticAf,
+      dynamicAf,
+      staticOpts = {...defaultConfig, optimizationLevel: 0},
+      dynamicOpts = {...defaultConfig, optimizationLevel: 1},
       preStubStaticHtml = fs.readFileSync(staticDomHtmlPath, 'utf-8'),
       preStubDynamicHtml = fs.readFileSync(dynamicDomHtmlPath, 'utf-8'),
       browser;
 
   before(async() => {
-      browser = await puppeteer.launch({headless: true})
+      browser = await puppeteer.launch({headless: true});
+      staticAf = new AmpFile(staticDomHtmlPath, staticOpts, browser);
+      dynamicAf = new AmpFile(dynamicDomHtmlPath, dynamicOpts, browser);
   });
 
   it('should construct with correct data', () =>{
     assert.strictEqual(staticAf.filePath, staticDomHtmlPath);
     assert.strictEqual(staticAf.fileName, 'staticDom.html');
     assert.strictEqual(staticAf.fileExt, 'html');
-    assert.strictEqual(staticAf.fileDir, 'tests/selectors');
+    assert.strictEqual(staticAf.fileDir, 'tests/selectors/static');
     assert.strictEqual(staticAf._stats.fileName, 'staticDom.html');
-    assert.strictEqual(staticAf._stats.status, 'running');
+    assert.ok(staticAf._stats.status.instantiated > 0);
     assert.strictEqual(staticAf._stats.inputSize, 0);
     assert.strictEqual(staticAf._stats.outputSize, 0);
-    assert.ok(staticAf._stats.startTime > 0);
-    assert.strictEqual(staticAf._stats.endTime, 0);
     assert.strictEqual(Object.keys(staticAf._stats.selectorsRemoved).length, 0);
 
 
     assert.strictEqual(dynamicAf.filePath, dynamicDomHtmlPath)
     assert.strictEqual(dynamicAf.fileName, 'dynamicDom.html');
     assert.strictEqual(dynamicAf.fileExt, 'html');
-    assert.strictEqual(dynamicAf.fileDir, 'tests/selectors')
+    assert.strictEqual(dynamicAf.fileDir, 'tests/selectors/dynamic')
     assert.strictEqual(dynamicAf._stats.fileName, 'dynamicDom.html');
-    assert.strictEqual(dynamicAf._stats.status, 'running');
+    assert.ok(dynamicAf._stats.status.instantiated > 0);
     assert.strictEqual(dynamicAf._stats.inputSize, 0);
-    assert.strictEqual(dynamicAf._stats.outputSize, 0);
-    assert.ok(dynamicAf._stats.startTime > 0);
-    assert.strictEqual(dynamicAf._stats.endTime, 0);
+    assert.strictEqual(dynamicAf._stats.outputSize, 0);;
     assert.strictEqual(Object.keys(dynamicAf._stats.selectorsRemoved).length, 0);
   });
 
@@ -55,7 +54,7 @@ describe('AmpFile.js Functions', async () => {
     await describe('Static DOM:', async () => {
       it('should insert img els into amp-img elements', async ()=> {
         assert.ok(!preStubStaticHtml.includes('<img'));
-        await staticAf.prep(staticOpts, browser);
+        await staticAf.prep();
         let postStubHtml = staticAf.staticDom.getHtml();
         assert.ok(postStubHtml.includes('<img'));
       });
@@ -91,16 +90,17 @@ describe('AmpFile.js Functions', async () => {
     })
   });
 
-  await describe('#rewriteWithNewCss', async ()=> {
+  await describe('#rewriteHtmlWithNewCss', async ()=> {
     before(async ()=> {
-      await staticAf.rewriteWithNewCss(staticOpts);
-      await dynamicAf.rewriteWithNewCss(dynamicOpts);
+      await staticAf.rewriteHtmlWithNewCss(staticOpts);
+      await dynamicAf.rewriteHtmlWithNewCss(dynamicOpts);
     });
 
     describe('Static DOM:', () =>{
       it('should update AmpFile._stats.status', ()=>{
-        assert.ok(staticAf._stats.endTime > staticAf._stats.startTime);
-        assert.strictEqual(staticAf._stats.status, 'complete');
+        assert.ok(
+    staticAf._stats.status.complete > staticAf._stats.status.instantiated
+        );
       });
       it('should update old html with optimized html', () => {
         assert.ok(staticAf.optimizedHtml.length > 0);
@@ -109,8 +109,9 @@ describe('AmpFile.js Functions', async () => {
     });
     describe('Dynamic DOM:', () =>{
       it('should update AmpFile._stats.status', ()=>{
-        assert.ok(dynamicAf._stats.endTime > dynamicAf._stats.startTime);
-        assert.strictEqual(dynamicAf._stats.status, 'complete');
+        assert.ok(
+            dynamicAf._stats.status.complete > dynamicAf._stats.status.instantiated
+        );
       });
       it('should update old html with optimized html', () => {
         assert.ok(dynamicAf.optimizedHtml.length > 0);
@@ -147,8 +148,8 @@ describe('AmpFile.js Functions', async () => {
       it('should write the correct string', () =>{
         assert.strictEqual(
             dynamicAf.optimizedHtml,
-            fs.readFileSync(
-                './test_results/dynamicDom_output.html', 'utf-8'))
+            String(fs.readFileSync(
+                './test_results/dynamicDom_output.html', 'utf-8')))
       })
     });
   });
@@ -157,7 +158,7 @@ describe('AmpFile.js Functions', async () => {
     await browser.close();
 
     // Delete UnCss artifacts after test block
-    if(fs.existsSync('test_results')) deleteRecursive('output');
+    if(fs.existsSync('./test_results')) deleteRecursive('./test_results');
   })
 });
 

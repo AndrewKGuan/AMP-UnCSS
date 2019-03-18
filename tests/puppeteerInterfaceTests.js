@@ -1,20 +1,24 @@
-const assert = require('assert');
-const fs = require('fs'),
+const assert = require('assert'),
+    fs = require('fs'),
+    path = require('path')
     puppeteer = require('puppeteer');
+
 const pupInt = require('../lib/interfaces/PuppeteerInterface');
 
-const fileLoc = './tests/selectors/staticDom.html';
+const fileLoc = './tests/selectors/static/staticDom.html';
 const fileLoc2 = './tests/selectors/rendered.html';
 const html = fs.readFileSync(fileLoc, 'utf-8');
 const renderedHtml = fs.readFileSync(fileLoc2, 'utf-8');
 
 let pageRep = false;
 let browser;
-describe('PuppeteerInterface', async () => {
-
+describe('PuppeteerInterface', async function() {
+  this.timeout(10000)
   before(async () => {
     browser = await puppeteer.launch()
-    pageRep = await new pupInt(html).init(browser)
+    pageRep = await new pupInt(
+        path.join('file://', path.resolve('.'), fileLoc)
+    ).init(browser)
   });
 
 
@@ -43,12 +47,18 @@ describe('PuppeteerInterface', async () => {
     assert.strictEqual(count, 0)
   });
 
-  it('should query span', async () => {
+  it('should query all the correct elements', async () => {
     let spanQuery = await pageRep.queryAll('span');
     let allQuery = await pageRep.queryAll('*');
 
-    assert.strictEqual(spanQuery.length, 4)
-    assert.strictEqual(allQuery.length, 50)
+    assert.strictEqual(spanQuery.length, 4);
+
+    // If this fails, rerun test with after() block commented out.
+    // There is a good chance that the AMP component scripts are loading extra
+    // scripts on the page. Therefore this test will be flaky as long as script
+    // behavior is variable. Have seen query return anywhere between 49 and 56
+    // elements.
+    assert.strictEqual(allQuery.length, 49)
   });
 
   // it('should return the correct raw html',async () => {
@@ -64,7 +74,7 @@ describe('PuppeteerInterface', async () => {
   //           .replace(/="{2}/g, ""));
   // });
 
-  it('should remove custom styles', async () => {
+  it('should remove custom styles', async function() {
     assert.strictEqual(await pageRep.count('style[amp-custom=""]'),1);
     await pageRep.removeCustomStyles();
     assert.strictEqual(await pageRep.count('style[amp-custom=""]'),0)
@@ -74,9 +84,9 @@ describe('PuppeteerInterface', async () => {
     assert.strictEqual(await pageRep.count('style[amp-custom=""]'),0)
     await pageRep.appendCustomStyle("h1{color: blue}")
     assert.strictEqual(await pageRep.count('style[amp-custom=""]'),1)
-  })
+  });
 
-  after(async () => {
-    await browser.close();
+  after(() => {
+    browser.close();
   });
 });

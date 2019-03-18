@@ -2,7 +2,7 @@ const assert = require('assert');
 const fs = require('fs');
 const cheerioInt = require('../lib/interfaces/CheerioInterface');
 
-const fileLoc = './tests/selectors/staticDom.html';
+const fileLoc = './tests/selectors/static/staticDom.html';
 const html = fs.readFileSync(fileLoc, 'utf-8')
 
 
