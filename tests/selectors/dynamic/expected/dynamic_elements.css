@@ -1,0 +1,11 @@
+#amp-carousel {
+  color: darkred;
+}
+
+[role='listitem'] {
+  font-size: small;
+}
+
+amp-list > div {
+  width: 300px;
+}

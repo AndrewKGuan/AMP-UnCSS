@@ -1,0 +1,12 @@
+h1, h3, .slideRightAndFade {
+  margin-top: 15px;
+}
+
+h1, h3, .slideRightAndFade::after {
+  content: '+';
+  background-color: #00AA88;
+}
+
+.navy, blockquote, .unused {
+  margin-left: 40px;
+}

@@ -1,0 +1,7 @@
+blockquote, .unused::before, #alsoUnused {
+  margin-left: 40px;
+}
+/*Separator*/
+blockquote, .unused, #alsoUnused {
+  margin-left: 40px;
+}

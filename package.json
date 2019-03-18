@@ -11,7 +11,8 @@
   },
   "scripts": {
     "test": "node_modules/mocha/bin/mocha tests",
-    "doc": "node_modules/jsdoc/jsdoc.js lib -r -d docs -R README.md -P package.json "
+    "doc": "node_modules/jsdoc/jsdoc.js lib -r -d docs -R README.md -P package.json ",
+    "cli": "node $NODE_DEBUG_OPTION index.js tests/selectors/dynamic/dynamicDom.html -r -s -l 1"
   },
   "repository": {
     "type": "git",
@@ -27,6 +28,7 @@
     "cheerio": "^1.0.0-rc.2",
     "commander": "^2.19.0",
     "postcss": "^7.0.6",
+    "puppeteer": "^1.13.0",
     "through2": "^3.0.0"
   },
   "devDependencies": {

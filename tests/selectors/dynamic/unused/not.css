@@ -1,0 +1,4 @@
+h3:not(.h3) {
+  display: inline-block;
+  font-weight: 200;
+}

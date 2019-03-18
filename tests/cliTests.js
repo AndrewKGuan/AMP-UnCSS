@@ -84,7 +84,7 @@ describe('AMP UnCSS CLI', function() {
         fs.readFileSync('reports/amp_uncss_report.json','utf-8'));
 
     assert.strictEqual(report.tests.length,1);
-    assert.strictEqual(report.tests[0].files.length, 5);
+    assert.strictEqual(report.tests[0].files.length, 7);
   });
 
   it('should respond to defined optimization level', async function() {

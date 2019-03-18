@@ -1,14 +1,15 @@
 const assert = require('assert');
-const path = require('path');
+const path = require('path'),
+    puppeteer = require('puppeteer');
 const AmpFile = require('../lib/main/AmpFile');
 const fs = require('fs');
-const typeZeroOptimizations = require('../lib/main/typeZeroOptimizations');
+const typeOneOptimizations = require('../lib/main/typeOneOptimizations');
 
-const inputHtml = 'tests/selectors/static/staticDom.html';
+const inputHtml = 'tests/selectors/dynamic/dynamicDom.html';
+// const inputHtml = '/usr/local/google/home/schuettlerk/IdeaProjects/AMP-UnCSS/tests/selectors/dynamic/dynamicDom.html'
 
-
-const expected = fs.readdirSync(path.join(__dirname, 'selectors/static/expected')),
-    unused = fs.readdirSync(path.join(__dirname, 'selectors/static/unused'));
+const expected = fs.readdirSync(path.join(__dirname, 'selectors/dynamic/expected')),
+    unused = fs.readdirSync(path.join(__dirname, 'selectors/dynamic/unused'));
 
 
 const tests = expected.reduce((acc, testType) => {
@@ -30,12 +31,15 @@ unused.forEach(unusedTestType => {
   }
 });
 
-let type0Html = false;
+let type1Html = false;
+let browser;
 
-describe('Type 0 Optimizer Functions', function() {
+describe('Type 1 Optimizer Functions', function() {
+  this.timeout(0)
   before(async () => {
+    browser = await puppeteer.launch();
     const defaultOptions = {
-      optimizationLevel : 0,
+      optimizationLevel : 1,
       streamable: false,
       reportName: 'amp_uncss_report.json',
       reportDirectory: 'reports',
@@ -43,17 +47,21 @@ describe('Type 0 Optimizer Functions', function() {
       filenameDecorator: null,
       report: false
     };
-    const ampFile = await new AmpFile(inputHtml, defaultOptions).prep();
-    await typeZeroOptimizations
+    const ampFile = await new AmpFile(inputHtml, defaultOptions , browser).prep();
+    await typeOneOptimizations
         .optimize(ampFile)
-        .rewriteHtmlWithNewCss(defaultOptions);
+        .then(ampFile => {
+          return ampFile.rewriteHtmlWithNewCss(defaultOptions)
+        });
+
     const resultingHtml = ampFile
         .optimizedHtml
         .replace(/\n/g,'')
         .replace(/\s*/g,'');
 
     if(resultingHtml) {
-      type0Html = resultingHtml;
+      type1Html = resultingHtml;
+      fs.writeFileSync('./html.html', type1Html)
     }
   });
 
@@ -62,21 +70,27 @@ describe('Type 0 Optimizer Functions', function() {
 
     if(tests[test].expected) {
       it(`Should include expected ${test} selectors in CSS`, () => {
-        assert.ok(type0Html.includes(rfs(path.join(__dirname,`selectors/static/expected/${test}`))));
+        assert.ok(
+            type1Html.includes(
+                rfs(path.join(__dirname,`selectors/dynamic/expected/${test}`))
+            ));
       });
     }
 
     if(tests[test].unused) {
       it(`Should not include unused ${test} selectors in CSS`, () => {
 
-        rfs(path.join(__dirname,`selectors/static/unused/${test}`))
+        rfs(path.join(__dirname,`selectors/dynamic/unused/${test}`))
             .split('/*Separator*/')
             .forEach(block => {
-              assert.ok(!type0Html.includes(block))
+              assert.strictEqual(type1Html.indexOf(block), -1)
             });
       });
     }
   });
+  after(async () => {
+    browser.close()
+  })
 });
 
 /** fs.readFileSync sugar */

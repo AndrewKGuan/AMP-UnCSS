@@ -22,7 +22,7 @@ program
       "Name of optimization report. Defaults to 'amp_unCss_report.json'.")
   .option('-s, --specific',
       "specifies that given location is a file rather than dictionary")
-  .action(function(directory) {
+  .action(async function(directory) {
     const options = {
       directory,
       recursive: program.recursive,
@@ -62,7 +62,31 @@ program
       if(options[key]) acc[key] = options[key];
       return acc
     },{});
-    ampUncss(fileList, opts)
+     await ampUncss(fileList, opts)
+         .init()
+         .then(uc => {
+           uc.run()
+               .then(res => {
+                 console.log("Files processed: " + res.length);
+                 uc.end()
+                     .then((data) => {
+                       console.log("Process completed successfully.");
+                       return data
+                     })
+                     .catch(err => {
+                       console.log("Error closing browser.")
+                       throw err
+                     })
+               })
+               .catch(err => {
+                 console.log("Error running uncss within CLI context.")
+                 throw err;
+               })
+         })
+         .catch(err => {
+           console.log("Error occurred while executing UnCss.init()");
+           throw err
+         })
   })
     .parse(process.argv);
 
