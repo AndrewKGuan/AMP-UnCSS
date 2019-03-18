@@ -4,11 +4,11 @@ const AmpFile = require('../lib/main/AmpFile');
 const fs = require('fs');
 const typeZeroOptimizations = require('../lib/main/typeZeroOptimizations');
 
-const inputHtml = 'tests/selectors/staticDom.html';
+const inputHtml = 'tests/selectors/static/staticDom.html';
 
 
-const expected = fs.readdirSync(path.join(__dirname, 'selectors/expected')),
-    unused = fs.readdirSync(path.join(__dirname, 'selectors/unused'));
+const expected = fs.readdirSync(path.join(__dirname, 'selectors/static/expected')),
+    unused = fs.readdirSync(path.join(__dirname, 'selectors/static/unused'));
 
 
 const tests = expected.reduce((acc, testType) => {
@@ -43,10 +43,10 @@ describe('Type 0 Optimizer Functions', function() {
       filenameDecorator: null,
       report: false
     };
-    const ampFile = await new AmpFile(inputHtml).prep(defaultOptions);
+    const ampFile = await new AmpFile(inputHtml, defaultOptions).prep();
     await typeZeroOptimizations
         .optimize(ampFile)
-        .rewriteWithNewCss(defaultOptions);
+        .rewriteHtmlWithNewCss(defaultOptions);
     const resultingHtml = ampFile
         .optimizedHtml
         .replace(/\n/g,'')
@@ -62,14 +62,14 @@ describe('Type 0 Optimizer Functions', function() {
 
     if(tests[test].expected) {
       it(`Should include expected ${test} selectors in CSS`, () => {
-        assert.ok(type0Html.includes(rfs(path.join(__dirname,`selectors/expected/${test}`))));
+        assert.ok(type0Html.includes(rfs(path.join(__dirname,`selectors/static/expected/${test}`))));
       });
     }
 
     if(tests[test].unused) {
       it(`Should not include unused ${test} selectors in CSS`, () => {
 
-        rfs(path.join(__dirname,`selectors/unused/${test}`))
+        rfs(path.join(__dirname,`selectors/static/unused/${test}`))
             .split('/*Separator*/')
             .forEach(block => {
               assert.ok(!type0Html.includes(block))
