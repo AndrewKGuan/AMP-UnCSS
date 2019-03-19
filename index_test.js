@@ -10,11 +10,16 @@ module.exports =  function(options) {
             streamable: true,
             report: !!options.report || !!options.reportDirectory || !!options.reportName
       });
-      unCss([vinyl], processOpts).init().then(uf => uf.run())
+      let uncss = new unCss([vinyl], processOpts);
+      uncss.init()
+          .then(uf => uf.run())
           .then(results => {
             let {optimizedHtmlString, reporting} = results;
             vinyl.contents = Buffer.from(optimizedHtmlString);
-            cb(null, vinyl);
+            uncss.end()
+                .then( data => {
+                  cb(null, vinyl);
+                });
           })
     } else {
       cb(null, vinyl);
