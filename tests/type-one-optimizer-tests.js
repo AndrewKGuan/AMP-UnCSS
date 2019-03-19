@@ -1,9 +1,9 @@
 const assert = require('assert');
 const path = require('path'),
     puppeteer = require('puppeteer');
-const AmpFile = require('../lib/main/AmpFile');
+const AmpFile = require('../lib/main/amp-file');
 const fs = require('fs');
-const typeOneOptimizations = require('../lib/main/typeOneOptimizations');
+const typeOneOptimizations = require('../lib/main/type-one-optimizations');
 
 const inputHtml = 'tests/selectors/dynamic/dynamicDom.html';
 // const inputHtml = '/usr/local/google/home/schuettlerk/IdeaProjects/AMP-UnCSS/tests/selectors/dynamic/dynamicDom.html'

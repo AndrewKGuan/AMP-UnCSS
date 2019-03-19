@@ -3,7 +3,7 @@ const assert = require('assert'),
     path = require('path')
     puppeteer = require('puppeteer');
 
-const pupInt = require('../lib/interfaces/PuppeteerInterface');
+const pupInt = require('../lib/interfaces/puppeteer-interface');
 
 const fileLoc = './tests/selectors/static/staticDom.html';
 const fileLoc2 = './tests/selectors/rendered.html';

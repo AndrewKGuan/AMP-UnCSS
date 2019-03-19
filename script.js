@@ -1,13 +1,13 @@
 // const zero = require('./lib/main/typeZeroOptimizations');
-// const DomParser = require('./lib/interfaces/DomParser.js');
-// const AMP = require('./lib/main/AmpFile.js');
+// const DomParser = require('./lib/interfaces/dom-parser.js');
+// const AMP = require('./lib/main/amp-file.js');
 
 // const af = new AMP(testFileName);
 // const postcss = require('postcss');
 // zero.optimize(af)
 const p=require('puppeteer')
-const puppet = require('../lib/interfaces/PuppeteerInterface');
-const cheerio = require('../lib/interfaces/CheerioInterface');
+const puppet = require('./interfaces/puppeteer-interface');
+const cheerio = require('./interfaces/cheerio-interface');
 const fs = require('fs'),
     path = require('path')
 const staticPath = './tests/selectors/static/staticDom.html',

@@ -1,8 +1,8 @@
 const assert = require('assert');
 const path = require('path');
-const AmpFile = require('../lib/main/AmpFile');
+const AmpFile = require('../lib/main/amp-file');
 const fs = require('fs');
-const typeZeroOptimizations = require('../lib/main/typeZeroOptimizations');
+const typeZeroOptimizations = require('../lib/main/type-zero-optimizations');
 
 const inputHtml = 'tests/selectors/static/staticDom.html';
 

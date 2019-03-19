@@ -1,6 +1,6 @@
 #! /usr/bin/env node
 
-const ampUncss = require("./lib/main/UnCss");
+const ampUncss = require("./lib/main/amp-uncss");
 const program = require("commander");
 const fs = require("fs")
 

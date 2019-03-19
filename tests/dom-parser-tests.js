@@ -1,5 +1,5 @@
 const assert = require('assert');
-const DomParser = require('../lib/interfaces/DomParser');
+const DomParser = require('../lib/main/dom-parser');
 
 // describe('DOM Parser Functions', function() {
 //   const testFileName = 'tests/test_files/testAmpFile.html';

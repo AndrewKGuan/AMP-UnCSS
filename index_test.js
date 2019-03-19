@@ -1,5 +1,5 @@
 const through = require('through2');
-const unCss= require('./lib/main/UnCss.js');
+const unCss= require('./lib/main/amp-uncss.js');
 
 module.exports =  function(options) {
   // TODO: Make this work for optimizationLevel = 1. Currently, browsers are crashing before opt can be made.

@@ -3,7 +3,7 @@ const assert = require('assert'),
       path = require('path'),
     puppeteer = require('puppeteer');
 
-const UnCss = require('../lib/main/UnCss');
+const UnCss = require('../lib/main/amp-uncss');
 
 
 let testOpts = {

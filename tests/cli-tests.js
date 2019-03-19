@@ -1,6 +1,6 @@
 const assert = require('assert');
 const fs = require('fs');
-const AmpFile = require('../lib/main/AmpFile');
+const AmpFile = require('../lib/main/amp-file');
 const testFilePath = 'tests/selectors';
 const cmd = require('./cli_utils/cmd.js');
 

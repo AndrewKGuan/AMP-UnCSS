@@ -2,10 +2,10 @@ const assert = require('assert'),
     fs = require('fs'),
     puppeteer = require('puppeteer');
 
-const AmpFile = require('../lib/main/AmpFile'),
-    CheerioInterface = require('../lib/interfaces/CheerioInterface'),
-    PuppeteerInterface = require('../lib/interfaces/PuppeteerInterface');
-    defaultConfig = require('../lib/utils/defaultOptions');
+const AmpFile = require('../lib/main/amp-file'),
+    CheerioInterface = require('../lib/interfaces/cheerio-interface'),
+    PuppeteerInterface = require('../lib/interfaces/puppeteer-interface');
+    defaultConfig = require('../lib/utils/default-options');
 
 const staticDomHtmlPath = 'tests/selectors/static/staticDom.html',
     dynamicDomHtmlPath = 'tests/selectors/dynamic/dynamicDom.html';
