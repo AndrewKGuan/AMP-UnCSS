@@ -1,6 +1,6 @@
 const assert = require('assert');
 const fs = require('fs');
-const cheerioInt = require('../lib/interfaces/CheerioInterface');
+const cheerioInt = require('../lib/interfaces/cheerio-interface');
 
 const fileLoc = './tests/selectors/static/staticDom.html';
 const html = fs.readFileSync(fileLoc, 'utf-8')
