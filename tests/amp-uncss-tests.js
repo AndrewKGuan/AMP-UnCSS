@@ -1,6 +1,6 @@
 const assert = require('assert'),
-      fs = require('fs'),
-      path = require('path'),
+    fs = require('fs'),
+    path = require('path'),
     puppeteer = require('puppeteer');
 
 const UnCss = require('../lib/main/amp-uncss');
