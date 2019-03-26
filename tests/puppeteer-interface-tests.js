@@ -70,17 +70,6 @@ describe('PuppeteerInterface', async function() {
   //           .replace(/="{2}/g, ""));
   // });
 
-  it('should remove custom styles', async function() {
-    assert.strictEqual(await pageRep.count('style[amp-custom=""]'), 1);
-    await pageRep.removeCustomStyles();
-    assert.strictEqual(await pageRep.count('style[amp-custom=""]'), 0);
-  });
-
-  it('should append custom style', async () => {
-    assert.strictEqual(await pageRep.count('style[amp-custom=""]'), 0);
-    await pageRep.appendCustomStyle('h1{color: blue}');
-    assert.strictEqual(await pageRep.count('style[amp-custom=""]'), 1);
-  });
 
   after(() => {
     browser.close();
