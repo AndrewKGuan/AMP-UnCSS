@@ -48,7 +48,7 @@ describe('AMP UnCSS CLI', function() {
 
 
   it('should create new report with report-directory flag', async function() {
-    await cmd(processPath, [testFilePath, 'r', '-d', 'reports_dir']);
+    await cmd(processPath, [testFilePath, '-r', '-d', 'reports_dir']);
     assert.ok(fs.existsSync('reports_dir'));
     assert.ok(fs.existsSync('reports_dir/amp_uncss_report.json'));
   });
