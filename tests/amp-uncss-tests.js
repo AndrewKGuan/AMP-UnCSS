@@ -12,7 +12,9 @@ const testOpts = {
 };
 const staticDomHtmlPath = 'tests/selectors/static/staticDom.html';
 const dynamicDomHtmlPath = 'tests/selectors/dynamic/dynamicDom.html';
-const filePaths = [staticDomHtmlPath, dynamicDomHtmlPath];
+const badDomHtmlPath = 'tests/html/invalid/malformed.html';
+
+const filePaths = [staticDomHtmlPath, dynamicDomHtmlPath, badDomHtmlPath];
 
 
 describe('unCss functions', async function() {
@@ -36,7 +38,10 @@ describe('unCss functions', async function() {
     });
   });
 
-  await it(`should ${testOpts ? '' : 'not'} init with a Puppeteer browser`,
+  await it(
+      `should ${
+        testOpts.optimizationLevel ? '' : 'not'
+      } init with a Puppeteer browser`,
       async function() {
         await uncss.init();
         assert.ok(uncss.browser);
@@ -49,15 +54,21 @@ describe('unCss functions', async function() {
     });
 
     it('should return a list of ampFiles to be tested', function() {
-      assert.strictEqual(ampFiles.length, 2);
+      assert.strictEqual(ampFiles.length, filePaths.length);
       assert.ok(
           ampFiles.every((af) => af.constructor.name === 'AmpFile')
       );
     });
-    it('each ampFile should have a static dom property', function() {
-      assert.ok(ampFiles.every((af) => {
-        return af.staticDom;
-      }));
+    it('ampFiles for valid HTML should have a static dom property', function() {
+      ampFiles.forEach((af, index) => {
+        const hasStatic = Boolean(af.staticDom);
+        if (index === 2) {
+          // Exception for malformed.html;
+          assert.strictEqual(hasStatic, false);
+        } else {
+          assert.strictEqual(hasStatic, true);
+        }
+      });
     });
     it('appropriate ampFiles should have a dynamic Dom', function() {
       assert.ok(ampFiles[1].dynamicDom);
@@ -73,23 +84,36 @@ describe('unCss functions', async function() {
       ampFiles = await uncss._optimize(ampFiles);
     });
 
-    it('should return a list of ampFiles', function() {
+    it('should return a full list of ampFiles', function() {
+      assert.strictEqual(ampFiles.length, filePaths.length);
       assert.ok(ampFiles.every((af) => af.constructor.name === 'AmpFile'));
     });
 
     it('should update optimized status of each ampFile', function() {
-      assert.ok(
-          ampFiles.every((af) =>{
-            return af._stats.status.optimized &&
-                     af._stats.status.optimized > 0;
-          })
-      );
+      ampFiles.forEach((af, index) => {
+        const isOptimized =
+            !!(af._stats.status.optimized && af._stats.status.optimized > 0);
+        const didFail = af.hasFailed();
+        if (index === 2) {
+          // Exception for malformed.html;
+          assert.strictEqual(didFail, true);
+        } else {
+          assert.strictEqual(isOptimized, true);
+          assert.strictEqual(didFail, false);
+        }
+      });
     });
 
-    it('should optimize each ampFile', function() {
-      assert.ok(ampFiles.every((af) => {
-        return Object.keys(af._stats.selectorsRemoved).length > 0;
-      }));
+    it('should optimize each ampFile appropriately', function() {
+      ampFiles.forEach((af, index) => {
+        if (index === 2) {
+          assert.strictEqual(
+              Object.keys(af._stats.selectorsRemoved).length, 0
+          );
+        } else {
+          assert.ok(Object.keys(af._stats.selectorsRemoved).length > 0);
+        }
+      });
     });
 
     it('should optimize each ampFile with the correct optimization',
@@ -105,26 +129,33 @@ describe('unCss functions', async function() {
       ampFiles = await uncss._tearDown(ampFiles);
     });
 
-    it('should return ampFiles', function() {
+    it('should return a full list of ampFiles', function() {
+      assert.strictEqual(ampFiles.length, filePaths.length);
       assert.ok(ampFiles.every((af) => af.constructor.name === 'AmpFile'));
     });
     it('should produce new html for each ampFile', function() {
       assert.ok(ampFiles.every((af) => !!af.optimizedHtml));
     });
     it('should append new stats to ampFile._stats', function() {
-      assert.ok(ampFiles.every((af) => {
-        return af._stats.status.complete > 0 &&
-              af._stats.inputSize;
-      }));
+      ampFiles.forEach((af, index) => {
+        if (index === 2) {
+          assert.ok(af._stats.status.failed);
+          assert.ok(af._stats.status['failure-msg']);
+        } else {
+          assert.ok(af._stats.status.complete > 0);
+          assert.ok(af._stats.inputSize);
+        }
+      });
     });
     it('should save files to disc', function() {
-      assert.strictEqual(fs.readdirSync('./output').length, 3);
+      assert.strictEqual(fs.readdirSync('./output').length,
+          filePaths.length + 1);
     });
     it('should update the report file appropriately', function() {
       const report = JSON.parse(
           fs.readFileSync('./output/amp_uncss_report.json', 'utf-8')
       );
-      assert.strictEqual(report.tests[0].files.length, 2);
+      assert.strictEqual(report.tests[0].files.length, filePaths.length);
     });
   });
 

@@ -2,27 +2,32 @@ const assert = require('assert');
 const fs = require('fs');
 const puppeteer = require('puppeteer');
 
-const AmpFile = require('../lib/main/amp-file');
-defaultConfig = require('../lib/utils/default-options');
+const AmpFile = require('../lib/main/amp-file.js');
+const defaultConfig = require('../lib/utils/default-options.js');
 
 const staticDomHtmlPath = 'tests/selectors/static/staticDom.html';
 const dynamicDomHtmlPath = 'tests/selectors/dynamic/dynamicDom.html';
+const badDomHtmlPath = 'tests/html/invalid/malformed.html';
 
 
 describe('AmpFile.js Functions', async function() {
   this.timeout(10000);
   let staticAf;
   let dynamicAf;
+  let badAf;
   const staticOpts = Object.assign({}, defaultConfig, {optimizationLevel: 0});
   const dynamicOpts = Object.assign({}, defaultConfig, {optimizationLevel: 1});
+  const badOpts = Object.assign({}, defaultConfig, {optimizationLevel: 1});
   const preStubStaticHtml = fs.readFileSync(staticDomHtmlPath, 'utf-8');
   const preStubDynamicHtml = fs.readFileSync(dynamicDomHtmlPath, 'utf-8');
+  const preStubBadHtml = fs.readFileSync(badDomHtmlPath, 'utf-8');
   let browser;
 
   before(async () => {
     browser = await puppeteer.launch({headless: true});
     staticAf = new AmpFile(staticDomHtmlPath, staticOpts, browser);
     dynamicAf = new AmpFile(dynamicDomHtmlPath, dynamicOpts, browser);
+    badAf = new AmpFile(badDomHtmlPath, badOpts, browser);
   });
 
   it('should construct with correct data', () =>{
@@ -50,6 +55,21 @@ describe('AmpFile.js Functions', async function() {
         0);
   });
 
+  it('should _haveValidHtml provided a good .html document', function() {
+    const hasValidHtml = staticAf._hasValidHtml(preStubStaticHtml);
+    assert.strictEqual(hasValidHtml, true);
+  });
+
+  it('should not _haveValidHtml provided a bad .html document', function() {
+    const hasValidHtml = badAf._hasValidHtml(preStubBadHtml);
+    assert.strictEqual(hasValidHtml, false);
+  });
+
+  it('should report failure provided a bad .html document', function() {
+    assert.ok(badAf._stats.status.failed);
+  });
+
+
   await describe('#prep', async () => {
     await describe('Static DOM:', async () => {
       it('should insert img els into amp-img elements', async ()=> {
@@ -74,7 +94,18 @@ describe('AmpFile.js Functions', async function() {
         assert.ok(Object.getPrototypeOf(dynamicAf.dynamicDom));
       });
     });
+
+    describe('Malformed DOM: ', async () => {
+      before(async () => {
+        await badAf.prep();
+      });
+      it('should not instantiate DOMs if failed', function() {
+        const hasDom = Boolean(badAf.staticDom || badAf.dynamicDom);
+        assert.strictEqual(hasDom, false);
+      });
+    });
   });
+
 
   await describe('#hasExceptionTags', async () => {
     describe('Static DOM:', () => {
