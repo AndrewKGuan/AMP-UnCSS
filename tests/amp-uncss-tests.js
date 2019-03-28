@@ -134,8 +134,15 @@ describe('unCss functions', async function() {
       assert.ok(ampFiles.every((af) => af.constructor.name === 'AmpFile'));
     });
     it('should produce new html for each ampFile', function() {
-      assert.ok(ampFiles.every((af) => !!af.optimizedHtml));
+      ampFiles.forEach((af, index) => {
+        if (index === 2) {
+          assert.ok(!af.optimizedHtml);
+        } else {
+          assert.ok(!!af.optimizedHtml);
+        }
+      });
     });
+
     it('should append new stats to ampFile._stats', function() {
       ampFiles.forEach((af, index) => {
         if (index === 2) {
