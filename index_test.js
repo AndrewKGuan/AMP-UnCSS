@@ -8,7 +8,7 @@ module.exports = function(options) {
    * @param {function} cb
    */
   function gulpUnCss(vinyl, enc, cb) {
-    if (vinyl.isBuffer()) {
+    if (vinyl.isBuffer() ) {
       const processOpts = Object.assign(
           options, {
             streamable: true,
@@ -20,9 +20,11 @@ module.exports = function(options) {
       const uncss = new AmpUncss([vinyl], processOpts);
       uncss.init()
           .then((uf) => uf.run())
-          .then((results) => {
-            const {optimizedHtmlString} = results;
-            vinyl.contents = Buffer.from(optimizedHtmlString);
+          .then(({optimizedHtmlString, reporting}) => {
+            if (typeof optimizedHtmlString !== 'undefined') {
+              // Only update stream data if the optimization was successful.
+              vinyl.contents = Buffer.from(optimizedHtmlString);
+            }
             uncss.end()
                 .then( () => {
                   cb(null, vinyl);
