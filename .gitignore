@@ -9,3 +9,10 @@ dist
 reports
 amp-ecomm-master
 amp-ecomm-master/.gitignore
+docs-future
+docs-future/.gitignore
+ampstart-master
+ampstart-master/
+ampstart-master/.gitignote
+amp-by-example-master
+amp-by-example-master/.gitignore

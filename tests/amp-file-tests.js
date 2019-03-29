@@ -55,15 +55,6 @@ describe('AmpFile.js Functions', async function() {
         0);
   });
 
-  it('should _haveValidHtml provided a good .html document', function() {
-    const hasValidHtml = staticAf._hasValidHtml(preStubStaticHtml);
-    assert.strictEqual(hasValidHtml, true);
-  });
-
-  it('should not _haveValidHtml provided a bad .html document', function() {
-    const hasValidHtml = badAf._hasValidHtml(preStubBadHtml);
-    assert.strictEqual(hasValidHtml, false);
-  });
 
   it('should report failure provided a bad .html document', function() {
     assert.ok(badAf._stats.status.failed);

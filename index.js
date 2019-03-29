@@ -1,4 +1,4 @@
-#! /usr/bin/env node
+#!/usr/bin/env node
 
 const ampUncss = require('./lib/main/amp-uncss');
 const program = require('commander');
