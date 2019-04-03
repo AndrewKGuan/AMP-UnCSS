@@ -57,7 +57,7 @@ program
         (function dig(dir) {
           fs.readdirSync(dir, {withFileTypes: true}).forEach((dirent) => {
             if (dirent.isFile()) {
-              if (dirent.name.split('.')[1] === 'html') {
+              if (dirent.name.split('.').pop() === 'html') {
                 fileList.push(dir + '/' + dirent.name);
               }
             } else if (dirent.isDirectory()) {
@@ -78,7 +78,9 @@ program
           .then((uc) => {
             uc.run()
                 .then((res) => {
-                  console.log('Files processed: ' + res.length);
+                  console.log('Files processed without failure: ' + res.filter(af => af._stats.status.complete).length);
+                  console.log('Files processed with warning: ' + res.filter(af => af._stats.status.complete && af._stats.status.warnings ).length);
+                  console.log('Files failed during process: ' + res.filter(af => af._stats.status.failed).length);
                   uc.end()
                       .then((data) => {
                         console.log('Process completed successfully.');
