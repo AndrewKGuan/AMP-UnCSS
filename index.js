@@ -40,7 +40,8 @@ program
     .option('-n, --report-name <report-name>',
         'Name of optimization report. Defaults to \'amp_unCss_report.json\'.')
     .option('-g, --report-granularity <report-granularity>',
-        'Describes how detailed the report is. Defaults to \'small\'. Note: granular report files can become too large to parse with most IDEs')
+        'Describes how detailed the report is. Defaults to \'small\'. Note:'
+        + ' granular report files can become too large to parse with most IDEs')
     .option('-s, --specific',
         'specifies that given location is a file rather than dictionary')
     .action(async function(directory) {
@@ -94,9 +95,17 @@ program
           .then((uc) => {
             uc.run()
                 .then((res) => {
-                  console.log('Files processed without failure: ' + res.filter(af => af._stats.status.complete).length);
-                  console.log('Files processed with warning: ' + res.filter(af => af._stats.status.complete && af._stats.status.warnings ).length);
-                  console.log('Files failed during process: ' + res.filter(af => af._stats.status.failed).length);
+                  console.log('Files processed without failure: ' +
+                      res.filter((af) => af._stats.status.complete).length);
+                  console.log('Files processed with warning: ' +
+                      res.filter((af) => {
+                        return (
+                          af._stats.status.complete &&
+                          af._stats.status.warnings
+                        );
+                      }).length);
+                  console.log('Files failed during process: ' +
+                      res.filter((af) => af._stats.status.failed).length);
                   uc.end()
                       .then((data) => {
                         console.log('Process completed successfully.');
