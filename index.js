@@ -44,8 +44,11 @@ program
         + ' granular report files can become too large to parse with most IDEs')
     .option('-s, --specific',
         'specifies that given location is a file rather than dictionary')
-    .action(async function(directory) {
-      const options = {
+    .option('-c, --config-path <config-path>',
+        'Specify location of configuration file. CLI flags will take'
+        + 'precedence over configuration file settings.')
+    .action( async function(directory) {
+      const cliOptions = {
         directory,
         recursive: program.recursive,
         optimizationLevel: program.optimizationLevel,
@@ -59,17 +62,22 @@ program
         reportName: program.reportName,
         specific: program.specific,
         reportSize: program.reportGranularity,
+        configPath: program.configPath,
       };
 
-      if (options.optimizationLevel &&
-          !(options.optimizationLevel >= 0 && options.optimizationLevel <= 2)) {
+      const userConfigs = cliOptions.configPath ?
+          JSON.parse(fs.readFileSync(cliOptions.configPath)) : {};
+
+      if (cliOptions.optimizationLevel &&
+          !(cliOptions.optimizationLevel >= 0 &&
+            cliOptions.optimizationLevel <= 2)) {
         throw new RangeError(
             '<optimization-level> must be 0, 1, or 2. Default value is 0.');
       }
 
       const fileList = [];
-      if (options.specific) {
-        fileList.push(options.directory);
+      if (cliOptions.specific) {
+        fileList.push(cliOptions.directory);
       } else {
         (function dig(dir) {
           fs.readdirSync(dir, {withFileTypes: true}).forEach((dirent) => {
@@ -78,18 +86,25 @@ program
                 fileList.push(dir + '/' + dirent.name);
               }
             } else if (dirent.isDirectory()) {
-              if (options.recursive) {
+              if (cliOptions.recursive) {
                 dig(dir + '/' + dirent.name);
               }
             }
           });
-        })(options.directory);
+        })(cliOptions.directory);
       }
 
-      const opts = Object.keys(options).reduce((acc, key) => {
-        if (options[key]) acc[key] = options[key];
-        return acc;
-      }, {});
+      // const opts = Object.keys(options).reduce((acc, key) => {
+      //   if (options[key]) acc[key] = options[key];
+      //   return acc;
+      // }, {});
+      const opts = Object.assign({}, userConfigs,
+          Object.keys(cliOptions).reduce((acc, key) => {
+            if (cliOptions[key]) acc[key] = cliOptions[key];
+            return acc;
+          }, {})
+      );
+
       await ampUncss(fileList, opts)
           .init()
           .then((uc) => {

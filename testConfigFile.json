@@ -1,0 +1,10 @@
+{
+  "optimizationLevel": 0,
+  "streamable": false,
+  "reportName": "amp_uncss_report.json",
+  "reportDirectory": "reports",
+  "targetDirectory": "output",
+  "report": false,
+  "batchSize": 10,
+  "reportSize": "large"
+}
