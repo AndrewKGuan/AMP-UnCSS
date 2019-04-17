@@ -114,7 +114,9 @@ describe('AmpFile.js Functions', async function() {
 
   await describe('#rewriteHtmlWithNewCss', async ()=> {
     before(async ()=> {
+      await staticAf.optimize();
       await staticAf.rewriteHtmlWithNewCss();
+      await dynamicAf.optimize();
       await dynamicAf.rewriteHtmlWithNewCss();
     });
 
@@ -146,34 +148,33 @@ describe('AmpFile.js Functions', async function() {
 
   describe('#saveHtmlToDisc', () => {
     before((done) => {
-      staticAf.saveHtmlToDisc('./test_results', '_output');
-      dynamicAf.saveHtmlToDisc('./test_results', '_output');
+      staticAf.saveHtmlToDisc(`./${defaultConfig.targetDirectory}`, staticOpts.filenameDecorator);
+      dynamicAf.saveHtmlToDisc(`./${defaultConfig.targetDirectory}`, dynamicOpts.filenameDecorator);
       done();
     });
 
     describe('Static DOM:', () =>{
       it('should write a string to the correct file location', ()=> {
-        assert.ok(fs.existsSync('./test_results'));
-        assert.ok(fs.existsSync('./test_results/staticDom_output.html'));
+        assert.ok(fs.existsSync(`${defaultConfig.targetDirectory}/${staticDomHtmlPath}`));
       });
       it('should write the correct string', () =>{
         assert.strictEqual(
             staticAf.optimizedHtml,
             fs.readFileSync(
-                './test_results/staticDom_output.html', 'utf-8'));
+                `${defaultConfig.targetDirectory}/${staticDomHtmlPath}`, 'utf-8'));
       });
     });
 
     describe('Dynamic DOM:', () =>{
       it('should write a string to the correct file location', ()=> {
-        assert.ok(fs.existsSync('./test_results'));
-        assert.ok(fs.existsSync('./test_results/dynamicDom_output.html'));
+        assert.ok(fs.existsSync(`${defaultConfig.targetDirectory}`));
+        assert.ok(fs.existsSync(`${defaultConfig.targetDirectory}/${dynamicDomHtmlPath}`));
       });
       it('should write the correct string', () =>{
         assert.strictEqual(
             dynamicAf.optimizedHtml,
             String(fs.readFileSync(
-                './test_results/dynamicDom_output.html', 'utf-8')));
+                `${defaultConfig.targetDirectory}/${dynamicDomHtmlPath}`, 'utf-8')));
       });
     });
   });
@@ -182,7 +183,7 @@ describe('AmpFile.js Functions', async function() {
     await browser.close();
 
     // Delete UnCss artifacts after test block
-    if (fs.existsSync('./test_results')) deleteRecursive('./test_results');
+    if (fs.existsSync(`./${defaultConfig.targetDirectory}`)) deleteRecursive(`./${defaultConfig.targetDirectory}`);
   });
 });
 

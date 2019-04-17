@@ -1,5 +1,6 @@
 const assert = require('assert');
 const fs = require('fs');
+const path = require('path')
 
 const UnCss = require('../lib/main/amp-uncss.js');
 
@@ -31,6 +32,7 @@ describe('unCss functions', async function() {
       optimizationLevel: 1,
       streamable: false,
       reportName: 'amp_uncss_report.json',
+      reportSize: 'small',
       reportDirectory: './output',
       targetDirectory: './output',
       filenameDecorator: null,
@@ -131,7 +133,7 @@ describe('unCss functions', async function() {
       });
     });
     it('should save files to disc', function() {
-      assert.strictEqual(fs.readdirSync('./output').length,
+      assert.strictEqual(walkDir('./output').length,
           filePaths.length + 1);
     });
     it('should update the report file appropriately', function() {
@@ -146,3 +148,22 @@ describe('unCss functions', async function() {
     uncss.end();
   });
 });
+
+function walkDir(dir) {
+  const result = [];
+
+  const files = [dir];
+  do {
+    const filepath = files.pop();
+    const stat = fs.lstatSync(filepath);
+    if (stat.isDirectory()) {
+      fs
+          .readdirSync(filepath)
+          .forEach(f => files.push(path.join(filepath, f)));
+    } else if (stat.isFile()) {
+      result.push(path.relative(dir, filepath));
+    }
+  } while (files.length !== 0);
+
+  return result;
+}

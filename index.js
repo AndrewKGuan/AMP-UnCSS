@@ -1,4 +1,20 @@
 #!/usr/bin/env node
+/**
+ * Copyright 2018 The AMP HTML Authors. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS-IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 
 const ampUncss = require('./lib/main/amp-uncss');
 const program = require('commander');
@@ -24,7 +40,8 @@ program
     .option('-n, --report-name <report-name>',
         'Name of optimization report. Defaults to \'amp_unCss_report.json\'.')
     .option('-g, --report-granularity <report-granularity>',
-        'Describes how detailed the report is. Defaults to \'small\'. Note: granular report files can become too large to parse with most IDEs')
+        'Describes how detailed the report is. Defaults to \'small\'. Note:'
+        + ' granular report files can become too large to parse with most IDEs')
     .option('-s, --specific',
         'specifies that given location is a file rather than dictionary')
     .action(async function(directory) {
@@ -78,9 +95,17 @@ program
           .then((uc) => {
             uc.run()
                 .then((res) => {
-                  console.log('Files processed without failure: ' + res.filter(af => af._stats.status.complete).length);
-                  console.log('Files processed with warning: ' + res.filter(af => af._stats.status.complete && af._stats.status.warnings ).length);
-                  console.log('Files failed during process: ' + res.filter(af => af._stats.status.failed).length);
+                  console.log('Files processed without failure: ' +
+                      res.filter((af) => af._stats.status.complete).length);
+                  console.log('Files processed with warning: ' +
+                      res.filter((af) => {
+                        return (
+                          af._stats.status.complete &&
+                          af._stats.status.warnings
+                        );
+                      }).length);
+                  console.log('Files failed during process: ' +
+                      res.filter((af) => af._stats.status.failed).length);
                   uc.end()
                       .then((data) => {
                         console.log('Process completed successfully.');
