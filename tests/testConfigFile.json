@@ -1,0 +1,3 @@
+{
+  "selectorWhiteList": [".dynamic-class", "#white-listed-id"]
+}

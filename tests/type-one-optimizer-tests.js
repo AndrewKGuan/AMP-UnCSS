@@ -7,6 +7,8 @@ const AmpFile = require('../lib/main/amp-file.js');
 const typeOneOptimizations = require('../lib/main/type-one-optimizations.js');
 const defaultConfig = require('../lib/utils/default-options');
 const inputHtml = 'tests/selectors/dynamic/dynamicDom.html';
+const testConfigFile = JSON.parse(
+    fs.readFileSync(path.join(__dirname, 'testConfigFile.json')));
 
 
 const expected = fs.readdirSync(
@@ -43,8 +45,10 @@ describe('Type 1 Optimizer Functions', function() {
     const defaultOptions = Object.assign(
         {},
         defaultConfig,
-        {optimizationLevel: 1}
+        {optimizationLevel: 1},
+        {selectorWhiteList: new Set(testConfigFile.selectorWhiteList)}
     );
+
     const ampFile = await new AmpFile(inputHtml, defaultOptions, browser)
         .prep();
     await typeOneOptimizations
