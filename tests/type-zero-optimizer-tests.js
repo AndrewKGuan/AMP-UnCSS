@@ -49,6 +49,7 @@ describe('Type 0 Optimizer Functions', function() {
     await typeZeroOptimizations
         .optimize(ampFile)
         .rewriteHtmlWithNewCss();
+
     const resultingHtml = ampFile
         .optimizedHtml
         .replace(/\n/g, '')

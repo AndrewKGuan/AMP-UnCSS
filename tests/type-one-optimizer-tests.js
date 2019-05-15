@@ -5,8 +5,10 @@ const puppeteer = require('puppeteer');
 
 const AmpFile = require('../lib/main/amp-file.js');
 const typeOneOptimizations = require('../lib/main/type-one-optimizations.js');
-
+const defaultConfig = require('../lib/utils/default-options');
 const inputHtml = 'tests/selectors/dynamic/dynamicDom.html';
+const testConfigFile = JSON.parse(
+    fs.readFileSync(path.join(__dirname, 'testConfigFile.json')));
 
 
 const expected = fs.readdirSync(
@@ -39,23 +41,19 @@ let browser;
 describe('Type 1 Optimizer Functions', function() {
   this.timeout(0);
   before(async () => {
-    browser = await puppeteer.launch();
-    const defaultOptions = {
-      optimizationLevel: 1,
-      streamable: false,
-      reportName: 'amp_uncss_report.json',
-      reportDirectory: 'reports',
-      targetDirectory: './dist',
-      filenameDecorator: null,
-      report: false,
-    };
+    browser = await puppeteer.launch({headless: false});
+    const defaultOptions = Object.assign(
+        {},
+        defaultConfig,
+        {optimizationLevel: 1},
+        {selectorWhiteList: new Set(testConfigFile.selectorWhiteList)}
+    );
+
     const ampFile = await new AmpFile(inputHtml, defaultOptions, browser)
         .prep();
     await typeOneOptimizations
         .optimize(ampFile)
-        .then(async (ampFile) => {
-          return await ampFile.rewriteHtmlWithNewCss();
-        });
+        .then(async (ampFile) => ampFile.rewriteHtmlWithNewCss());
 
     const resultingHtml = ampFile
         .optimizedHtml

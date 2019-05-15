@@ -1,4 +1,20 @@
 #!/usr/bin/env node
+/**
+ * Copyright 2018 The AMP HTML Authors. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS-IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 
 const ampUncss = require('./lib/main/amp-uncss');
 const program = require('commander');
@@ -23,10 +39,16 @@ program
          ' Will default to \'./reports\'')
     .option('-n, --report-name <report-name>',
         'Name of optimization report. Defaults to \'amp_unCss_report.json\'.')
+    .option('-g, --report-granularity <report-granularity>',
+        'Describes how detailed the report is. Defaults to \'small\'. Note:'
+        + ' granular report files can become too large to parse with most IDEs')
     .option('-s, --specific',
         'specifies that given location is a file rather than dictionary')
-    .action(async function(directory) {
-      const options = {
+    .option('-c, --config-path <config-path>',
+        'Specify location of configuration file. CLI flags will take'
+        + 'precedence over configuration file settings.')
+    .action( async function(directory) {
+      const cliOptions = {
         directory,
         recursive: program.recursive,
         optimizationLevel: program.optimizationLevel,
@@ -39,43 +61,66 @@ program
         reportDirectory: program.reportDirectory,
         reportName: program.reportName,
         specific: program.specific,
+        reportSize: program.reportGranularity,
+        configPath: program.configPath,
       };
 
-      if (options.optimizationLevel &&
-          !(options.optimizationLevel >= 0 && options.optimizationLevel <= 2)) {
+      const userConfigs = cliOptions.configPath ?
+          JSON.parse(fs.readFileSync(cliOptions.configPath)) : {};
+
+      if (cliOptions.optimizationLevel &&
+          !(cliOptions.optimizationLevel >= 0 &&
+            cliOptions.optimizationLevel <= 2)) {
         throw new RangeError(
             '<optimization-level> must be 0, 1, or 2. Default value is 0.');
       }
 
       const fileList = [];
-      if (options.specific) {
-        fileList.push(options.directory);
+      if (cliOptions.specific) {
+        fileList.push(cliOptions.directory);
       } else {
         (function dig(dir) {
           fs.readdirSync(dir, {withFileTypes: true}).forEach((dirent) => {
             if (dirent.isFile()) {
-              if (dirent.name.split('.')[1] === 'html') {
+              if (dirent.name.split('.').pop() === 'html') {
                 fileList.push(dir + '/' + dirent.name);
               }
             } else if (dirent.isDirectory()) {
-              if (options.recursive) {
+              if (cliOptions.recursive) {
                 dig(dir + '/' + dirent.name);
               }
             }
           });
-        })(options.directory);
+        })(cliOptions.directory);
       }
 
-      const opts = Object.keys(options).reduce((acc, key) => {
-        if (options[key]) acc[key] = options[key];
-        return acc;
-      }, {});
+      // const opts = Object.keys(options).reduce((acc, key) => {
+      //   if (options[key]) acc[key] = options[key];
+      //   return acc;
+      // }, {});
+      const opts = Object.assign({}, userConfigs,
+          Object.keys(cliOptions).reduce((acc, key) => {
+            if (cliOptions[key]) acc[key] = cliOptions[key];
+            return acc;
+          }, {})
+      );
+
       await ampUncss(fileList, opts)
           .init()
           .then((uc) => {
             uc.run()
                 .then((res) => {
-                  console.log('Files processed: ' + res.length);
+                  console.log('Files processed without failure: ' +
+                      res.filter((af) => af._stats.status.complete).length);
+                  console.log('Files processed with warning: ' +
+                      res.filter((af) => {
+                        return (
+                          af._stats.status.complete &&
+                          af._stats.status.warnings
+                        );
+                      }).length);
+                  console.log('Files failed during process: ' +
+                      res.filter((af) => af._stats.status.failed).length);
                   uc.end()
                       .then((data) => {
                         console.log('Process completed successfully.');
