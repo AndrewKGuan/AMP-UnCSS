@@ -35,7 +35,7 @@ describe('CheerioInterface', () => {
     assert.strictEqual(count, 0)
   });
   it('should return the correct raw html', () => {
-    let pageHtml = pageRep.getHtml();
+    let pageHtml = pageRep.getOriginalHtml();
     assert.strictEqual(
         pageHtml.replace(/\r\n/g, '\n')
             .replace(/\n/g,"")
@@ -47,7 +47,7 @@ describe('CheerioInterface', () => {
             .replace(/="{2}/g, ""));
   });
   it('should update the amp-img tag dom structure correctly', ()=>{
-    let htmlWithoutStub = pageRep.getHtml();
+    let htmlWithoutStub = pageRep.getOriginalHtml();
     assert.strictEqual(pageRep.count('img'), 0)
     pageRep.stubAmpImg();
     assert.strictEqual(pageRep.count('img'), 3)
