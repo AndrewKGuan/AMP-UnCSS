@@ -1,3 +1,11 @@
 h1 > span {
   color: crimson;
 }
+
+#target-element-right > nav {
+  color: green;
+}
+
+.amp-list-1 > [role="list"] {
+  text-align: center;
+}

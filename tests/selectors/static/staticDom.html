@@ -6,10 +6,72 @@
   <title>Test File</title>
   <link rel="canonical" href="https://www.ampproject.org/">
   <script async src="https://cdn.ampproject.org/v0.js"></script>
-  <script async custom-element="amp-accordion" src="https://cdn.ampproject.org/v0/amp-accordion-0.1.js"></script>
-
   <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
-  <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+  <script async custom-element="amp-accordion" src="https://cdn.ampproject.org/v0/amp-accordion-0.1.js"></script>
+  <script async custom-element="amp-font" src="https://cdn.ampproject.org/v0/amp-font-0.1.js"></script>
+  <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
+  <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
+  <script async custom-element="amp-anim" src="https://cdn.ampproject.org/v0/amp-anim-0.1.js"></script>
+  <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
+  <style amp-boilerplate>body {
+    -webkit-animation: -amp-start 8s steps(1, end) 0s 1 normal both;
+    -moz-animation: -amp-start 8s steps(1, end) 0s 1 normal both;
+    -ms-animation: -amp-start 8s steps(1, end) 0s 1 normal both;
+    animation: -amp-start 8s steps(1, end) 0s 1 normal both
+  }
+
+  @-webkit-keyframes -amp-start {
+    from {
+      visibility: hidden
+    }
+    to {
+      visibility: visible
+    }
+  }
+
+  @-moz-keyframes -amp-start {
+    from {
+      visibility: hidden
+    }
+    to {
+      visibility: visible
+    }
+  }
+
+  @-ms-keyframes -amp-start {
+    from {
+      visibility: hidden
+    }
+    to {
+      visibility: visible
+    }
+  }
+
+  @-o-keyframes -amp-start {
+    from {
+      visibility: hidden
+    }
+    to {
+      visibility: visible
+    }
+  }
+
+  @keyframes -amp-start {
+    from {
+      visibility: hidden
+    }
+    to {
+      visibility: visible
+    }
+  }</style>
+  <noscript>
+    <style amp-boilerplate>body {
+      -webkit-animation: none;
+      -moz-animation: none;
+      -ms-animation: none;
+      animation: none
+    }</style>
+  </noscript>
 
   <style amp-custom>
     /* Adjacent */
@@ -17,17 +79,31 @@
       text-decoration: underline;
     }
 
+    [role="listitem"] + [role="listitem"]{
+      background-color: red;
+    }
+
     #battleground + div {
       background: white;
     }
+
+
 
     /* Attribute */
     h3[hidden='false'] {
       color: orange;
     }
 
-    h3[hidden='true'] {
+    h3[hidden] {
       background-color: green;
+    }
+
+    [role="listitem"] {
+      display: block;
+    }
+
+    [role="list"] {
+      border: 1px solid red;
     }
 
 
@@ -35,6 +111,14 @@
     h1 > span {
       color: crimson;
     }
+    #target-element-right > nav {
+      color: green;
+    }
+
+    .amp-list-1 > [role="list"] {
+      text-align: center;
+    }
+
 
     div > span {
       color: #000;
@@ -63,7 +147,7 @@
     }
 
     #battleground ~ main {
-        color: red;
+      color: red;
     }
 
     /* Elements */
@@ -88,13 +172,17 @@
     }
 
     /* AMP Elements */
-    amp-sidebar {
+    amp-image-lightbox {
       font-size: 44px;
     }
+
     amp-accordion {
       border: 1px black;
     }
 
+    amp-list{
+      border: 1px solid blue;
+    }
     /* Empty */
     main {
     }
@@ -166,6 +254,11 @@
       border-bottom: 1px solid blue;
     }
 
+    .amp-carousel-button:nth-child(even) {
+      border-right: 2px solid green;
+      border-left: 2px solid red;
+    }
+
     /* nTh-of-Type */
     span:nth-of-type(2) {
       border-bottom: 1px solid blue;
@@ -211,8 +304,12 @@
 
     /* Keyframes & animations*/
     @keyframes color-fade {
-      from {background-color: red;}
-      to {background-color: blue}
+      from {
+        background-color: red;
+      }
+      to {
+        background-color: blue
+      }
     }
 
     .animated {
@@ -245,9 +342,11 @@
     amp-img {
       border-color: red
     }
+
     img {
       border-color: red
     }
+
     span + img {
       border-color: green
     }
@@ -261,82 +360,238 @@
     }
 
 
+    /* amp-sidebar*/
+    .sample-sidebar li,
+    nav[toolbar] li {
+      margin-bottom: var(--space-2);
+      margin-left: 0;
+      margin-right: var(--space-2);
+      list-style: none;
+    }
+
+    #sidebar-right nav.amp-sidebar-toolbar-target-shown {
+      display: none;
+    }
+
+    /* amp-font */
+    @font-face {
+      font-family: 'UnavailableFont';
+      font-style: normal;
+      font-weight: 400;
+      src: url(fonts/UnavailableFont.ttf) format('truetype');
+    }
+
+    @font-face {
+      font-family: 'Comic AMP';
+      font-style: normal;
+      font-weight: 400;
+      src: local('Comic AMP'), url(https://playground.amp.dev/static/samples/json/examples.json/static/samples/fonts/ComicAMP.ttf) format('truetype');
+    }
+
+    @font-face {
+      font-family: 'Comic AMP 2';
+      font-style: normal;
+      font-weight: 400;
+      src: local('Comic AMP'), url(https://playground.amp.dev/static/samples/json/examples.json/static/samples/fonts/ComicAMP2.ttf) format('truetype');
+    }
+
+    .unavailable-font-loaded .unavailable-font {
+      font-family: 'UnavailableFont';
+    }
+
+    /* amp-carousel */
+    #custom-button .amp-carousel-button-prev {
+      left: 5%;
+      background-image: url('data:image/svg+xml;charset=utf-8,<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path  d="M14,7.4 L9.4,12 L14,16.6" fill="none" stroke="#fff" stroke-width="2px" stroke-linejoin="round" stroke-linecap="round" /></svg>');
+    }
+
+    #custom-button .amp-carousel-button-next {
+      right: 5%;
+      background-image: url('data:image/svg+xml;charset=utf-8,<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path  d="M10,7.4 L14.6,12 L10,16.6" fill="none" stroke="#fff" stroke-width="2px" stroke-linejoin="round" stroke-linecap="round" /></svg>');
+    }
+
+    /* amp-accordion */
+
+    amp-accordion section[expanded] .show-more {
+      display: none;
+    }
+
+    amp-accordion section:not([expanded]) .show-less {
+      display: none;
+    }
+
+    amp-accordion.hidden-header section[expanded] h4 {
+      border: none;
+    }
+
+    /* amp-list */
+
+    .list-overflow {
+      width: max-content;
+      margin: var(--space-1);
+      margin-left: auto;
+      padding: var(--space-1);
+      color: var(--color-text-light);
+      background-color: var(--color-primary);
+    }
+
+    .list-class > div:nth-child(odd) {
+      border-bottom: 1px solid red;
+    }
+
+    .list-class > div:nth-child(2) {
+      border-bottom: 1px solid blue;
+    }
+
+
   </style>
-  </head>
-  <body data-amp-auto-lightbox-disable>
-  <!--[Some Instructions]:
-      - Placing any <div> elements on this page other than
-        div#battleground will break the "not" test!
-  -->
-    <div id="battleground" data-section>
-      <h1>
-        <span class="red special-span"> Red </span>
-        vs.
-        <span id="extra-special-span" class="blue"> Blue </span>
-      </h1>
-      <h3>Green on hover</h3>
-      <section class="animated">
-        <h4>
-          <span data-section-title class="special-span">Cyan</span>
-        </h4>
-      </section>
-      <amp-accordion>
-        <section id="acc-1" >
-          <em>Section 1 title</em>
-          <small> Little words!</small>
-        </section>
-        <section id="acc-2">
-          <em>Section 2 title</em>
-          <small> Little words!</small>
-        </section>
-        <section id="acc-3">
-          <em>last Section Title</em>
-          <small> Little words!</small>
-        </section>
-      </amp-accordion>
-    </div>
-    <h5 class="navy">Navy</h5>
-    <main class="slideRightAndFade">
-      Slidin
-    </main>
-    <aside class="flashBounce">
-      Your Attention, Please!
-    </aside>
+</head>
+<body data-amp-auto-lightbox-disable>
+<!--[Some Instructions]:
+    - Placing any <div> elements on this page other than
+      div#battleground will break the "not" test!
+-->
+<div id="battleground" data-section>
+  <h1>
+    <span class="red special-span"> Red </span>
+    vs.
+    <span id="extra-special-span" class="blue"> Blue </span>
+  </h1>
+  <h3>Green on hover</h3>
+  <section class="animated">
+    <h4>
+      <span data-section-title class="special-span">Cyan</span>
+    </h4>
+  </section>
+  <amp-accordion>
+    <section id="acc-1">
+      <header>Section 1 title</header>
+      <small> Little words!</small>
+    </section>
+    <section id="acc-2">
+      <header>Section 2 title</header>
+      <small> Little words!</small>
+    </section>
+    <section id="acc-3">
+      <header><span class="show-more">Show more</span> <span class="show-less">Show less</span></header>
+      <small> Little words!</small>
+    </section>
+  </amp-accordion>
+  <h5 class="navy">Navy</h5>
+</div>
+  <main class="slideRightAndFade">
+    Slidin
+  </main>
+  <aside class="flashBounce">
+    Your Attention, Please!
+  </aside>
+  <amp-img
+      class="test-image"
+      alt="A view of the sea"
+      src="https://amp.dev/static/img/news/amp_conf.jpg"
+      width="900"
+      height="675"
+      layout="responsive"
+  >
+    <span fallback>offline</span>
+  </amp-img>
+  <amp-img
+      class="test-image-outer"
+      alt="A view of the sea"
+      src="https://ampbyexample.com/img/amp.jpg"
+      width="900"
+      height="675"
+      layout="responsive"
+  >
     <amp-img
-        class="test-image"
+        class="test-image-inner"
         alt="A view of the sea"
         src="https://amp.dev/static/img/news/amp_conf.jpg"
         width="900"
         height="675"
         layout="responsive"
     >
-      <span fallback>offline</span>
-    </amp-img>
-    <amp-img
-        class="test-image-outer"
-        alt="A view of the sea"
-        src="https://ampbyexample.com/img/amp.jpg"
-        width="900"
-        height="675"
-        layout="responsive"
-    >
-      <amp-img
-          class="test-image-inner"
-          alt="A view of the sea"
-          src="https://amp.dev/static/img/news/amp_conf.jpg"
-          width="900"
-          height="675"
-          layout="responsive"
-      >
 
-      </amp-img>
     </amp-img>
-    <noscript>
-      <h6 class="noscript-one">
-        YELLOW
-      </h6>
-    </noscript>
-    <h3 hidden="true">Hidden</h3>
-    <section class="sm:hover:font-hairline"></section>
-  </body>
+  </amp-img>
+  <noscript>
+    <h6 class="noscript-one">
+      YELLOW
+    </h6>
+  </noscript>
+  <h3 hidden>Hidden</h3>
+  <section class="sm:hover:font-hairline"></section>
+
+  <!-- amp-sidebar + amp-font + amp-anim -->
+  <amp-sidebar id="sidebar-right" class="sample-sidebar" layout="nodisplay" side="right">
+    <h3>Sidebar</h3>
+    <button on="tap:sidebar-right.close">Close sidebar</button>
+    <nav toolbar="(min-width: 784px)" toolbar-target="target-element-right">
+      <ul>
+        <li>Nav item 1</li>
+        <li>Nav item 2</li>
+        <li>
+          <amp-anim layout="responsive" width="400" height="300" src="my-gif.gif">
+            <amp-img placeholder width="400" height="300" src="https://playground.amp.dev/my-gif-screencap.jpg"></amp-img>
+          </amp-anim>
+        </li>
+        <li>
+          <div>
+            <amp-font layout="nodisplay"
+                      font-family="UnavailableFont"
+                      timeout="2000"
+                      on-error-remove-class="unavailable-font-loading"
+                      on-error-add-class="unavailable-font-missing"
+                      on-load-remove-class="unavailable-font-loading"
+                      on-load-add-class="unavailable-font-loaded">
+            </amp-font>
+            <h6 class="unavailable-font">
+              This text is displayed in red if the font `UnavailableFont` is not available.
+            </h6>
+          </div>
+        </li>
+      </ul>
+    </nav>
+    <ul>
+      <li>Nav item 3</li>
+      <li>Nav item 4</li>
+    </ul>
+  </amp-sidebar>
+  <button on="tap:sidebar-right.toggle">Toggle sidebar</button>
+  <div id="target-element-right">
+  </div>
+  <!-- End amp-sidebar, amp-font, amp-anim -->
+
+  <!-- Start amp-carousel-->
+  <amp-carousel id="custom-button" width="400" height="300" layout="responsive" type="slides"
+                autoplay delay="2000">
+    <amp-img src="https://playground.amp.dev/static/samples/img/image1.jpg" width="400" height="300" layout="responsive" ></amp-img>
+    <amp-img src="https://playground.amp.dev/static/samples/img/image1.jpg" width="400" height="300" layout="responsive"
+             alt="a sample image" class="amp-carousel-slide"></amp-img>
+    <amp-img src="https://playground.amp.dev/static/samples/img/image2.jpg" width="400" height="300" layout="responsive"
+             alt="another sample image" class="amp-carousel-slide"></amp-img>
+    <amp-img src="https://playground.amp.dev/static/samples/img/image3.jpg" width="400" height="300" layout="responsive"
+             alt="and another sample image" class="amp-carousel-slide"></amp-img>
+  </amp-carousel>
+  <!-- End amp-carousel-->
+
+  <!-- Start amp-list + amp-moustache-->
+  <amp-list  width="auto" layout="fixed-height" height="100"
+            class="amp-list-1"
+            src="https://playground.amp.dev/static/samples/json/examples.json"
+            template="amp-template-id"
+            binding="no">
+  </amp-list>
+  <amp-list layout="responsive" height="100" width="200"
+            src="https://playground.amp.dev/static/samples/json/examples.json"
+            binding="no"
+            class="list-class">
+    <template type="amp-mustache" id="amp-template-id">
+      <div ><a href="{{url}}">{{title}}</a></div>
+    </template>
+  </amp-list>
+<footer hidden id="hidden-footer" ></footer>
+  <!-- End amp-list, amp-moustache-->
+
+</body>
 </html>

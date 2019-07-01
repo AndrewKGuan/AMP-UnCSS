@@ -1,3 +1,8 @@
 span + span {
   text-decoration: underline;
 }
+
+[role="listitem"] + [role="listitem"]{
+  background-color: red;
+}
+

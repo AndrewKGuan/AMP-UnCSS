@@ -1,4 +1,4 @@
-div:not(#battleground) {
+footer:not(#hidden-footer) {
   display: inline-block;
   font-weight: 200;
 }
