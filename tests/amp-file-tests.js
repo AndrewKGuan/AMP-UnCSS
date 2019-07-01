@@ -66,7 +66,7 @@ describe('AmpFile.js Functions', async function() {
       it('should insert img els into amp-img elements', async ()=> {
         assert.ok(!preStubStaticHtml.includes('<img'));
         await staticAf.prep();
-        const postStubHtml = staticAf.staticDom.getHtml();
+        const postStubHtml = staticAf.staticDom.getOriginalHtml();
         assert.ok(postStubHtml.includes('<img'));
       });
 

@@ -56,7 +56,7 @@ describe('PuppeteerInterface', async function() {
   });
 
   // it('should return the correct raw html',async () => {
-  //   let pageHtml = await pageRep.getHtml();
+  //   let pageHtml = await pageRep.getOriginalHtml();
   //   assert.strictEqual(
   //       pageHtml.replace(/\r\n/g, '\n')
   //           .replace(/\n/g,"")
