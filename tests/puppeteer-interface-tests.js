@@ -28,7 +28,7 @@ describe('PuppeteerInterface', async function() {
   });
   it('should count the correct number of "span"', async () => {
     const count = await pageRep.count('span');
-    assert.strictEqual(count, 4);
+    assert.strictEqual(count, 6);
   });
   it('should count the correct number of ".special-span"', async () => {
     const count = await pageRep.count('.special-span');
@@ -47,7 +47,7 @@ describe('PuppeteerInterface', async function() {
     const spanQuery = await pageRep.queryAll('span');
     const allQuery = await pageRep.queryAll('*');
 
-    assert.strictEqual(spanQuery.count, 4);
+    assert.strictEqual(spanQuery.count, 6);
     // There is a good chance that the AMP component scripts are loading extra
     //    scripts on the page. Therefore, consider any return value > 49
     //    correct as that is the number of elements on the page before anything

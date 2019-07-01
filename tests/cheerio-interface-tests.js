@@ -3,11 +3,10 @@ const fs = require('fs');
 const cheerioInt = require('../lib/interfaces/cheerio-interface');
 
 const fileLoc = './tests/selectors/static/staticDom.html';
-const html = fs.readFileSync(fileLoc, 'utf-8')
+const html = fs.readFileSync(fileLoc, 'utf-8');
 
 
 describe('CheerioInterface', () => {
-
   const pageRep = new cheerioInt(html).init();
 
   it('should execute .init() the first time', () => {
@@ -15,53 +14,48 @@ describe('CheerioInterface', () => {
   });
   it('should shortcut .init() the second time', () => {
     const page1 = pageRep.page;
-    const page2  =  pageRep.init();
+    const page2 = pageRep.init();
     assert.ok(page1 === page2);
   });
   it('should count the correct number of "span"', () => {
-    let count =  pageRep.count('span');
-    assert.strictEqual(count, 4)
+    const count = pageRep.page('span').toArray().length;
+    assert.strictEqual(count, 6);
   });
   it('should count the correct number of ".special-span"', () => {
-    let count =  pageRep.count('.special-span');
-    assert.strictEqual(count, 2)
+    const count = pageRep.page('.special-span').toArray().length;
+    assert.strictEqual(count, 2);
   });
   it('should count the correct number of "#extra-special-span"', () => {
-    let count =  pageRep.count('#extra-special-span');
-    assert.strictEqual(count, 1)
+    const count = pageRep.page('#extra-special-span').toArray().length;
+    assert.strictEqual(count, 1);
   });
   it('should count the correct number of ".unused"', () => {
-    let count =  pageRep.count('.unused');
-    assert.strictEqual(count, 0)
+    const count = pageRep.page('.unused').toArray().length;
+    assert.strictEqual(count, 0);
   });
   it('should return the correct raw html', () => {
-    let pageHtml = pageRep.getOriginalHtml();
+    const pageHtml = pageRep.getOriginalHtml();
     assert.strictEqual(
         pageHtml.replace(/\r\n/g, '\n')
-            .replace(/\n/g,"")
-            .replace(/\s*/g,'')
-            .replace(/="{2}/g, ""),
+            .replace(/\n/g, '')
+            .replace(/\s*/g, '')
+            .replace(/="{2}/g, ''),
         html.replace(/\r\n/g, '\n')
-            .replace(/\n/g,"")
-            .replace(/\s*/g,'')
-            .replace(/="{2}/g, ""));
-  });
-  it('should update the amp-img tag dom structure correctly', ()=>{
-    let htmlWithoutStub = pageRep.getOriginalHtml();
-    assert.strictEqual(pageRep.count('img'), 0)
-    pageRep.stubAmpImg();
-    assert.strictEqual(pageRep.count('img'), 3)
+            .replace(/\n/g, '')
+            .replace(/\s*/g, '')
+            .replace(/="{2}/g, ''));
   });
 
+
   it('should remove custom styles', () => {
-    assert.strictEqual(pageRep.count('style[amp-custom=""]'),1);
+    assert.strictEqual(pageRep.page('style[amp-custom=""]').toArray().length, 1);
     pageRep.removeCustomStyles();
-    assert.strictEqual(pageRep.count('style[amp-custom=""]'),0)
+    assert.strictEqual(pageRep.page('style[amp-custom=""]').toArray().length, 0);
   });
 
   it('should append custom style', () => {
-    assert.strictEqual(pageRep.count('style[amp-custom=""]'),0)
-    pageRep.append('head', "<style amp-custom>h1{color: blue}</style>")
-    assert.strictEqual(pageRep.count('style[amp-custom=""]'),1)
-  })
+    assert.strictEqual(pageRep.page('style[amp-custom=""]').toArray().length, 0);
+    pageRep.appendOriginal('head', '<style amp-custom>h1{color: blue}</style>');
+    assert.strictEqual(pageRep.page('style[amp-custom=""]').toArray().length, 1);
+  });
 });
