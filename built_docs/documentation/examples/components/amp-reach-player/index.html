@@ -1,0 +1,1605 @@
+<!DOCTYPE HTML>
+<html amp lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+    <link rel="shortcut icon" href="/static/img/favicon.png"/>
+
+    <meta name="theme-color" content="#005af0"/>
+
+    <link rel="canonical" href="http://localhost:8080/documentation/examples/components/amp-reach-player/"/>
+    <link rel="alternate" hreflang="x-default" href="http://localhost:8080/documentation/examples/components/amp-reach-player/"/>
+
+
+
+
+
+<title>Example: amp-reach-player - amp.dev</title>
+
+<meta name="description" content="Use the [amp-reach-player]({{g.doc(&#39;/content/amp-dev/documentation/components/reference/amp-reach-player.md&#39;, locale=doc.locale).url.path}}) component to embed videos hosted on Beachfront Reach in your AMP HTML pages.">
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Webpage",
+  "url": "http://localhost:8080/documentation/examples/components/amp-reach-player/ ",
+  "name": "amp.dev",
+  "headline":"Example: amp-reach-player",
+  "description":"Use the [amp-reach-player]({{g.doc(&#39;/content/amp-dev/documentation/components/reference/amp-reach-player.md&#39;, locale=doc.locale).url.path}}) component to embed videos hosted on Beachfront Reach in your AMP HTML pages.",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "http://localhost:8080"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AMP Project",
+    "logo": {
+        "url": "http://localhost:8080/static/img/icons/icon-512x512.png",
+        "width": 512,
+        "height": 512,
+        "@type": "ImageObject"
+    }
+  },
+  "image": {
+    "@type": "ImageObject",
+    "url": "http://localhost:8080/static/img/sharing/docs-example-600x314.png",
+    "width": 600,
+    "height": 314
+  }
+}
+</script>
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:description" content="Use the [amp-reach-player]({{g.doc(&#39;/content/amp-dev/documentation/components/reference/amp-reach-player.md&#39;, locale=doc.locale).url.path}}) component to embed videos hosted on Beachfront Reach in your AMP HTML pages.">
+<meta name="twitter:title" content="Example: amp-reach-player">
+<meta name="twitter:creator" content="@ampproject">
+<meta name="twitter:site" content="@ampproject">
+<meta name="twitter:image" content="http://localhost:8080/static/img/sharing/docs-example-600x314.png">
+
+<meta property="og:title" content="Example: amp-reach-player">
+<meta property="og:url" content="http://localhost:8080/documentation/examples/components/amp-reach-player/">
+<meta property="og:image" content="http://localhost:8080/static/img/sharing/docs-example-600x314.png">
+<meta property="og:image:width" content="600">
+<meta property="og:image:height" content="314">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1"/>
+
+    <link rel="preload" href="/static/fonts/noto-sans-v7-latin-regular.woff2" as="font" crossorigin>
+    <link rel="preload" href="/static/fonts/noto-sans-v7-latin-700.woff2" as="font" crossorigin>
+    <link rel="preload" href="/static/fonts/poppins-v5-latin-700.woff2" as="font" crossorigin>
+    <link rel="preload" href="/static/fonts/fira-mono-v7-latin-500.woff2" as="font" crossorigin>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style>
+    <noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+
+
+<script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
+
+<script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
+<script async custom-element="amp-animation" src="https://cdn.ampproject.org/v0/amp-animation-0.1.js"></script>
+<script async custom-element="amp-position-observer" src="https://cdn.ampproject.org/v0/amp-position-observer-0.1.js"></script>
+
+<script async custom-element="amp-consent" src="https://cdn.ampproject.org/v0/amp-consent-0.1.js"></script>
+<script async custom-element="amp-geo" src="https://cdn.ampproject.org/v0/amp-geo-0.1.js"></script>
+<script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+
+<script async custom-element="amp-install-serviceworker" src="https://cdn.ampproject.org/v0/amp-install-serviceworker-0.1.js"></script>
+
+
+<script async custom-element="amp-font" src="https://cdn.ampproject.org/v0/amp-font-0.1.js"></script>
+
+<script async custom-element="amp-reach-player" src="https://cdn.ampproject.org/v0/amp-reach-player-0.1.js"></script>
+
+    <style amp-custom>
+
+
+
+
+
+
+      @font-face{font-family:'Noto Sans';font-style:normal;font-weight:400;font-display:swap;src:local("Noto Sans"),local("NotoSans"),url("https://amp.dev/static/fonts/noto-sans-v7-latin-regular.woff2") format("woff2"),url("https://amp.dev/static/fonts/noto-sans-v7-latin-regular.woff") format("woff")}@font-face{font-family:'Noto Sans';font-style:normal;font-weight:700;font-display:swap;src:local("Noto Sans Bold"),local("NotoSans-Bold"),url("https://amp.dev/static/fonts/noto-sans-v7-latin-700.woff2") format("woff2"),url("https://amp.dev/static/fonts/noto-sans-v7-latin-700.woff") format("woff")}@font-face{font-family:'Poppins';font-style:normal;font-weight:700;font-display:swap;src:local("Poppins Bold"),local("Poppins-Bold"),url("https://amp.dev/static/fonts/poppins-v5-latin-700.woff2") format("woff2"),url("https://amp.dev/static/fonts/poppins-v5-latin-700.woff") format("woff")}@font-face{font-family:'Fira Mono';font-style:normal;font-weight:400;font-display:swap;src:local("Fira Mono"),local("FiraMono"),url("https://amp.dev/static/fonts/fira-mono-v7-latin-500.woff2") format("woff2"),url("https://amp.dev/static/fonts/fira-mono-v7-latin-500.woff") format("woff")}*{box-sizing:border-box}html,body{padding:0;margin:0;min-width:320px;color:#48525C;background-color:#fff;font-size:16px;font-family:'Noto Sans', sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}:target::before{content:'';display:block;height:145px;margin-top:-145px;visibility:hidden}@media (min-width: 1024px){:target::before{height:110px;margin-top:-110px}}@keyframes PULSE{0%{opacity:0}100%{opacity:1}}.ap--media .amp-active{width:20px;height:20px;background-image:url('data:image/svg+xml;utf8,<svg id="bolt-outline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 47"><path fill="%2391979D" fill-rule="nonzero" d="M16.545 1.2h2.763l-2.732 16.566 8.46-.012.119-.002c.761 0 1.38.619 1.38 1.381 0 .328-.306.883-.306.883L11.027 45.41l-2.81-.012 2.8-16.592-8.503.01-.135.002A1.38 1.38 0 0 1 1 27.437c0-.31.12-.582.293-.813L16.545 1.2z"/></svg>');background-repeat:no-repeat;animation:PULSE 1s infinite ease alternate}.ap--media .amp-active>div{display:none}h1,h2,h3,h4,h5{margin-top:1.5rem;margin-bottom:.75em;font-family:'Poppins', sans-serif;font-weight:700;line-height:1.2em;color:#20202A}h1{font-size:2.2rem;margin-top:3rem}section.ap--content h1:first-of-type{margin-top:0;margin-bottom:2rem}h2{font-size:1.8rem;margin-top:2rem}h3{font-size:1.414rem;margin-top:1.8rem}h4{font-size:1.2rem}h5{font-size:1rem}.ap--content .intro{font-size:1rem;padding:0}.ap--content .intro *{font-size:inherit}.ap--content p{line-height:1.6rem;font-weight:normal;color:#48525C;display:block;margin-top:1.1em;margin-bottom:0;font-size:1rem}.ap--content p small{font-size:0.875rem}.ap--content code{display:inline;padding:2px 4px;font-family:'Fira Mono', monospace;font-weight:500;word-break:normal;color:#000;background-color:#EAEAEA;font-size:0.9em}.ap--content a{position:relative;z-index:10}.ap--content a code{color:#005AF0;z-index:-1}.ap--content pre{font-family:'Fira Mono', monospace;font-weight:500;font-size:1rem;white-space:pre-wrap}.ap--content ul,.ap--content ol{line-height:1.6rem;font-weight:normal;color:#48525C;display:block;margin-top:1.1em;margin-bottom:0;padding-left:2em;margin:1.5em 0 1.5em}.ap--content ul ul,.ap--content ul ol,.ap--content ol ul,.ap--content ol ol{margin:0}.ap--content ul li,.ap--content ol li{padding-left:0.5em}.ap--content ul li p,.ap--content ol li p{font-size:1em}.ap--content figure figcaption{line-height:1.6rem;font-weight:normal;color:#48525C;font-size:0.8125rem;margin-top:0.3em}.ap--content hr{height:1px;margin:0.75em 0;background-color:#EBEBF0;border:none}.ap-m-lnk{display:flex;align-items:center;text-decoration:none;padding:0 0 1.5em;margin:0}.ap-m-lnk-text{line-height:1.6rem;font-weight:normal;color:#48525C;font-size:0.875rem;font-weight:bold;color:#005AF0;line-height:1.3;transition:transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1)}.ap-m-lnk-icon{fill:#005AF0;padding:0.438em 0;margin-bottom:auto;margin-right:0.625em;box-sizing:initial;transition:transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1)}.ap-m-lnk:hover .ap-m-lnk-text,.ap-m-lnk:hover .ap-m-lnk-icon{transform:translateX(10px)}.ap-m-lnk-square{border-bottom:1px solid #EBEBF0}.ap-m-lnk-square .ap-m-lnk-text{font-size:1rem;font-family:'Poppins', sans-serif;font-weight:700;color:#000;padding-left:10px}.ap-m-lnk-square .ap-m-lnk-icon{width:1.375em;height:1.375em;fill:#fff;background-color:#005AF0;overflow:hidden;padding:0.563em;box-shadow:0 10px 20px 0 rgba(0,0,0,0.25)}.ap-m-lnk-square:hover .ap-m-lnk-icon{box-shadow:0 10px 20px 0 rgba(0,0,0,0.25)}.ap-m-lnk-square:hover .ap-m-lnk-icon svg{animation:0.3s cubic-bezier(0.25, 0.1, 0.25, 1) duepduep}@keyframes duepduep{0%{transform:translate(0, 0)}49%{transform:translate(40px, 0)}50%{transform:translate(-40px, 0)}100%{transform:translate(0, 0)}}a{font-weight:bold;text-decoration:none;color:#005AF0}a code{display:inline;padding:2px 4px;font-family:'Fira Mono', monospace;font-weight:500;word-break:normal;color:#000;background-color:#EAEAEA;font-size:0.9em;color:#005AF0}.ap-a-ico{display:flex;font-size:initial;box-sizing:initial;justify-content:center;width:1em;height:1em}.ap-o-consent{right:20px;left:auto;bottom:20px;width:calc(100% - 40px);padding:15px;line-height:1.6rem;font-weight:normal;color:#48525C;font-size:0.875rem;background-color:#fff;box-shadow:0 15px 30px 0px rgba(0,0,0,0.15);border-radius:8px}@media (min-width: 768px){.ap-o-consent{max-width:500px}}.ap-o-consent-close{position:absolute;right:15px;top:15px;background-color:transparent;border:none;padding:0}.ap-o-consent-close svg{width:10px;height:10px}.ap-o-consent button{cursor:pointer}.ap--footer{position:relative;z-index:18;padding:3em 0 2em;line-height:1.6rem;font-weight:normal;color:#48525C;font-size:1rem;color:#fff;background:linear-gradient(45deg, #48525C, #29323C)}.ap-o-footer{width:100%;max-width:1440px;padding:0 20px;margin:0 auto}.ap-o-footer-line-top{padding-bottom:4em}@media (min-width: 768px){.ap-o-footer-line-top{display:flex;align-items:center}}.ap-o-footer-follow{display:flex;flex-direction:column;margin-left:auto}@media (min-width: 1024px){.ap-o-footer-follow{flex-direction:row}}.ap-o-footer-follow-title{margin:3em 2em 1em 0;color:#fff}@media (min-width: 768px){.ap-o-footer-follow-title{margin:auto 2em auto 1em}}.ap-o-footer-follow-menu{display:flex;list-style:none;padding:0;margin:0}.ap-o-footer-follow-item{flex:1 0 auto}@media (min-width: 768px){.ap-o-footer-follow-item{margin:16px}}.ap-o-footer-follow-icon{width:2.5em;height:2.5em;fill:#fff}@media (min-width: 768px){.ap-o-footer-nav{display:grid;grid-gap:30px;grid-template-columns:repeat(12, 1fr)}}.ap-o-footer-nav-column{flex:1 1 100%}.ap-o-footer-nav-column:nth-child(2n+1){grid-column:span 3}@media (max-width: 1023px){.ap-o-footer-nav-column:nth-child(2n+1){grid-column:span 6}}.ap-o-footer-nav-column:nth-child(2n+2){grid-column:span 3}@media (max-width: 1023px){.ap-o-footer-nav-column:nth-child(2n+2){grid-column:span 6}}.ap-o-footer-nav-title{color:#fff}.ap-o-footer-nav-menu{list-style:none;padding:0}.ap-o-footer-nav-item{position:relative}.ap-o-footer-nav-link{padding-left:35px;font-size:0.8125rem;color:#fff}.ap-o-footer-nav-icon{position:absolute;left:10px;top:8px;width:12px;height:12px;fill:#fff}.ap-o-footer-line-bottom{display:flex;padding-top:4em}@media (max-width: 767px){.ap-o-footer-line-bottom{flex-direction:column}}.ap-o-footer-legal-nav-menu{list-style:none;padding:0;margin:0}.ap-o-footer-legal-nav-item{display:inline-block;margin-right:1em}.ap-o-footer-legal-nav-link{font-size:0.8125rem;font-weight:400;color:#fff}.ap-o-footer-copyright{display:block;font-size:0.875rem;font-weight:bold}@media (min-width: 768px){.ap-o-footer-copyright{padding:0 2em}}.ap-a-img{position:relative}.image-preview-1 .ap-a-img{overflow:hidden;border-radius:50%}.image-preview-2 .ap-a-img{margin-right:-30px;filter:drop-shadow(0 30px 30px -15px rgba(0,0,0,0.25))}@media (min-width: 768px){.image-preview-2 .ap-a-img{margin-right:0}}.ap-a-divider{display:block;width:100%;height:1px;margin-bottom:0.813em;background-color:#FAFAFC}@media (min-width: 768px){.ap-a-divider{display:none}}@media (min-width: 768px){.ap-a-divider-desktop{display:block}}.ap-o-help-hl{margin-top:1.5rem;margin-bottom:.75em;font-family:'Poppins', sans-serif;font-weight:700;line-height:1.2em;color:#20202A;font-size:1.8rem;margin-top:2rem;padding:20px 0}.ap-o-help-hl-lnk{margin-top:1.5rem;margin-bottom:.75em;font-family:'Poppins', sans-serif;font-weight:700;line-height:1.2em;color:#20202A;font-size:1.2rem;padding-left:20px;margin-bottom:0}.ap-o-help-copy{line-height:1.6rem;font-weight:normal;color:#48525C;font-size:1rem}.ap-o-help-divider{display:block;background-color:#F4F4F4;height:1px;margin:30px 20px 30px 0px}.ap-o-code-preview{position:relative;background:linear-gradient(45deg, #48525C, #29323C)}.ap-o-code-preview-reload{position:absolute;top:1em;right:1em;background-color:transparent;border:none;padding:0}.ap-o-code-preview-reload .ap-a-ico{fill:#FFF}.ap-o-code-preview-preview{position:relative;top:1em;margin:1em;background:#fff;box-shadow:0 2px 10px 0 rgba(0,0,0,0.07)}.ap-o-code-preview-preview-iframe{display:flex;justify-content:center;position:relative;top:1em;margin:1em}.ap-o-code-preview-iframe{background:#fff;box-shadow:0 2px 10px 0 rgba(0,0,0,0.07);margin-bottom:1em}.ap-o-code-preview .ap-m-code-snippet{background:none}.ap-a-btn{margin-top:1.5rem;margin-bottom:.75em;font-family:'Poppins', sans-serif;font-weight:700;line-height:1.2em;color:#20202A;font-size:1em;color:#fff;display:inline-block;max-width:100%;width:auto;height:auto;padding:0.75em 1.75em;margin:0;text-decoration:none;text-align:center;border-radius:3px;background-color:#005AF0;border:none;cursor:pointer;box-shadow:0 15px 35px -5px rgba(0,0,0,0.25);transition:transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1),box-shadow 0.3s cubic-bezier(0.25, 0.1, 0.25, 1)}.ap-a-btn:hover{transform:translateY(-0.125em);box-shadow:0 25px 20px -15px rgba(0,0,0,0.15)}@media (min-width: 768px){.ap-a-btn{padding:1em 2em}}.ap-m-breadcrumbs{display:flex;align-items:center;font-family:'Poppins', sans-serif;font-weight:700;font-size:0.8125rem}.ap-m-breadcrumbs-angle{width:10px;height:10px;margin:0 6px;transform:rotate(-90deg)}.ap-a-format-tag{display:inline-block;padding:0 12px;border-radius:14px;font-family:'Poppins', sans-serif;font-weight:700;color:#fff}.ap-a-format-tag-websites{background:linear-gradient(225deg, #00DCC0 0%, #005AF0 75%)}.ap-a-format-tag-stories{background:linear-gradient(225deg, #FF8F00 0%, #FFDC00 75%);color:#4C038C}.ap-a-format-tag-ads{background:linear-gradient(225deg, #EB49E1 0%, #5500D7 75%)}.ap-a-format-tag-email{background:linear-gradient(225deg, #64BF46 0%, #E1EB64 75%);color:#180CA4}.ap--toc{width:100%}@media (min-width: 1024px){.ap--toc{background:none;box-shadow:none;padding-right:10px}}.ap-o-toc{position:relative;z-index:1;top:0;right:0;width:calc(100% - 20px);overflow-y:auto;-webkit-overflow-scrolling:touch;background-color:#fff;box-shadow:0 2px 10px 0 rgba(0,0,0,0.07);border-radius:8px;padding:15px;margin-bottom:10px}.ap-o-toc::-webkit-scrollbar{width:2px}.ap-o-toc::-webkit-scrollbar-thumb{background-color:rgba(0,0,0,0.1)}@media (min-width: 768px){.ap-o-toc{width:100%}}@media (min-width: 1024px){.ap-o-toc{position:-webkit-sticky;position:sticky;z-index:1;padding:0 10px 0 0;height:auto;top:114px;right:auto;background:none;box-shadow:none;overflow-y:scroll;max-height:calc(100vh - 214px)}}.ap-o-toc-hl{font-family:'Poppins', sans-serif;font-weight:700;cursor:pointer;width:100%;margin-bottom:0px}@media (min-width: 1024px){.ap-o-toc-hl{margin-bottom:10px}}.ap-o-toc-toggle{display:flex;align-items:center;justify-content:space-between;outline:0}.ap-o-toc ul{list-style:none;margin:0;padding:0;transition:0.4s}.ap-o-toc ul>li a{display:block;padding-bottom:20px;line-height:1.6rem;font-weight:normal;color:#48525C;font-size:0.8125rem;font-weight:bold;line-height:1rem}.ap-o-toc ul>li>ul{padding-left:10px;text-transform:none}.ap-o-toc ul>li>ul li a{font-weight:normal}@media (max-width: 1023px){.ap-o-toc .ap-a-sidebar-toggle-input-toc:not(:checked)+ul{display:none;transition:0.2s}}@media (max-width: 1023px){.ap-o-toc .ap-a-sidebar-toggle-input-toc:checked+ul{margin-top:15px}}.ap-o-toc .nav-icon svg{width:15px;height:15px}@media (min-width: 1024px){.ap-o-toc .nav-icon{display:none}}.ap-o-toc .nav-icon .ap-a-ico{display:inline-block;transform:rotate(-90deg)}.ap-o-toc.contentmenuopen .nav-icon .ap-a-ico{transform:rotate(0)}.ap--sidebar-toggle-observer{position:absolute;top:50px}.ap--sidebar-toggle-visibility-observer{position:absolute;top:85%;height:15%}.ap-a-sidebar-toggle-input{position:fixed;top:-99px}.ap-a-sidebar-mobile-toggle-input{position:fixed;top:-99px}.ap-a-sidebar-mobile-toggle-input ~ .ap--content .ap-a-sidebar-mobile-toggle-label{transition:0.2s}.ap-a-sidebar-mobile-toggle-label{position:fixed;z-index:21;margin-top:-52px;margin-left:-25px;font-size:12px;font-family:'Poppins', sans-serif;font-weight:700;color:#fff;fill:#fff;cursor:pointer;display:flex;align-items:center}@media (min-width: 768px){.ap-a-sidebar-mobile-toggle-label{display:none}}.ap-a-sidebar-mobile-toggle-label:focus{outline:none}.ap-a-sidebar-mobile-toggle-label .label-icon{border-radius:4px;background:#005AF0;height:35px;width:32px;padding-left:2px;display:flex;justify-content:center;align-items:center;box-shadow:0 10px 20px -5px rgba(0,0,0,0.25)}.ap-a-sidebar-mobile-toggle-label .label-icon svg{height:14px;width:14px;transform:rotate(180deg)}.ap-a-sidebar-mobile-toggle-label .label-title{padding:5px 10px 5px 5px;opacity:0;margin-left:-5px;border-radius:0 4px 4px 0;background:#005AF0;height:35px;display:flex;align-items:center;box-shadow:0 10px 20px -5px rgba(0,0,0,0.25)}@media (min-width: 768px){.ap-a-sidebar-mobile-toggle{display:none}}.ap-a-sidebar-desktop-toggle{display:none}.ap-a-sidebar-desktop-toggle-input{position:fixed;top:-99px}.ap-a-sidebar-desktop-toggle-label{display:none}@media (min-width: 768px) and (max-width: 1440px){.ap-a-sidebar-desktop-toggle{display:inline-block}.ap-a-sidebar-desktop-toggle-input:checked ~ .ap--sidebar{grid-column:1 / 2}.ap-a-sidebar-desktop-toggle-input:checked ~ .ap--sidebar nav ul{display:none}.ap-a-sidebar-desktop-toggle-input:checked ~ .ap--sidebar svg{transform:rotate(180deg)}}@media (min-width: 768px) and (max-width: 1440px) and (max-width: 1023px){.ap-a-sidebar-desktop-toggle-input:checked ~ .ap--toc{grid-column:2 / 25}}@media (min-width: 768px) and (max-width: 1440px){.ap-a-sidebar-desktop-toggle-input:checked ~ .ap--toc+.ap--content{padding-left:80px;padding-right:80px;grid-column:2 / 20}}@media (min-width: 768px) and (max-width: 1440px) and (max-width: 1023px){.ap-a-sidebar-desktop-toggle-input:checked ~ .ap--toc+.ap--content{grid-column:2 / 25}}@media (min-width: 768px) and (max-width: 1440px){.ap-a-sidebar-desktop-toggle-input:checked ~ .ap--content,.ap-a-sidebar-desktop-toggle-input:checked ~ .ap--help{grid-column-start:2;padding-left:80px;padding-right:80px}.ap-a-sidebar-desktop-toggle-input:checked ~ .ap--content .ap-a-sidebar-desktop-toggle-label,.ap-a-sidebar-desktop-toggle-input:checked ~ .ap--help .ap-a-sidebar-desktop-toggle-label{margin-left:-88px}.ap-a-sidebar-desktop-toggle-input:checked ~ .ap--content .ap-a-sidebar-desktop-toggle-label .label-icon svg,.ap-a-sidebar-desktop-toggle-input:checked ~ .ap--help .ap-a-sidebar-desktop-toggle-label .label-icon svg{transform:rotate(180deg)}.ap-a-sidebar-desktop-toggle-label{position:fixed;z-index:16;margin-top:-52px;margin-left:-40px;font-size:12px;font-family:'Poppins', sans-serif;font-weight:700;color:#fff;fill:#fff;cursor:pointer;display:flex;align-items:center}.ap-a-sidebar-desktop-toggle-label:focus{outline:none}.ap-a-sidebar-desktop-toggle-label .label-icon{border-radius:4px;background:#005AF0;height:35px;width:32px;padding-left:2px;display:flex;justify-content:center;align-items:center;box-shadow:0 10px 20px -5px rgba(0,0,0,0.25)}.ap-a-sidebar-desktop-toggle-label .label-icon svg{height:14px;width:14px}.ap-a-sidebar-desktop-toggle-label .label-title{padding:5px 10px 5px 5px;opacity:0;margin-left:-5px;border-radius:0 4px 4px 0;background:#005AF0;height:35px;display:flex;align-items:center;box-shadow:0 10px 20px -5px rgba(0,0,0,0.25)}}.ap-m-format-toggle{position:relative;margin:0 10px;padding:10px 0 0 0;max-width:85%}@media (min-width: 768px){.ap-m-format-toggle{padding:0;margin:0 15px;max-width:100%}}.ap-m-format-toggle-selected{border:0}.amp-mode-touch .ap-m-format-toggle-selected{position:relative}.ap-m-format-toggle-selected:focus:after,.ap-m-format-toggle-selected:hover:after{position:absolute;top:0;left:0;content:"";display:block;height:300%;width:100%}.ap-m-format-toggle-link,.ap-m-format-toggle-selected{z-index:3;display:flex;align-items:center;width:100%;margin-bottom:2px;padding:5px 8px;overflow:hidden;line-height:1.6rem;font-weight:normal;color:#48525C;font-family:'Poppins', sans-serif;font-weight:700;font-size:12px;text-align:left;border-radius:4px;color:#000;background:#EBEBF0;transition:opacity 0.2s ease;box-shadow:0 5px 15px -5px rgba(0,0,0,0.25)}.ap-m-format-toggle-link .ap-a-ico,.ap-m-format-toggle-selected .ap-a-ico{width:14px;height:14px;margin-right:8px;fill:#000}.ap-m-format-toggle-link{color:#000;background:#EBEBF0}.ap-m-format-toggle-link .ap-a-ico{fill:#000}.ap-m-format-toggle-link-websites:hover,.ap-m-format-toggle-link-websites.ap-m-format-toggle-selected{background:linear-gradient(225deg, #00DCC0 0%, #005AF0 75%);color:#fff}.ap-m-format-toggle-link-websites:hover .ap-a-ico,.ap-m-format-toggle-link-websites.ap-m-format-toggle-selected .ap-a-ico{fill:#fff}.ap-m-format-toggle-link-stories:hover,.ap-m-format-toggle-link-stories.ap-m-format-toggle-selected{background:linear-gradient(225deg, #FF8F00 0%, #FFDC00 75%);color:#4C038C}.ap-m-format-toggle-link-stories:hover .ap-a-ico,.ap-m-format-toggle-link-stories.ap-m-format-toggle-selected .ap-a-ico{fill:#4C038C}.ap-m-format-toggle-link-ads:hover,.ap-m-format-toggle-link-ads.ap-m-format-toggle-selected{background:linear-gradient(225deg, #EB49E1 0%, #5500D7 75%);color:#fff}.ap-m-format-toggle-link-ads:hover .ap-a-ico,.ap-m-format-toggle-link-ads.ap-m-format-toggle-selected .ap-a-ico{fill:#fff}.ap-m-format-toggle-link-email:hover,.ap-m-format-toggle-link-email.ap-m-format-toggle-selected{background:linear-gradient(225deg, #64BF46 0%, #E1EB64 75%);color:#180CA4}.ap-m-format-toggle-link-email:hover .ap-a-ico,.ap-m-format-toggle-link-email.ap-m-format-toggle-selected .ap-a-ico{fill:#180CA4}.ap-m-format-toggle-angle{margin-right:0;margin-left:auto}.ap-m-format-toggle-formats{position:absolute;width:100%;z-index:2;pointer-events:none;opacity:0;transform:translateY(-20px);transition:all 0.2s ease;transition-delay:0.05s}.ap-m-format-toggle-selected:focus+.ap-m-format-toggle-formats,.ap-m-format-toggle-selected:hover+.ap-m-format-toggle-formats,.ap-m-format-toggle-formats:focus-within,.ap-m-format-toggle-formats:hover{pointer-events:auto;opacity:1;transform:translateY(0)}body{top:0;left:0;background-repeat:no-repeat;background-size:100% auto;background-position:top right;background-attachment:fixed}body.ap--websites{background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 768"><defs><linearGradient id="a" x1="239.67" y1="855.23" x2="606.28" y2="-152.04" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="%23fff" stop-opacity="0"/><stop offset="1" stop-color="%23d5e6f2"/></linearGradient></defs><g><path fill="url(%23a)" d="M0 0h1024v214L786.37 768H0V0z"/></g></svg>')}body.ap--ads{background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 768"><defs><linearGradient id="a" x1="239.67" x2="606.28" y1="855.23" y2="-152.04" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="%23fff" stop-opacity="0"/><stop offset="1" stop-color="%23ddd3eb"/></linearGradient></defs><g><path fill="url(%23a)" d="M0 0h1024v214L786.37 768H0V0z"/></g></svg>')}body.ap--stories{background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 768"><defs><linearGradient id="a" x1="239.67" x2="606.28" y1="855.23" y2="-152.04" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="%23fff" stop-opacity="0"/><stop offset="1" stop-color="%23ebdfd3"/></linearGradient></defs><g><path fill="url(%23a)" d="M0 0h1024v214L786.37 768H0V0z"/></g></svg>')}body.ap--email{background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 768"><defs><linearGradient id="a" x1="239.67" x2="606.28" y1="855.23" y2="-152.04" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="%23fff" stop-opacity="0"/><stop offset="1" stop-color="%23d7ebd3"/></linearGradient></defs><g><path fill="url(%23a)" d="M0 0h1024v214L786.37 768H0V0z"/></g></svg>')}amp-sidebar{background:#FAFAFC}nav[toolbar]{top:36px;overflow:auto;-webkit-overflow-scrolling:touch}@media (min-width: 768px){nav[toolbar]{height:100vh;position:sticky;overflow:auto;max-height:calc(100vh - 168px)}}nav[toolbar]::-webkit-scrollbar{width:2px}nav[toolbar]::-webkit-scrollbar-thumb{background-color:rgba(0,0,0,0.1)}nav[toolbar]>ul{margin:0;padding:0}.ap--ampsidebar{max-width:90vw}@media (max-width: 767px){.ap--ampsidebar nav{width:100vw}}@media (min-width: 768px){.ap-o-sidebar{position:-webkit-sticky;position:sticky;z-index:1;top:118px;left:auto;width:auto;min-height:400px;padding-bottom:0;margin-right:0;margin-left:-10px;background:none;box-shadow:none}}@media (min-width: 1024px){.ap-o-sidebar{top:120px}}.ap-o-sidebar .nav{margin:15px 0 0;padding-bottom:15px}.ap-o-sidebar .nav-list{max-width:300px;list-style:none;padding:0;margin:0}.ap-o-sidebar .nav-list.level-1{margin:0 15px}.ap-o-sidebar .nav-list .nav-list{display:none;margin-bottom:20px}.ap-o-sidebar .nav-item{position:relative;margin:0;padding:0}.ap-o-sidebar .nav-item.level-1{border-bottom:1px solid rgba(0,0,0,0.15)}.ap-o-sidebar .nav-item.level-1:last-child{border-bottom:none}.ap-o-sidebar .nav-item.level-1 .nav-link{padding:10px 25px 10px 20px;text-transform:uppercase;font-size:1.125rem;font-weight:bold;font-family:'Poppins', sans-serif;font-weight:700;color:#000}.ap-o-sidebar .nav-item.level-1 .nav-trigger,.ap-o-sidebar .nav-item.level-1 .nav-icon{height:46px}.ap-o-sidebar .nav-item.level-1 .nav-icon .ap-a-ico{margin-top:16px}.ap-o-sidebar .nav-item.level-2 .nav-link{padding:7px 25px 8px 20px;text-transform:unset;line-height:1.6rem;font-weight:normal;color:#48525C;font-family:'Noto Sans', sans-serif;font-size:0.875rem;line-height:1.4em}.ap-o-sidebar .nav-item.level-2 .nav-trigger,.ap-o-sidebar .nav-item.level-2 .nav-icon{height:33px}.ap-o-sidebar .nav-item.level-2 .nav-icon .ap-a-ico{width:10px;height:10px;margin-top:10px}.ap-o-sidebar .nav-item.level-3{margin-left:24px}.ap-o-sidebar .nav-item.level-3 .nav-link{padding:7px 25px 8px 20px;font-size:0.8125rem}.ap-o-sidebar .nav-item.level-3.active{background:rgba(51,61,71,0.1);border-radius:4px}.ap-o-sidebar .nav-item.active>.nav-link{font-weight:bold;color:#005AF0}.ap-o-sidebar .nav-item:hover>.nav-link{color:#005AF0}.ap-o-sidebar .nav-item-tutorial-divider{border-bottom:1px dashed rgba(0,0,0,0.15)}.ap-o-sidebar .nav-link{position:relative;display:block;padding:0;margin:0;color:rgba(0,0,0,0.75);border:none;background-color:transparent}.ap-o-sidebar .nav-link-lastword{white-space:nowrap}.ap-o-sidebar .nav-icon,.ap-o-sidebar .nav-trigger{position:absolute;top:0;width:40px;padding:0;margin:0;background:none transparent;cursor:pointer}.ap-o-sidebar .nav-trigger{opacity:0;z-index:1}.ap-o-sidebar .nav-trigger:checked ~ ul{display:block}.ap-o-sidebar .nav-trigger:checked+.nav-icon .ap-a-ico{transform:rotate(0)}.ap-o-sidebar .nav-icon .ap-a-ico{width:12px;height:12px;transform:rotate(-90deg)}.ap-o-sidebar .nav-type-icon{display:inline-block;vertical-align:top;width:20px;height:20px;margin-left:6px}.ap-o-sidebar .nav span.nav-link+.nav-trigger{width:calc(100% + 15px)}.ap-o-sidebar-section{max-width:100%}.ap-o-burger-menu{position:fixed;top:0;left:0;width:100vw;height:100vh;padding:110px 20px 80px;z-index:16;background-color:#fff;pointer-events:none;opacity:0;transition:transform 0.2s ease, opacity 0.2s ease}.ap-o-burger-menu-label{position:fixed;z-index:17;top:45px;right:20px;cursor:pointer}.ap-o-burger-menu-label:focus{outline:none}.ap-o-burger-menu-label.mainmenuopen{z-index:1004}@media (min-width: 768px){.ap-o-burger-menu-label{right:30px}}@media (min-width: 1024px){.ap-o-burger-menu-label{display:none}}.ap-o-burger-menu-icon{width:30px;height:30px}.ap-o-burger-menu-input{display:none}@media (min-width: 1024px){.ap-o-burger-menu{display:none}}.ap-o-burger-menu-input:checked+.ap-o-burger-menu{pointer-events:auto;opacity:1}.ap-o-burger-menu-input:checked+.ap-o-burger-menu.mainmenuopen{z-index:1003}.ap-o-burger-menu-input:checked+.ap-o-burger-menu ~ .ap--main{max-height:100vh}.ap-o-burger-menu-input:checked+.ap-o-burger-menu ~ .ap--footer{display:none}.ap-o-burger-menu-items{list-style:none;display:flex;flex-direction:column;height:100%;margin:0;margin-top:1rem;padding:0;overflow-y:auto;-webkit-overflow-scrolling:touch}.ap-o-burger-menu-items .ap-o-burger-menu-items{margin-top:1rem}.ap-o-burger-menu-items .ap-o-burger-menu-items .ap-o-burger-menu-item:last-child{margin-bottom:0}.ap-o-burger-menu-item{margin-bottom:1rem;position:relative}.ap-o-burger-menu-item:last-child{margin-top:auto}.ap-o-burger-menu-item ul{display:none}.ap-o-burger-menu-item-trigger{position:absolute;left:0;top:0;width:100%;height:36px;padding:0;margin:0;opacity:0;background:none transparent;cursor:pointer}.ap-o-burger-menu-item-trigger:checked ~ ul{display:block}.ap-o-burger-menu-item-trigger:checked+.nav-icon .ap-a-ico{transform:rotate(-90deg)}.ap-o-burger-menu-item-trigger+.nav-icon .ap-a-ico{display:inline-block;transform:rotate(0)}.ap-o-burger-menu-item .ap-a-ico{height:0.6em;margin-bottom:0.3em;margin-left:0.3em;width:0.6em}.ap-m-language-selector{position:relative;margin-left:auto;margin-right:80px;padding-bottom:10px;display:none}@media (min-width: 1024px){.ap-m-language-selector{margin-right:0;padding-right:30px;display:block}}.ap-m-language-selector-toggle{display:flex;align-items:center;border:none;background:none}.ap-m-language-selector-icon{width:10px;height:10px;margin-left:5px}.ap-m-language-selector-list{list-style:none;display:none;position:absolute;right:15%;margin:0;padding:2px 8px;background:#fff;box-shadow:0 2px 10px 0 rgba(0,0,0,0.07)}.ap-m-language-selector .ap-m-nav-link{display:block}.ap-m-language-selector-toggle:focus ~ .ap-m-language-selector-list,.ap-m-language-selector-toggle:hover ~ .ap-m-language-selector-list,.ap-m-language-selector-list:hover{display:block}.mainmenuopen .ap-m-language-selector{display:block}.ap-m-nav-link{font-family:'Poppins', sans-serif;font-weight:700;font-size:1.5em;color:#000}@media (min-width: 1024px){.ap-m-nav-link{font-size:1rem}}.ap-m-nav-link-2{line-height:1.6rem;font-weight:normal;color:#48525C;font-size:1rem}@media (min-width: 1024px){.ap-m-nav-link-2{font-size:0.875rem}}.ap-m-nav-link-2.ap-m-nav-link-active{text-decoration:underline}.ap-m-nav-link:hover{color:#005AF0}.ap-m-nav-link-active{font-weight:bold;color:#005AF0}.ap-m-banner{padding:5px;text-align:center;color:#FAFAFC;font-family:'Poppins', sans-serif;font-weight:700;font-size:0.875rem;background:#005AF0}.ap-m-banner-link{color:currentColor}.ap-m-banner-link svg{width:0.9em;height:0.9em;margin-right:5px;vertical-align:middle;fill:currentColor}.ap-m-banner-beta{position:fixed;bottom:0;z-index:999;width:100%;color:#000;background:#FFE100}.ap--header{width:100%;max-width:2020px;margin:0 auto;position:-webkit-sticky;position:sticky;top:0;z-index:17;background-color:#fff;box-shadow:0 2px 10px 0 rgba(0,0,0,0.07)}.ap--header.mainmenuopen{z-index:1004}@media (min-width: 1024px){.ap--header{top:-35px}}.ap-o-header{display:flex;flex-direction:row;flex-wrap:wrap;align-items:center;max-width:1460px;padding:14px 0 0 20px;margin:0 auto}@media (min-width: 1024px){.ap-o-header{display:flex;padding-left:30px}}.ap-o-header-home{position:-webkit-sticky;position:sticky;top:10px;display:flex;align-items:center;padding-bottom:10px;overflow:hidden}.ap-o-header-home-logo{height:30px;margin-right:6px;width:30px}.ap-o-header-home-title,.ap-o-header-home-sub-title{margin-left:4px;font-family:'Poppins', sans-serif;font-weight:700;font-size:1.5em;color:#005AF0}@media (min-width: 1024px){.ap-o-header-home-title,.ap-o-header-home-sub-title{font-size:1.125rem}}.ap-o-header-home-sub-title{color:#000;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}.ap-o-header-main{display:none;flex:1 1 auto;padding:0 30px}@media (min-width: 1024px){.ap-o-header-main{display:flex}}.ap-o-header-main-item{position:relative;display:flex;align-items:center;margin:0 18px -5px}.ap-o-header-main-link{display:flex;align-items:center;padding:0 0 14px 0;border:0;background:none}.ap-o-header-main-link-icon{font-size:8px;margin-left:5px;transform:rotate(0deg);transition:transform 0.2s cubic-bezier(0.25, 0.1, 0.25, 1)}.ap-o-header-main-link:hover ~ .ap-o-header-flyout,.ap-o-header-main-link:focus ~ .ap-o-header-flyout,.ap-o-header-flyout:hover,.ap-o-header-flyout:focus-within{opacity:1;pointer-events:all;transition:opacity 0.2s cubic-bezier(0.25, 0.1, 0.25, 1)}.ap-o-header-flyout{box-shadow:0 10px 25px 0 rgba(0,0,0,0.2);position:absolute;top:95%;left:0;margin:0;padding:0 0 10px;pointer-events:none;opacity:0;list-style:none;background:#fff;border-radius:0 0 4px 4px;transition:opacity 0.2s cubic-bezier(0.25, 0.1, 0.25, 1)}.ap-o-header-flyout:before{content:"";display:block;background:linear-gradient(to bottom, rgba(0,0,0,0.07) 0%, rgba(255,255,255,0.07) 100%);height:8px;margin-bottom:10px}.ap-o-header-flyout-item-secondary{margin:20px 0;white-space:nowrap;min-width:200px}.ap-o-header-flyout-item-secondary a:hover{color:#005AF0}.ap-o-header-flyout-item-title{line-height:1.6rem;font-weight:normal;color:#48525C;font-size:0.875rem;font-weight:bold;font-family:'Poppins', sans-serif;font-weight:700;color:#000;line-height:1.4em}.ap-o-header-flyout-item-title.secondary{padding:0 15px}.ap-o-header-flyout-item-description{line-height:1.6rem;font-weight:normal;color:#48525C;font-size:0.8125rem;opacity:0.75;line-height:1.25em}.ap-o-header-flyout-primary-item{position:relative;width:300px}.ap-o-header-flyout-primary-item:hover .ap-o-header-flyout-primary-item-link{box-shadow:0 10px 25px 0 rgba(0,0,0,0.2);background-color:#005AF0}.ap-o-header-flyout-primary-item:hover .ap-o-header-flyout-primary-item-link-info>*{color:#fff}.ap-o-header-flyout-primary-item:hover .ap-o-header-flyout-primary-item-link-info-stories .ap-o-header-flyout-item-title{color:#180CA4}.ap-o-header-flyout-primary-item:hover .ap-o-header-flyout-primary-item-link-info-stories .ap-o-header-flyout-item-description{color:#180CA4}.ap-o-header-flyout-primary-item:hover .ap-o-header-flyout-primary-item-link-info-email .ap-o-header-flyout-item-title{color:#180CA4}.ap-o-header-flyout-primary-item:hover .ap-o-header-flyout-primary-item-link-info-email .ap-o-header-flyout-item-description{color:#180CA4}.ap-o-header-flyout-primary-item:hover .ap-o-header-flyout-primary-item-link-icon{fill:#fff}.ap-o-header-flyout-primary-item:hover .ap-o-header-flyout-primary-item-link-icon.stories{fill:#180CA4}.ap-o-header-flyout-primary-item:hover .ap-o-header-flyout-primary-item-link-icon.email{fill:#180CA4}.ap-o-header-flyout-primary-item:hover .ap-o-header-flyout-primary-item-link.websites{background:linear-gradient(225deg, #00DCC0 0%, #005AF0 75%)}.ap-o-header-flyout-primary-item:hover .ap-o-header-flyout-primary-item-link.stories{background:linear-gradient(225deg, #FF8F00 0%, #FFDC00 75%)}.ap-o-header-flyout-primary-item:hover .ap-o-header-flyout-primary-item-link.ads{background:linear-gradient(225deg, #EB49E1 0%, #5500D7 75%)}.ap-o-header-flyout-primary-item:hover .ap-o-header-flyout-primary-item-link.email{background:linear-gradient(225deg, #64BF46 0%, #E1EB64 75%)}.ap-o-header-flyout-primary-item-link{display:flex;align-items:center;border-radius:4px;padding:10px;margin:0 5px}.ap-o-header-flyout-primary-item-link-info{margin:0 20px 0 15px}.ap-o-header-flyout-primary-item-link-icon{display:flex;font-size:initial;box-sizing:initial;justify-content:center;width:2em;height:2em}.ap-o-header-flyout-primary-item-link-icon.websites{fill:url(#gradient-websites) #000}.ap-o-header-flyout-primary-item-link-icon.stories{fill:url(#gradient-stories) #000}.ap-o-header-flyout-primary-item-link-icon.ads{fill:url(#gradient-ads) #000}.ap-o-header-flyout-primary-item-link-icon.email{fill:url(#gradient-email) #000}.ap--main>.ap--container:first-child{padding-top:26px;padding-bottom:3rem}.ap--main{max-width:100vw;overflow-x:hidden}.ap-t-examples-manual .ap--container{position:relative;display:flex;flex-wrap:wrap;width:100%;max-width:1440px;padding:0 20px;margin-left:auto;margin-right:auto}@media (max-width: 767px){.ap-t-examples-manual .ap--container{padding:0 0 0 15px}}@media (min-width: 768px){.ap-t-examples-manual .ap--container{display:grid;grid-gap:30px;grid-template-columns:repeat(24, 1fr);padding:0 30px}}@media (min-width: 768px){.ap-t-examples-manual .ap--container{grid-gap:0}}@media (min-width: 1024px){.ap-t-examples-manual .ap--container{padding:0 15px}}.ap-t-examples-manual .ap--content,.ap-t-examples-manual .ap--help{grid-column:1;position:relative;width:100%;background:#FAFAFC}@media (min-width: 768px){.ap-t-examples-manual .ap--content,.ap-t-examples-manual .ap--help{grid-column:9 / 25}}@media (min-width: 1024px){.ap-t-examples-manual .ap--content,.ap-t-examples-manual .ap--help{grid-column:7 / 24}}@media (min-width: 1024px){.ap-t-examples-manual .ap--content p.limit,.ap-t-examples-manual .ap--help p.limit{max-width:70%}}@media (min-width: 768px){.ap-t-examples-manual .ap--content,.ap-t-examples-manual .ap--help{grid-column:8 / 25;padding-left:30px;padding-right:30px}}@media (min-width: 1024px){.ap-t-examples-manual .ap--content,.ap-t-examples-manual .ap--help{grid-column:6 / 24;padding-left:30px;padding-right:30px}}.ap-t-examples-manual .ap--ctas{display:flex;flex-wrap:wrap;margin-bottom:60px}@media (min-width: 768px){.ap-t-examples-manual .ap--ctas{flex-wrap:nowrap}}.ap-t-examples-manual .ap--ctas .ap-a-btn{flex:1 0 auto;margin-right:10px;margin-bottom:10px}@media (min-width: 768px){.ap-t-examples-manual .ap--ctas .ap-a-btn{flex:1 0 50%;max-width:250px}}@media (max-width: 767px){.ap-t-examples-manual .ap--playground-link{display:none}}.ap-t-examples-manual .ap--playground-link-hollow{color:#005AF0;box-shadow:none;background:transparent}.ap-t-examples-manual .ap--sidebar{grid-column:auto;padding:0}@media (min-width: 768px){.ap-t-examples-manual .ap--sidebar{grid-column:1 / 8;grid-row:span 6;margin-right:20px}}@media (min-width: 1024px){.ap-t-examples-manual .ap--sidebar{grid-column:1 / 6}}.ap-t-examples-manual .ap--toc{box-shadow:20px 25px 40px 0 rgba(0,0,0,0.05)}.ap-t-examples-manual .ap--toc ~ .ap--content{box-shadow:-30px -5px 30px -20px rgba(0,0,0,0.05)}@media (min-width: 768px){.ap-t-examples-manual .ap--toc{grid-column:8 / 25}.ap-t-examples-manual .ap--toc ~ .ap--content{padding-top:0}}@media (min-width: 768px) and (min-width: 768px){.ap-t-examples-manual .ap--toc ~ .ap--content{grid-column:8/25;padding-left:30px}}@media (min-width: 768px) and (min-width: 1024px){.ap-t-examples-manual .ap--toc ~ .ap--content{grid-column:6 / 20;padding-left:30px;padding-right:30px}}@media (min-width: 1024px){.ap-t-examples-manual .ap--toc{background:#FAFAFC;grid-column:20 / 25;grid-row:span 3;padding-top:46px;padding-bottom:60px}.ap-t-examples-manual .ap--toc ~ .ap--content{padding-top:62px}}@media (min-width: 1024px) and (max-width: 767px){.ap-t-examples-manual .ap--toc ~ .ap--content{padding-left:15px;padding-right:15px}}.ap-t-examples-manual .ap--sidebar+.ap--content,.ap-t-examples-manual .ap--toc+.ap--content{padding-top:62px}@media (max-width: 767px){.ap-t-examples-manual .ap--sidebar+.ap--content,.ap-t-examples-manual .ap--toc+.ap--content{padding-left:15px;padding-right:15px}}@media (min-width: 1024px){.ap-t-examples-manual .ap--sidebar+.ap--content:nth-of-type(2),.ap-t-examples-manual .ap--sidebar+.ap--content:nth-of-type(3),.ap-t-examples-manual .ap--toc+.ap--content:nth-of-type(2),.ap-t-examples-manual .ap--toc+.ap--content:nth-of-type(3){grid-row:1}}.ap-t-examples-manual .ap--content h1{font-size:1.8rem;margin-top:2rem}.ap-t-examples-manual .ap--content h2{font-size:1.414rem;margin-top:1.8rem}.ap-t-examples-manual .ap--content h3{font-size:1.2rem}.ap-t-examples-manual .ap--content h4{font-size:1rem}.ap-t-examples-manual .ap--title{margin-top:20px}.ap-t-examples-manual .ap--format-tags{list-style:none;margin:0;padding:0}.ap-t-examples-manual .ap-m-code-snippet{max-height:500px}.ap-m-code-snippet{overflow-x:auto;margin:1.1rem -15px 0 0;padding:0 1em;color:#fff;line-height:1.3em;background:#29323c;background:linear-gradient(225deg, #29323c 0%, #29323C 75%);scrollbar-width:thin;font-size:0.9em}.ap-m-code-snippet::-webkit-scrollbar{width:2px;height:4px}.ap-m-code-snippet::-webkit-scrollbar-thumb{background-color:#91979D}@media (min-width: 768px){.ap-m-code-snippet{max-width:100%;margin-right:-30px}}@media (min-width: 1024px){.ap-m-code-snippet{margin-right:0}}.ap-m-code-snippet pre{font-family:'Fira Mono', monospace;font-weight:500;white-space:pre;font-size:0.9rem}.ap-m-code-snippet .hll{background-color:#49483e}.ap-m-code-snippet .c{color:#75715e}.ap-m-code-snippet .k{color:#66d9ef}.ap-m-code-snippet .l{color:#ae81ff}.ap-m-code-snippet .n{color:#f8f8f2}.ap-m-code-snippet .o{color:#f15a5a}.ap-m-code-snippet .p{color:#f8f8f2}.ap-m-code-snippet .ch{color:#75715e}.ap-m-code-snippet .cm{color:#75715e}.ap-m-code-snippet .cp{color:#75715e}.ap-m-code-snippet .cpf{color:#75715e}.ap-m-code-snippet .c1{color:#75715e}.ap-m-code-snippet .cs{color:#75715e}.ap-m-code-snippet .gd{color:#f15a5a}.ap-m-code-snippet .ge{font-style:italic}.ap-m-code-snippet .gi{color:#a6e22e}.ap-m-code-snippet .gs{font-weight:bold}.ap-m-code-snippet .gu{color:#75715e}.ap-m-code-snippet .kc{color:#66d9ef}.ap-m-code-snippet .kd{color:#66d9ef}.ap-m-code-snippet .kn{color:#f15a5a}.ap-m-code-snippet .kp{color:#66d9ef}.ap-m-code-snippet .kr{color:#66d9ef}.ap-m-code-snippet .kt{color:#66d9ef}.ap-m-code-snippet .ld{color:#e6db74}.ap-m-code-snippet .m{color:#ae81ff}.ap-m-code-snippet .s{color:#e6db74}.ap-m-code-snippet .na{color:#a6e22e}.ap-m-code-snippet .nb{color:#f8f8f2}.ap-m-code-snippet .nc{color:#a6e22e}.ap-m-code-snippet .no{color:#66d9ef}.ap-m-code-snippet .nd{color:#a6e22e}.ap-m-code-snippet .ni{color:#f8f8f2}.ap-m-code-snippet .ne{color:#a6e22e}.ap-m-code-snippet .nf{color:#a6e22e}.ap-m-code-snippet .nl{color:#f8f8f2}.ap-m-code-snippet .nn{color:#f8f8f2}.ap-m-code-snippet .nx{color:#ffffff}.ap-m-code-snippet .py{color:#f8f8f2}.ap-m-code-snippet .nt{color:#f15a5a}.ap-m-code-snippet .nv{color:#f8f8f2}.ap-m-code-snippet .ow{color:#f15a5a}.ap-m-code-snippet .w{color:#f8f8f2}.ap-m-code-snippet .mb{color:#ae81ff}.ap-m-code-snippet .mf{color:#ae81ff}.ap-m-code-snippet .mh{color:#ae81ff}.ap-m-code-snippet .mi{color:#ae81ff}.ap-m-code-snippet .mo{color:#ae81ff}.ap-m-code-snippet .sa{color:#e6db74}.ap-m-code-snippet .sb{color:#e6db74}.ap-m-code-snippet .sc{color:#e6db74}.ap-m-code-snippet .dl{color:#e6db74}.ap-m-code-snippet .sd{color:#e6db74}.ap-m-code-snippet .s2{color:#e6db74}.ap-m-code-snippet .se{color:#ae81ff}.ap-m-code-snippet .sh{color:#e6db74}.ap-m-code-snippet .si{color:#e6db74}.ap-m-code-snippet .sx{color:#e6db74}.ap-m-code-snippet .sr{color:#e6db74}.ap-m-code-snippet .s1{color:#e6db74}.ap-m-code-snippet .ss{color:#e6db74}.ap-m-code-snippet .bp{color:#f8f8f2}.ap-m-code-snippet .fm{color:#a6e22e}.ap-m-code-snippet .vc{color:#f8f8f2}.ap-m-code-snippet .vg{color:#f8f8f2}.ap-m-code-snippet .vi{color:#f8f8f2}.ap-m-code-snippet .vm{color:#f8f8f2}.ap-m-code-snippet .il{color:#ae81ff}
+    </style>
+    <link rel="manifest" href="/manifest.json">
+  </head>
+<body data-available-formats="websites">
+
+	  <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <defs>
+        <symbol id="close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+    <path d="M39.503 32l22.963-22.963c2.046-2.046 2.046-5.457 0-7.503s-5.456-2.046-7.503 0l-22.963 22.963-22.963-22.963c-2.046-2.046-5.457-2.046-7.503 0s-2.046 5.457 0 7.503l22.963 22.963-22.963 22.963c-2.046 2.046-2.046 5.456 0 7.503s5.457 2.046 7.503 0l22.963-22.963 22.963 22.963c2.046 2.046 5.456 2.046 7.503 0s2.046-5.456 0-7.503l-22.963-22.963z"></path>
+</symbol><symbol id="stackoverflow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19 25"><path d="M14.2 14.7h1.6V25H0V14.7h1.6v8.6h12.5c.1-2.8.1-5.7.1-8.6zM9.5 3.2c1.8 2.7 3.6 5.4 5.4 8.2.6-.4 1.1-.8 1.7-1.2C14.8 7.5 13 4.8 11.2 2c-.5.5-1.1.8-1.7 1.2zm5.1 8.5c-2.8-1.7-5.5-3.3-8.2-5-.4.6-.7 1.2-1.1 1.8 2.7 1.7 5.5 3.3 8.2 5 .4-.6.8-1.2 1.1-1.8zM17.4 0c-.7.1-1.3.2-2 .4.5 3.2 1.1 6.5 1.6 9.7.7-.1 1.3-.2 2-.4-.5-3.2-1.1-6.5-1.6-9.7zm-4 14.1c-3.1-.9-6.2-1.7-9.2-2.6-.2.7-.4 1.4-.5 2 3.1.9 6.2 1.7 9.2 2.6.1-.6.3-1.3.5-2zm-.9 5.5H3v2.1h9.5v-2.1zm.3-2.7c-3.2-.3-6.3-.6-9.5-.9-.1.7-.1 1.4-.2 2.1 3.2.3 6.3.6 9.5.9 0-.8.1-1.4.2-2.1z"/></symbol><symbol id="github" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <path d="M32 0.792c-17.68 0-32 14.328-32 32 0 14.141 9.168 26.133 21.88 30.36 1.6 0.301 2.187-0.688 2.187-1.539 0-0.76-0.027-2.773-0.040-5.44-8.901 1.931-10.779-4.293-10.779-4.293-1.456-3.693-3.56-4.68-3.56-4.68-2.899-1.984 0.224-1.944 0.224-1.944 3.213 0.224 4.901 3.296 4.901 3.296 2.853 4.893 7.491 3.48 9.32 2.661 0.288-2.069 1.112-3.48 2.027-4.28-7.107-0.8-14.576-3.552-14.576-15.813 0-3.493 1.24-6.347 3.293-8.587-0.36-0.808-1.44-4.061 0.28-8.469 0 0 2.68-0.859 8.8 3.28 2.56-0.712 5.28-1.064 8-1.080 2.72 0.016 5.44 0.368 8 1.080 6.080-4.139 8.76-3.28 8.76-3.28 1.72 4.408 0.64 7.661 0.32 8.469 2.040 2.24 3.28 5.093 3.28 8.587 0 12.293-7.48 15-14.6 15.787 1.12 0.96 2.16 2.923 2.16 5.92 0 4.283-0.040 7.723-0.040 8.763 0 0.84 0.56 1.84 2.2 1.52 12.803-4.197 21.963-16.197 21.963-30.317 0-17.672-14.328-32-32-32z"></path>
+</symbol><symbol id="wordpress" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><path d="M57.251 18.2A28.688 28.688 0 0 1 60.766 32c0 10.611-5.749 19.883-14.301 24.867l8.787-25.405c1.64-4.107 2.187-7.389 2.187-10.304 0-1.08-.069-2.08-.187-2.96zm-21.283.277c1.725-.08 3.285-.28 3.285-.28 1.552-.2 1.371-2.48-.179-2.397 0 0-4.68.36-7.68.36-2.837 0-7.6-.4-7.6-.4-1.56-.08-1.763 2.28-.2 2.36 0 0 1.44.163 3 .24l4.48 12.28-6.32 18.88L14.277 18.4c1.731-.08 3.291-.267 3.291-.267 1.56-.2 1.376-2.48-.173-2.389 0 0-4.656.368-7.664.368-.533 0-1.168-.021-1.84-.04C13.096 8.4 21.96 3.24 32 3.24a28.642 28.642 0 0 1 19.429 7.555c-.123-.008-.243-.024-.376-.024-2.827 0-4.832 2.461-4.832 5.104 0 2.373 1.368 4.381 2.827 6.749 1.096 1.92 2.373 4.381 2.373 7.939 0 2.44-.944 5.317-2.189 9.277l-2.867 9.56-10.4-30.96.003.037zM32 60.757c-2.824 0-5.549-.408-8.128-1.165l8.632-25.083 8.84 24.232c.064.141.133.269.208.397A28.794 28.794 0 0 1 32 60.762zM3.229 32c0-4.171.896-8.133 2.493-11.707L19.439 57.89C9.85 53.226 3.231 43.389 3.228 31.999zM32 0C14.36 0 0 14.36 0 32s14.36 32 32 32 32-14.36 32-32S49.64 0 32 0z"/></symbol><symbol id="youtube" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><path d="M62.664 16.542c-.773-2.708-2.862-4.797-5.514-5.556l-.057-.014c-4.989-1.336-25.065-1.336-25.065-1.336s-20.026-.027-25.065 1.337c-2.708.773-4.797 2.862-5.556 5.514l-.014.057C.507 21.107 0 26.354 0 31.72l.001.327v-.017.252a83.84 83.84 0 0 0 1.475 15.695l-.083-.521c.773 2.708 2.862 4.797 5.513 5.556l.057.014c4.983 1.339 25.065 1.339 25.065 1.339s20.023 0 25.065-1.339c2.708-.773 4.797-2.862 5.556-5.514l.014-.057c.85-4.469 1.336-9.609 1.336-14.863l-.002-.595v.03c.002-.184.002-.403.002-.621 0-5.255-.486-10.396-1.416-15.38l.08.515zM25.621 41.608V22.42l16.71 9.609z"/></symbol><symbol id="twitter" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <path d="M63.875 12.186c-2.36 1.037-4.88 1.744-7.533 2.067 2.704-1.629 4.784-4.197 5.768-7.261-2.536 1.48-5.346 2.557-8.338 3.157-2.389-2.557-5.794-4.157-9.576-4.157-7.245 0-13.119 5.874-13.119 13.111 0 1.040 0.12 2.040 0.339 2.997-10.906-0.515-20.572-5.752-27.042-13.669-1.139 1.925-1.776 4.162-1.776 6.6 0 4.56 2.32 8.568 5.834 10.922-2.152-0.069-4.176-0.661-5.941-1.643v0.163c0 6.36 4.514 11.663 10.522 12.871-1.101 0.296-2.264 0.456-3.456 0.456-0.837 0-1.64-0.080-2.443-0.229 1.683 5.208 6.52 9.005 12.277 9.112-4.48 3.517-10.157 5.613-16.271 5.613-1.040 0-2.077-0.061-3.12-0.179 5.837 3.717 12.714 5.89 20.151 5.89 24.143 0 37.329-19.989 37.329-37.294 0-0.557 0-1.12-0.040-1.68 2.563-1.837 4.8-4.16 6.56-6.794l-0.125-0.053z"></path>
+</symbol><symbol id="internal" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><path d="M43.16 10.18c-0.881-0.881-2.322-0.881-3.203 0s-0.881 2.322 0 3.203l16.335 16.335h-54.051c-1.281 0-2.242 1.041-2.242 2.242 0 1.281 0.961 2.322 2.242 2.322h54.051l-16.415 16.335c-0.881 0.881-0.881 2.322 0 3.203s2.322 0.881 3.203 0l20.259-20.259c0.881-0.881 0.881-2.322 0-3.203l-20.179-20.179z"></path></symbol><symbol id="external" viewBox="0 0 64 64">
+  <path d="M28.879 11.24c-0.841-0.841-2.206-0.841-3.048 0s-0.841 2.207 0 3.048l15.543 15.543h-39.241c-1.219 0-2.133 0.987-2.133 2.133 0 1.219 0.914 2.207 2.133 2.207h39.241l-15.616 15.543c-0.841 0.841-0.841 2.206 0 3.048 0.835 0.841 2.206 0.841 3.048 0l19.273-19.279c0.841-0.841 0.841-2.206 0-3.048l-19.2-19.194zM59.429 27.392c2.511 0 4.571 2.060 4.571 4.571s-2.060 4.571-4.571 4.571-4.571-2.060-4.571-4.571 2.060-4.571 4.571-4.571z"></path>
+</symbol><symbol id="sidebar-toggle" viewBox="0 0 64 64">
+  <path d="M36.032 7.9c0.985-0.996 2.624-0.996 3.643 0 0.985 0.963 0.985 2.565 0 3.526l-18.471 18.060h40.246c1.421 0.002 2.55 1.107 2.55 2.496s-1.129 2.529-2.55 2.529h-40.246l18.471 18.026c0.985 0.996 0.985 2.601 0 3.562-1.019 0.996-2.66 0.996-3.643 0l-22.844-22.336c-1.019-0.963-1.019-2.565 0-3.526l22.844-22.338z"></path>
+  <path d="M2.071 3.012c1.144 0 2.071 0.927 2.071 2.071v53.835c0 1.144-0.927 2.071-2.071 2.071s-2.071-0.927-2.071-2.071v-53.835c0-1.144 0.927-2.071 2.071-2.071z"></path>
+</symbol><symbol id="chevron-down-solid" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <path d="M55.612 14.369l8.388 11.184-32 24.078-32-24.078 8.388-11.184 23.612 17.864z"></path>
+</symbol><symbol id="menu" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <path d="M2.133 13.867h59.733c1.178 0 2.133 0.955 2.133 2.133v2.133c0 1.178-0.955 2.133-2.133 2.133h-59.733c-1.178 0-2.133-0.955-2.133-2.133v-2.133c0-1.178 0.955-2.133 2.133-2.133z"></path>
+  <path d="M2.133 28.8h59.733c1.178 0 2.133 0.955 2.133 2.133v2.133c0 1.178-0.955 2.133-2.133 2.133h-59.733c-1.178 0-2.133-0.955-2.133-2.133v-2.133c0-1.178 0.955-2.133 2.133-2.133z"></path>
+  <path d="M2.133 43.733h59.733c1.178 0 2.133 0.955 2.133 2.133v2.133c0 1.178-0.955 2.133-2.133 2.133h-59.733c-1.178 0-2.133-0.955-2.133-2.133v-2.133c0-1.178 0.955-2.133 2.133-2.133z"></path>
+</symbol><symbol id="wrench" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <path d="M64 18.267c0 1.608-0.214 3.21-0.636 4.767l0.008 0.169c0.028 0.598-0.186 1.18-0.592 1.619-2.713 7.035-9.527 11.712-17.107 11.712-1.852 0-3.671-0.275-5.427-0.819l-25.943 25.854c-1.573 1.567-3.667 2.431-5.889 2.431s-4.318-0.864-5.89-2.431l-0.087-0.087c-3.25-3.238-3.25-8.508 0-11.747l23.75-23.669c0.66-0.657 1.046-1.529 1.090-2.456l0.173-3.404c-0.070-0.657-0.105-1.308-0.105-1.939 0-10.074 8.221-18.267 18.327-18.267 3.298 0 6.532 0.883 9.353 2.555 0.602 0.357 1.005 0.979 1.083 1.675 0.011 0.098 0.017 0.161 0.020 0.237 0.044 1.158-0.297 1.536-9.858 10.586l3.847 3.921c1.149-1.058 3.185-2.929 8.997-8.27 0.542-0.497 1.293-0.697 2.010-0.534 0.719 0.163 1.311 0.668 1.583 1.351 0.856 2.147 1.291 4.418 1.292 6.745zM59.819 22.4c0.395-1.346 0.595-2.737 0.594-4.132 0-1.194-0.141-2.367-0.422-3.507-2.922 2.685-8.959 8.231-9.040 8.307-0.536 0.494-1.37 0.474-1.88-0.046l-6.953-7.087c-0.252-0.258-0.39-0.605-0.384-0.965s0.158-0.702 0.42-0.95c2.985-2.825 7.47-7.107 9.54-9.166-1.884-0.84-3.936-1.278-6.022-1.278-8.129 0-14.742 6.59-14.742 14.691 0 0.533 0.032 1.090 0.096 1.654 0.007 0.071 0.010 0.142 0.007 0.214l-0.174 3.646c-0.087 1.818-0.847 3.528-2.138 4.816l-23.75 23.668c-1.85 1.844-1.85 4.844 0 6.688l0.087 0.087c0.897 0.893 2.088 1.385 3.356 1.385s2.46-0.492 3.355-1.385l26.429-26.338c0.2-0.199 0.419-0.39 0.693-0.601 0.377-0.292 0.882-0.363 1.326-0.187 1.743 0.692 3.578 1.044 5.456 1.044 6.243 0 11.831-3.943 13.905-9.811 0.044-0.126 0.107-0.244 0.187-0.351-0.002-0.134 0.016-0.268 0.054-0.396z"></path>
+</symbol><symbol id="template" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><path d="M1.44 0h62.56v64h-64v-64h1.44zM20.64 60.88v-39.52h-17.76v39.6h17.76zM23.44 21.36v39.6h37.44v-39.6h-37.44zM2.88 18.24h58.080v-15.36h-58.080v15.36z"></path></symbol><symbol id="learn" viewBox="0 0 64 64">
+  <path d="M57.674 35.257c0 1.779 1.416 3.221 3.163 3.221s3.163-1.442 3.163-3.221c0-1.155-0.602-2.16-1.498-2.728v-8.973c0-0.682-0.401-1.297-1.018-1.563l-29.585-12.716c-0.413-0.178-0.881-0.178-1.295 0l-29.586 12.716c-0.617 0.265-1.018 0.881-1.018 1.563s0.401 1.297 1.018 1.562l6.662 2.863v17.587c0 4.624 7.288 9.29 23.571 9.29s23.571-4.666 23.571-9.29v-17.587l4.349-1.869v6.417c-0.896 0.569-1.497 1.573-1.497 2.728zM51.491 45.567c0 1.575-4.797 5.898-20.24 5.898s-20.24-4.323-20.24-5.898v-16.155l19.593 8.421c0.207 0.089 0.427 0.134 0.647 0.134s0.441-0.045 0.647-0.134l19.593-8.421v16.155zM31.251 34.43l-25.303-10.875 25.303-10.875 25.302 10.875-25.302 10.875z"></path>
+</symbol><symbol id="examples-flyout" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 20"><g><path d="M20 19.3a.9.9 0 1 1 0-1.7 1.9 1.9 0 0 0 1.9-1.9v-3a3.6 3.6 0 0 1 1.3-2.7 3.6 3.6 0 0 1-1.3-2.8v-3A1.9 1.9 0 0 0 20 2.3a.9.9 0 1 1 0-1.7 3.6 3.6 0 0 1 3.6 3.6v3a1.9 1.9 0 0 0 2 2v1.6a1.9 1.9 0 0 0-2 2v3a3.6 3.6 0 0 1-3.6 3.5zm-14 0a3.6 3.6 0 0 1-3.6-3.6v-3a1.9 1.9 0 0 0-2-1.9V9.1a1.9 1.9 0 0 0 2-1.9v-3A3.6 3.6 0 0 1 6 .6a.9.9 0 1 1 0 1.8A1.9 1.9 0 0 0 4 4.2v3A3.6 3.6 0 0 1 2.8 10a3.6 3.6 0 0 1 1.3 2.7v3A1.9 1.9 0 0 0 6 17.6a.9.9 0 1 1 0 1.7z"/><g transform="translate(5.8 8.5)"><circle cx="12.3" cy="1.4" r="1.4"/><circle cx="7.3" cy="1.4" r="1.4"/><circle cx="2.2" cy="1.4" r="1.4"/></g></g></symbol><symbol id="components-flyout" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 22"><path d="M8.7 17l-2.5-2.2-4-3.5-.9-.8v1l2.5-2.2 4-3.5 1-.8c.2-.3.2-.8 0-1a.8.8 0 0 0-1.2 0L5.1 6l-4 3.6-.8.8c-.3.2-.3.8 0 1l2.5 2.2 4 3.6.8.8c.3.2.8.3 1.1 0 .3-.3.3-.8 0-1.1zM19.3 5l2.5 2.2 4 3.5.9.8v-1l-2.5 2.2-4 3.5-.9.8c-.3.3-.3.8 0 1 .3.4.8.3 1 0L23 16l4-3.6.9-.8c.3-.2.3-.8 0-1l-2.5-2.3-4-3.5-1-.8c-.2-.3-.7-.3-1 0-.3.3-.3.8 0 1zm-8 16.4l.7-2 1.6-5a3563.7 3563.7 0 0 1 2-5.8l1.7-5.1.8-2.5c.2-.4-.1-.9-.5-1a.8.8 0 0 0-1 .6c-.1.7-.4 1.3-.6 2l-1.6 4.9-2 5.9-1.7 5-.8 2.6c-.2.4.1.8.5 1a.8.8 0 0 0 1-.6z"/></symbol><symbol id="guides-documents" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 31 32"><path d="M6.7 28H1.2c-.4 0-.6-.4-.6-.8L.5.7c0-.4.3-.7.7-.7h21.1c.5 0 .7.3.7.7V2c0 .5-.2.7-.7.7-.4 0-.6-.2-.6-.7v-.6H1.8L2 26.6h4.8c.4 0 .7.2.7.6 0 .4-.3.7-.7.7z"/><path d="M8 6.8H6c-.4 0-.7-.3-.7-.7 0-.4.3-.7.7-.7h2c.5 0 .7.3.7.7 0 .4-.2.7-.7.7zM8 10.9H6c-.4 0-.7-.3-.7-.7 0-.4.3-.7.7-.7h2c.5 0 .7.3.7.7 0 .4-.2.7-.7.7zM8 15H6c-.4 0-.7-.3-.7-.7 0-.4.3-.7.7-.7h2c.5 0 .7.3.7.7 0 .4-.2.7-.7.7zM8 19H6c-.4 0-.7-.2-.7-.6 0-.4.3-.7.7-.7h2c.5 0 .7.3.7.7 0 .4-.2.7-.7.7z"/><path d="M29.8 4H8.7c-.5 0-.7.4-.7.8v26.5c0 .4.3.7.7.7h21.1c.4 0 .7-.3.7-.7V4.8c0-.4-.3-.7-.7-.7zm-.6 26.6H9.4V5.4h19.8v25.2z"/><path d="M18.1 22.8h-.6l.6-3.8h-1.9c-.2 0-.3-.1-.3-.3v-.2l3.4-5.8h.7l-.7 3.8h2c.2 0 .3.1.3.3v.2L18 22.8z"/></symbol><symbol id="amp-email" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="gradient-email" x1="76.2776137%" x2="20.8316146%" y1="-25.8400575%" y2="121.578822%">
+      <stop offset="0%" stop-color="#F1F068"/>
+      <stop offset="46.2139774%" stop-color="#96D64F"/>
+      <stop offset="100%" stop-color="#2DB932"/>
+    </linearGradient>
+  </defs>
+  <path d="M64 14.080c0-3.291-2.56-5.851-5.851-5.851h-52.297c-3.291 0-5.851 2.56-5.851 5.851v35.84c0 3.291 2.56 5.851 5.851 5.851h52.297c3.291 0 5.851-2.56 5.851-5.851v-35.84zM5.851 11.154h52.297c0.183 0 0.366 0 0.549 0l-24.503 25.417c-0.549 0.549-1.28 0.914-2.194 0.914-0.731 0-1.646-0.366-2.194-0.914l-24.32-25.417c0 0 0.183 0 0.366 0zM2.926 14.080c0-0.366 0-0.731 0.183-1.097l15.36 16.091-15.543 19.2v-34.194zM58.149 52.846h-52.297c-0.731 0-1.646-0.366-2.194-0.914l16.823-20.663 7.131 7.497c1.097 1.097 2.56 1.829 4.206 1.829s3.109-0.731 4.206-1.829l6.583-6.949 17.371 20.114c-0.366 0.549-1.097 0.914-1.829 0.914v0zM61.074 48.274l-16.091-18.834 15.909-16.64c0.183 0.366 0.183 0.731 0.183 1.097v34.377z"></path>
+</symbol><symbol id="amp-ads" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="gradient-ads" x1="100%" x2="14.5415777%" y1="0%" y2="123.368881%">
+      <stop offset="0%" stop-color="#FF52E1"/>
+      <stop offset="100%" stop-color="#5500D7"/>
+    </linearGradient>
+  </defs>
+  <path d="M56.399 14.68c3.654-3.846 9.616-10.963 6.924-13.847-2.885-2.885-10.001 3.269-13.847 6.731l-0.577-0.577c-0.385-0.385-0.962-0.577-1.539-0.385l-15.963 3.077c-0.385 0-0.577 0.192-0.769 0.385l-30.195 30.195c-0.577 0.577-0.577 1.731 0 2.308l20.963 20.963c0.385 0.385 0.769 0.385 1.154 0.385s0.769-0.192 1.154-0.385l30.003-30.003c0.192-0.192 0.385-0.577 0.385-0.769v0l3.077-15.963c0.192-0.577 0-1.154-0.385-1.539l-0.385-0.577zM53.899 16.988l-2.885 14.424-28.464 28.656-18.655-18.655 28.656-28.656 14.424-2.885c-1.539 1.731-4.039 4.423-5.962 7.116-1.923-0.192-3.654 0.385-5.193 1.923-2.5 2.5-2.5 6.731 0 9.232s6.731 2.5 9.232 0c1.346-1.346 2.116-3.27 1.923-5.193-0.192-1.154-0.577-2.308-1.154-3.077-0.192-0.385-0.385-0.577-0.769-0.769-0.192-0.192-0.577-0.577-0.769-0.769 1.154-1.731 2.885-3.654 5.193-5.962l2.5 2.5 1.923 2.116zM43.321 24.873c-0.192 0.385-0.385 0.577-0.577 0.962-1.346 1.346-3.27 1.346-4.616 0s-1.346-3.27 0-4.616c0.192-0.192 0.577-0.385 0.962-0.577 1.154-0.577 2.308-0.385 3.462 0.385 0.192 0 0.192 0.192 0.385 0.192 0 0 0.192 0.192 0.192 0.385 0.577 0.962 0.769 2.116 0.192 3.27zM54.091 12.372l-2.5-2.5c4.039-3.846 7.308-5.77 8.847-6.347-0.577 1.539-2.5 4.616-6.347 8.847z"></path>
+</symbol><symbol id="amp-stories" viewBox="0 0 36 32">
+  <defs>
+    <linearGradient id="gradient-stories" x1="81.726943%" x2="23.7165981%" y1="-28.3832685%" y2="119.978062%">
+      <stop offset="0%" stop-color="#FFF300"/>
+      <stop offset="100%" stop-color="#FF8F00"/>
+    </linearGradient>
+  </defs>
+  <path d="M7.111 0h21.333v32h-21.333v-32zM9.481 2.37v27.259h16.593v-27.259h-16.593zM0 4.741h2.37v22.519h-2.37v-22.519zM33.185 4.741h2.37v22.519h-2.37v-22.519z"></path>
+</symbol><symbol id="amp-websites" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="gradient-websites" x1="81.8129399%" x2="33.8766928%" y1="0%" y2="94.4849088%">
+      <stop offset="0%" stop-color="#00DCC0"/>
+      <stop offset="100%" stop-color="#005AF0"/>
+    </linearGradient>
+  </defs>
+  <path d="M63.196 4.646h-62.253c-0.566 0-0.943 0.377-0.943 0.755v53.010c0 0.566 0.377 0.943 0.943 0.943h62.253c0.566 0 0.755-0.377 0.755-0.755v-53.198c0.189-0.377-0.189-0.755-0.755-0.755zM3.395 18.040h57.348v33.202h-57.348v-33.202zM60.744 7.853v6.98h-57.348v-6.98h57.348zM3.395 56.147v-1.509h57.348v1.509h-57.348zM9.055 7.853c1.132 0 1.886 0.754 1.886 1.886s-0.755 1.886-1.886 1.886-1.886-0.755-1.886-1.886 0.943-1.886 1.886-1.886zM12.828 7.853c1.132 0 1.886 0.754 1.886 1.886s-0.755 1.886-1.886 1.886-1.886-0.755-1.886-1.886 0.943-1.886 1.886-1.886zM18.487 7.853c1.132 0 1.886 0.754 1.886 1.886s-0.755 1.886-1.886 1.886-1.886-0.755-1.886-1.886 0.943-1.886 1.886-1.886zM51.123 39.734l-11.13-13.96c-0.189-0.189-0.377-0.377-0.755-0.377v0c-0.189 0-0.566 0-0.755 0.377l-8.3 9.621-4.716-6.225c-0.189-0.189-0.377-0.377-0.755-0.377s-0.566 0-0.755 0.377l-8.866 10.376c-0.377 0.377-0.189 0.943 0 1.132s0.377 0.189 0.566 0.189c0.189 0 0.566 0 0.754-0.377l8.3-9.621 4.528 5.471-2.452 3.018c-0.377 0.377-0.189 0.943 0 1.132 0.377 0.189 0.943 0.189 1.132 0l11.319-13.017 10.376 13.205c0.189 0.189 0.377 0.377 0.755 0.377 0.189 0 0.377 0 0.566-0.189 0.377-0.377 0.566-0.943 0.189-1.132zM27.165 26.718c1.509 0 2.641-1.132 2.641-2.641 0-1.321-1.132-2.641-2.641-2.641s-2.641 1.132-2.641 2.641c0 1.509 1.132 2.641 2.641 2.641zM27.165 23.322c0.566 0 0.943 0.377 0.943 0.943s-0.377 0.943-0.943 0.943-0.943-0.377-0.943-0.943c0-0.566 0.377-0.943 0.943-0.943z"></path>
+</symbol><symbol id="angle-down-solid" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <path d="M56.293 16.003c1.761-1.645 4.553-1.645 6.314 0 1.857 1.734 1.857 4.623 0 6.357l-27.45 25.638c-1.761 1.645-4.553 1.645-6.314 0l-27.45-25.638c-0.899-0.839-1.393-1.963-1.393-3.178s0.494-2.339 1.393-3.178c1.761-1.645 4.553-1.645 6.314 0l24.293 22.689 24.293-22.689z"></path>
+</symbol><symbol id="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"><g fill="none" fill-rule="evenodd"><path fill="#FFF" d="M0 15c0 8.284 6.716 15 15 15 8.285 0 15-6.716 15-15 0-8.284-6.715-15-15-15C6.716 0 0 6.716 0 15z"/><path fill="#005AF0" fill-rule="nonzero" d="M13.85 24.098h-1.14l1.128-6.823-3.49.005h-.05a.57.57 0 0 1-.568-.569c0-.135.125-.363.125-.363l6.272-10.46 1.16.005-1.156 6.834 3.508-.004h.056c.314 0 .569.254.569.568 0 .128-.05.24-.121.335L13.85 24.098zM15 0C6.716 0 0 6.716 0 15c0 8.284 6.716 15 15 15 8.285 0 15-6.716 15-15 0-8.284-6.715-15-15-15z"/></g></symbol>
+      </defs>
+    </svg>
+
+
+
+<header class="ap--header" [class]="mainmenuopen ? 'ap--header mainmenuopen' : 'ap--header'">
+<div class="ap-m-banner">
+  <a href="/events/amp-conf-2019" class="ap-m-banner-link">
+    <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#internal"></use></svg>
+    AMP Conf 2019. April 17/18. Tokyo.
+  </a>
+</div>
+
+  <div class="ap-o-header">
+    <a class="ap-o-header-home" href="/">
+      <svg class="ap-o-header-home-logo"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#logo"></use></svg>
+      <span class="ap-o-header-home-title">AMP</span>
+    </a>
+
+    <nav class="ap-o-header-main">
+
+      <div class="ap-o-header-main-item">
+        <button class="ap-o-header-main-link ap-m-nav-link ">
+          About
+          <div class="ap-a-ico ap-o-header-main-link-icon">
+            <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#angle-down-solid"></use></svg>
+          </div>
+        </button>
+
+        <ul class="ap-o-header-flyout">
+
+          <li class="ap-o-header-flyout-primary-item">
+            <a class="ap-o-header-flyout-primary-item-link websites" href="/about/websites">
+              <div class="ap-o-header-flyout-primary-item-link-icon websites">
+                  <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#amp-websites"></use></svg>
+              </div>
+
+              <div class="ap-o-header-flyout-primary-item-link-info ap-o-header-flyout-primary-item-link-info-websites">
+                <div class="ap-o-header-flyout-item-title">AMP Websites</div>
+                <div class="ap-o-header-flyout-item-description">Create flawless web experiences</div>
+              </div>
+            </a>
+          </li>
+
+          <li class="ap-o-header-flyout-primary-item">
+            <a class="ap-o-header-flyout-primary-item-link stories" href="/about/stories">
+              <div class="ap-o-header-flyout-primary-item-link-icon stories">
+                  <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#amp-stories"></use></svg>
+              </div>
+
+              <div class="ap-o-header-flyout-primary-item-link-info ap-o-header-flyout-primary-item-link-info-stories">
+                <div class="ap-o-header-flyout-item-title">AMP Stories</div>
+                <div class="ap-o-header-flyout-item-description">Snackable formats for everyone</div>
+              </div>
+            </a>
+          </li>
+
+          <li class="ap-o-header-flyout-primary-item">
+            <a class="ap-o-header-flyout-primary-item-link ads" href="/about/ads">
+              <div class="ap-o-header-flyout-primary-item-link-icon ads">
+                  <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#amp-ads"></use></svg>
+              </div>
+
+              <div class="ap-o-header-flyout-primary-item-link-info ap-o-header-flyout-primary-item-link-info-ads">
+                <div class="ap-o-header-flyout-item-title">AMP Ads</div>
+                <div class="ap-o-header-flyout-item-description">Super fast ads on the web</div>
+              </div>
+            </a>
+          </li>
+
+          <li class="ap-o-header-flyout-primary-item">
+            <a class="ap-o-header-flyout-primary-item-link email" href="/about/email">
+              <div class="ap-o-header-flyout-primary-item-link-icon email">
+                  <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#amp-email"></use></svg>
+              </div>
+
+              <div class="ap-o-header-flyout-primary-item-link-info ap-o-header-flyout-primary-item-link-info-email">
+                <div class="ap-o-header-flyout-item-title">AMP Email</div>
+                <div class="ap-o-header-flyout-item-description">Next gen email</div>
+              </div>
+            </a>
+          </li>
+
+          <li class="ap-o-header-flyout-item-secondary">
+            <a class="ap-o-header-flyout-item-title secondary" href="/about/how-amp-works">How AMP works</a>
+          </li>
+
+          <li class="ap-o-header-flyout-item-secondary">
+            <a class="ap-o-header-flyout-item-title secondary" href="/about/mission-and-vision">Vision and Mission</a>
+          </li>
+
+          <li class="ap-o-header-flyout-item-secondary">
+            <a class="ap-o-header-flyout-item-title secondary" href="/about/use-cases">Use cases</a>
+          </li>
+
+          <li class="ap-o-header-flyout-item-secondary">
+            <a class="ap-o-header-flyout-item-title secondary" href="/success-stories/">Success Stories</a>
+          </li>
+        </ul>
+      </div>
+      <div class="ap-o-header-main-item">
+        <button class="ap-o-header-main-link ap-m-nav-link ap-m-nav-link-active">
+          Documentation
+          <div class="ap-a-ico ap-o-header-main-link-icon">
+            <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#angle-down-solid"></use></svg>
+          </div>
+        </button>
+
+        <ul class="ap-o-header-flyout">
+
+          <li class="ap-o-header-flyout-primary-item">
+            <a class="ap-o-header-flyout-primary-item-link " href="/documentation/guides-and-tutorials/">
+              <div class="ap-o-header-flyout-primary-item-link-icon ">
+                  <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#guides-documents"></use></svg>
+              </div>
+
+              <div class="ap-o-header-flyout-primary-item-link-info">
+                <div class="ap-o-header-flyout-item-title">Guides &amp; Tutorials</div>
+                <div class="ap-o-header-flyout-item-description">Get started with AMP</div>
+              </div>
+            </a>
+          </li>
+
+          <li class="ap-o-header-flyout-primary-item">
+            <a class="ap-o-header-flyout-primary-item-link " href="/documentation/components/">
+              <div class="ap-o-header-flyout-primary-item-link-icon ">
+                  <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#components-flyout"></use></svg>
+              </div>
+
+              <div class="ap-o-header-flyout-primary-item-link-info">
+                <div class="ap-o-header-flyout-item-title">Components</div>
+                <div class="ap-o-header-flyout-item-description">The complete AMP library</div>
+              </div>
+            </a>
+          </li>
+
+          <li class="ap-o-header-flyout-primary-item">
+            <a class="ap-o-header-flyout-primary-item-link " href="/documentation/examples/">
+              <div class="ap-o-header-flyout-primary-item-link-icon ">
+                  <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#examples-flyout"></use></svg>
+              </div>
+
+              <div class="ap-o-header-flyout-primary-item-link-info">
+                <div class="ap-o-header-flyout-item-title">Examples</div>
+                <div class="ap-o-header-flyout-item-description">Hands on Introduction to AMP</div>
+              </div>
+            </a>
+          </li>
+
+          <li class="ap-o-header-flyout-primary-item">
+            <a class="ap-o-header-flyout-primary-item-link " href="/documentation/courses/">
+              <div class="ap-o-header-flyout-primary-item-link-icon ">
+                  <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#learn"></use></svg>
+              </div>
+
+              <div class="ap-o-header-flyout-primary-item-link-info">
+                <div class="ap-o-header-flyout-item-title">Courses</div>
+                <div class="ap-o-header-flyout-item-description">Learn AMP with free courses</div>
+              </div>
+            </a>
+          </li>
+
+          <li class="ap-o-header-flyout-primary-item">
+            <a class="ap-o-header-flyout-primary-item-link " href="/documentation/templates/">
+              <div class="ap-o-header-flyout-primary-item-link-icon ">
+                  <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#template"></use></svg>
+              </div>
+
+              <div class="ap-o-header-flyout-primary-item-link-info">
+                <div class="ap-o-header-flyout-item-title">Templates</div>
+                <div class="ap-o-header-flyout-item-description">Ready to use</div>
+              </div>
+            </a>
+          </li>
+
+          <li class="ap-o-header-flyout-primary-item">
+            <a class="ap-o-header-flyout-primary-item-link " href="/documentation/tools">
+              <div class="ap-o-header-flyout-primary-item-link-icon ">
+                  <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#wrench"></use></svg>
+              </div>
+
+              <div class="ap-o-header-flyout-primary-item-link-info">
+                <div class="ap-o-header-flyout-item-title">Tools</div>
+                <div class="ap-o-header-flyout-item-description">Begin building</div>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="ap-o-header-main-item">
+        <button class="ap-o-header-main-link ap-m-nav-link ">
+          Community
+          <div class="ap-a-ico ap-o-header-main-link-icon">
+            <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#angle-down-solid"></use></svg>
+          </div>
+        </button>
+
+        <ul class="ap-o-header-flyout">
+
+          <li class="ap-o-header-flyout-item-secondary">
+            <a class="ap-o-header-flyout-item-title secondary" href="/documentation/guides-and-tutorials/contribute/">Contribute</a>
+          </li>
+
+          <li class="ap-o-header-flyout-item-secondary">
+            <a class="ap-o-header-flyout-item-title secondary" href="/community/platform-and-vendor-partners">Platform and vendor partners</a>
+          </li>
+
+          <li class="ap-o-header-flyout-item-secondary">
+            <a class="ap-o-header-flyout-item-title secondary" href="/community/roadmap">Roadmap</a>
+          </li>
+
+          <li class="ap-o-header-flyout-item-secondary">
+            <a class="ap-o-header-flyout-item-title secondary" href="/community/governance">Governance</a>
+          </li>
+        </ul>
+      </div>
+      <div class="ap-o-header-main-item">
+        <button class="ap-o-header-main-link ap-m-nav-link ">
+          Events
+          <div class="ap-a-ico ap-o-header-main-link-icon">
+            <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#angle-down-solid"></use></svg>
+          </div>
+        </button>
+
+        <ul class="ap-o-header-flyout">
+
+          <li class="ap-o-header-flyout-item-secondary">
+            <a class="ap-o-header-flyout-item-title secondary" href="/events/amp-conf-2019">AMP Conf 2019</a>
+          </li>
+
+          <li class="ap-o-header-flyout-item-secondary">
+            <a class="ap-o-header-flyout-item-title secondary" href="/events/amp-roadshow">AMP Roadshow</a>
+          </li>
+        </ul>
+      </div>
+      <div class="ap-o-header-main-item">
+        <a class="ap-o-header-main-link ap-m-nav-link" href="https://blog.amp.dev">Blog</a>
+      </div>
+      <div class="ap-o-header-main-item">
+        <a class="ap-o-header-main-link ap-m-nav-link " href="/support/">Support</a>
+      </div>
+    </nav>
+
+    <div class="ap-m-language-selector">
+      <button class="ap-m-language-selector-toggle" aria-label="Select a language">
+        <span class="ap-m-nav-link">EN</span>
+        <div class="ap-a-ico ap-m-language-selector-icon">
+          <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#angle-down-solid"></use></svg>
+        </div>
+      </button>
+      <div class="ap-m-language-selector-list" role="list">
+        <a class="ap-m-nav-link" href="/fr/documentation/examples/components/amp-reach-player/" role="listitem">Français</a>
+        <a class="ap-m-nav-link" href="/ar/documentation/examples/components/amp-reach-player/" role="listitem">العربية</a>
+        <a class="ap-m-nav-link" href="/es/documentation/examples/components/amp-reach-player/" role="listitem">Español</a>
+        <a class="ap-m-nav-link" href="/it/documentation/examples/components/amp-reach-player/" role="listitem">Italiano</a>
+        <a class="ap-m-nav-link" href="/id/documentation/examples/components/amp-reach-player/" role="listitem">Indonesia</a>
+        <a class="ap-m-nav-link" href="/ja/documentation/examples/components/amp-reach-player/" role="listitem">日本語</a>
+        <a class="ap-m-nav-link" href="/ko/documentation/examples/components/amp-reach-player/" role="listitem">한국어</a>
+        <a class="ap-m-nav-link" href="/pt_br/documentation/examples/components/amp-reach-player/" role="listitem">Português</a>
+        <a class="ap-m-nav-link" href="/ru/documentation/examples/components/amp-reach-player/" role="listitem">Русский</a>
+        <a class="ap-m-nav-link" href="/tr/documentation/examples/components/amp-reach-player/" role="listitem">Türkçe</a>
+        <a class="ap-m-nav-link" href="/zh_cn/documentation/examples/components/amp-reach-player/" role="listitem">中文</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<label class="ap-o-burger-menu-label" on="tap:AMP.setState({mainmenuopen: !mainmenuopen, noScrollState: !noScrollState})" [class]="mainmenuopen ? 'ap-o-burger-menu-label mainmenuopen' : 'ap-o-burger-menu-label'" for="burger-menu" tabindex="0" role="button" aria-label="Burger Menu">
+  <div class="ap-a-ico ap-o-burger-menu-icon">
+    <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#menu"></use></svg>
+  </div>
+</label>
+<input id="burger-menu" class="ap-o-burger-menu-input" type="checkbox" autocomplete="off"/>
+<nav class="ap-o-burger-menu" [class]="mainmenuopen ? 'ap-o-burger-menu mainmenuopen' : 'ap-o-burger-menu'">
+  <ul class="ap-o-burger-menu-items">
+
+    <li class="ap-o-burger-menu-item">
+      <label class="ap-o-burger-menu-link ap-m-nav-link ">
+        About
+      </label>
+      <input class="ap-o-burger-menu-item-trigger" type="checkbox" aria-label="About"/>
+      <span class="nav-icon">
+        <svg class="ap-a-ico"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#angle-down-solid"></use></svg>
+      </span>
+
+      <ul class="ap-o-burger-menu-items">
+        <li class="ap-o-burger-menu-item">
+          <a class="ap-o-burger-menu-link ap-m-nav-link-2 " href="/about/websites">
+            AMP Websites
+          </a>
+        </li>
+        <li class="ap-o-burger-menu-item">
+          <a class="ap-o-burger-menu-link ap-m-nav-link-2 " href="/about/stories">
+            AMP Stories
+          </a>
+        </li>
+        <li class="ap-o-burger-menu-item">
+          <a class="ap-o-burger-menu-link ap-m-nav-link-2 " href="/about/ads">
+            AMP Ads
+          </a>
+        </li>
+        <li class="ap-o-burger-menu-item">
+          <a class="ap-o-burger-menu-link ap-m-nav-link-2 " href="/about/email">
+            AMP Email
+          </a>
+        </li>
+        <li class="ap-o-burger-menu-item">
+          <a class="ap-o-burger-menu-link ap-m-nav-link-2 " href="/about/how-amp-works">
+            How AMP works
+          </a>
+        </li>
+        <li class="ap-o-burger-menu-item">
+          <a class="ap-o-burger-menu-link ap-m-nav-link-2 " href="/about/mission-and-vision">
+            Vision and Mission
+          </a>
+        </li>
+        <li class="ap-o-burger-menu-item">
+          <a class="ap-o-burger-menu-link ap-m-nav-link-2 " href="/about/use-cases">
+            Use cases
+          </a>
+        </li>
+        <li class="ap-o-burger-menu-item">
+          <a class="ap-o-burger-menu-link ap-m-nav-link-2 " href="/success-stories/">
+            Success Stories
+          </a>
+        </li>
+      </ul>
+    </li>
+    <li class="ap-o-burger-menu-item">
+      <label class="ap-o-burger-menu-link ap-m-nav-link ap-m-nav-link-active">
+        Documentation
+      </label>
+      <input class="ap-o-burger-menu-item-trigger" type="checkbox" aria-label="Documentation"/>
+      <span class="nav-icon">
+        <svg class="ap-a-ico"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#angle-down-solid"></use></svg>
+      </span>
+
+      <ul class="ap-o-burger-menu-items">
+        <li class="ap-o-burger-menu-item">
+          <a class="ap-o-burger-menu-link ap-m-nav-link-2 " href="/documentation/guides-and-tutorials/">
+            Guides &amp; Tutorials
+          </a>
+        </li>
+        <li class="ap-o-burger-menu-item">
+          <a class="ap-o-burger-menu-link ap-m-nav-link-2 " href="/documentation/components/">
+            Components
+          </a>
+        </li>
+        <li class="ap-o-burger-menu-item">
+          <a class="ap-o-burger-menu-link ap-m-nav-link-2 " href="/documentation/examples/">
+            Examples
+          </a>
+        </li>
+        <li class="ap-o-burger-menu-item">
+          <a class="ap-o-burger-menu-link ap-m-nav-link-2 " href="/documentation/courses/">
+            Courses
+          </a>
+        </li>
+        <li class="ap-o-burger-menu-item">
+          <a class="ap-o-burger-menu-link ap-m-nav-link-2 " href="/documentation/templates/">
+            Templates
+          </a>
+        </li>
+        <li class="ap-o-burger-menu-item">
+          <a class="ap-o-burger-menu-link ap-m-nav-link-2 " href="/documentation/tools">
+            Tools
+          </a>
+        </li>
+      </ul>
+    </li>
+    <li class="ap-o-burger-menu-item">
+      <label class="ap-o-burger-menu-link ap-m-nav-link ">
+        Community
+      </label>
+      <input class="ap-o-burger-menu-item-trigger" type="checkbox" aria-label="Community"/>
+      <span class="nav-icon">
+        <svg class="ap-a-ico"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#angle-down-solid"></use></svg>
+      </span>
+
+      <ul class="ap-o-burger-menu-items">
+        <li class="ap-o-burger-menu-item">
+          <a class="ap-o-burger-menu-link ap-m-nav-link-2 " href="/documentation/guides-and-tutorials/contribute/">
+            Contribute
+          </a>
+        </li>
+        <li class="ap-o-burger-menu-item">
+          <a class="ap-o-burger-menu-link ap-m-nav-link-2 " href="/community/platform-and-vendor-partners">
+            Platform and vendor partners
+          </a>
+        </li>
+        <li class="ap-o-burger-menu-item">
+          <a class="ap-o-burger-menu-link ap-m-nav-link-2 " href="/community/roadmap">
+            Roadmap
+          </a>
+        </li>
+        <li class="ap-o-burger-menu-item">
+          <a class="ap-o-burger-menu-link ap-m-nav-link-2 " href="/community/governance">
+            Governance
+          </a>
+        </li>
+      </ul>
+    </li>
+    <li class="ap-o-burger-menu-item">
+      <label class="ap-o-burger-menu-link ap-m-nav-link ">
+        Events
+      </label>
+      <input class="ap-o-burger-menu-item-trigger" type="checkbox" aria-label="Events"/>
+      <span class="nav-icon">
+        <svg class="ap-a-ico"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#angle-down-solid"></use></svg>
+      </span>
+
+      <ul class="ap-o-burger-menu-items">
+        <li class="ap-o-burger-menu-item">
+          <a class="ap-o-burger-menu-link ap-m-nav-link-2 " href="/events/amp-conf-2019">
+            AMP Conf 2019
+          </a>
+        </li>
+        <li class="ap-o-burger-menu-item">
+          <a class="ap-o-burger-menu-link ap-m-nav-link-2 " href="/events/amp-roadshow">
+            AMP Roadshow
+          </a>
+        </li>
+      </ul>
+    </li>
+    <li class="ap-o-burger-menu-item">
+      <a class="ap-o-burger-menu-link ap-m-nav-link" href="https://blog.amp.dev">Blog</a>
+    </li>
+    <li class="ap-o-burger-menu-item">
+      <a class="ap-o-burger-menu-link ap-m-nav-link " href="/support/">
+        Support
+      </a>
+    </li>
+  </ul>
+</nav>
+
+
+<amp-sidebar id="sidebar-left"
+  class="ap--ampsidebar"
+  layout="nodisplay"
+  side="left">
+  <nav toolbar="(min-width: 768px)"
+    toolbar-target="ap--sidebar-content">
+    <ul>
+      <section>
+        <div class="ap-o-sidebar">
+
+
+
+<div class="ap-m-format-toggle">
+  <button class="ap-m-format-toggle-selected ap-m-format-toggle-link-websites">
+    <span class="ap-a-ico">
+      <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#amp-websites"></use></svg>
+    </span>
+    <span>websites</span>
+    <span class="ap-a-ico ap-m-format-toggle-angle">
+      <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#angle-down-solid"></use></svg>
+    </span>
+  </button>
+
+  <div class="ap-m-format-toggle-formats">
+    <a class="ap-m-format-toggle-link ap-m-format-toggle-link-websites" href="/documentation/examples/?format=websites">
+      <span class="ap-a-ico">
+        <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#amp-websites"></use></svg>
+      </span>
+      <span>websites</span>
+    </a>
+    <a class="ap-m-format-toggle-link ap-m-format-toggle-link-stories" href="/documentation/examples/?format=stories">
+      <span class="ap-a-ico">
+        <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#amp-stories"></use></svg>
+      </span>
+      <span>stories</span>
+    </a>
+    <a class="ap-m-format-toggle-link ap-m-format-toggle-link-ads" href="/documentation/examples/?format=ads">
+      <span class="ap-a-ico">
+        <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#amp-ads"></use></svg>
+      </span>
+      <span>ads</span>
+    </a>
+    <a class="ap-m-format-toggle-link ap-m-format-toggle-link-email" href="/documentation/examples/?format=email">
+      <span class="ap-a-ico">
+        <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#amp-email"></use></svg>
+      </span>
+      <span>email</span>
+    </a>
+  </div>
+</div>
+          <div class="nav">
+            <ul class="nav-list level-1">
+              <li class="nav-item level-1 ">
+                <span class="nav-link">
+                  <span>introduction</span>
+                </span>
+                <input class="nav-trigger" type="checkbox" >
+                <div class="nav-icon">
+                  <svg class="ap-a-ico">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#angle-down-solid"></use>
+                  </svg>
+                </div>
+                <ul class="nav-list level-2">
+                  <li class="nav-item level-2  ap--ads " >
+                    <a class="nav-link" href="/documentation/examples/introduction/amphtml_ads_hello_world/">Hello World</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/introduction/hello_world/">Hello World</a>
+                  </li>
+                  <li class="nav-item level-2  ap--email " >
+                    <a class="nav-link" href="/documentation/examples/introduction/hello_world_email/">Hello World Email</a>
+                  </li>
+                  <li class="nav-item level-2  ap--stories " >
+                    <a class="nav-link" href="/documentation/examples/introduction/stories_in_amp/">Stories in AMP - Hello World</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul class="nav-list level-1">
+              <li class="nav-item level-1 active">
+                <span class="nav-link">
+                  <span>components</span>
+                </span>
+                <input class="nav-trigger" type="checkbox" checked>
+                <div class="nav-icon">
+                  <svg class="ap-a-ico">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#angle-down-solid"></use>
+                  </svg>
+                </div>
+                <ul class="nav-list level-2">
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-3d-gltf/">amp-3d-gltf</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-access-laterpay/">amp-access-laterpay</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-access/">amp-access</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-accordion/">amp-accordion</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-ad/">amp-ad</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-addthis/">amp-addthis</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-analytics/">amp-analytics</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-anim/">amp-anim</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-app-banner/">amp-app-banner</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-audio/">amp-audio</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-autocomplete/">amp-autocomplete</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-bind/">amp-bind</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-bodymovin-animation/">amp-bodymovin-animation</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-brid-player/">amp-brid-player</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-brightcove/">amp-brightcove</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-call-tracking/">amp-call-tracking</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-carousel/">amp-carousel</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-dailymotion/">amp-dailymotion</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-date-countdown/">amp-date-countdown</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-date-display/">amp-date-display</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-date-picker/">amp-date-picker</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-dynamic-css-classes/">amp-dynamic-css-classes</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-experiment/">amp-experiment</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-facebook-comments/">amp-facebook-comments</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-facebook-like/">amp-facebook-like</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-facebook-page/">amp-facebook-page</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-facebook/">amp-facebook</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-fit-text/">amp-fit-text</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-font/">amp-font</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-form/">amp-form</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-fx-collection/">amp-fx-collection</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-fx-flying-carpet/">amp-fx-flying-carpet</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-geo/">amp-geo</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-gfycat/">amp-gfycat</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-gist/">amp-gist</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-google-document-embed/">amp-google-document-embed</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-google-vrview-image/">amp-google-vrview-image</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-hulu/">amp-hulu</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-iframe/">amp-iframe</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-ima-video/">amp-ima-video</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-image-lightbox/">amp-image-lightbox</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-image-slider/">amp-image-slider</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-img/">amp-img</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-inputmask/">amp-inputmask</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-instagram/">amp-instagram</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-install-serviceworker/">amp-install-serviceworker</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-jwplayer/">amp-jwplayer</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-kaltura-player/">amp-kaltura-player</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-lightbox-gallery/">amp-lightbox-gallery</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-lightbox/">amp-lightbox</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-list/">amp-list</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-live-list/">amp-live-list</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-mustache/">amp-mustache</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-next-page/">amp-next-page</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-o2-player/">amp-o2-player</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-pinterest/">amp-pinterest</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-pixel/">amp-pixel</a>
+                  </li>
+                  <li class="nav-item level-2 active ap--websites " autoscroll>
+                    <a class="nav-link" href="/documentation/examples/components/amp-reach-player/">amp-reach-player</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-recaptcha-input/">amp-recaptcha-input</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-reddit/">amp-reddit</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-selector/">amp-selector</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-sidebar/">amp-sidebar</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-social-share/">amp-social-share</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-soundcloud/">amp-soundcloud</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-springboard-player/">amp-springboard-player</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-sticky-ad/">amp-sticky-ad</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-timeago/">amp-timeago</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-twitter/">amp-twitter</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-user-notification/">amp-user-notification</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-video-iframe/">amp-video-iframe</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-video/">amp-video</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-vimeo/">amp-vimeo</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-vine/">amp-vine</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-web-push/">amp-web-push</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/components/amp-youtube/">amp-youtube</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul class="nav-list level-1">
+              <li class="nav-item level-1 ">
+                <span class="nav-link">
+                  <span>guides</span>
+                </span>
+                <input class="nav-trigger" type="checkbox" >
+                <div class="nav-icon">
+                  <svg class="ap-a-ico">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#angle-down-solid"></use>
+                  </svg>
+                </div>
+                <ul class="nav-list level-2">
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/guides/internationalization/">Internationalization</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/guides/using_the_amp_url_api/">Using the AMP URL API</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/guides/using_the_google_amp_cache/">Using the Google AMP Cache</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul class="nav-list level-1">
+              <li class="nav-item level-1 ">
+                <span class="nav-link">
+                  <span>advertising-analytics</span>
+                </span>
+                <input class="nav-trigger" type="checkbox" >
+                <div class="nav-icon">
+                  <svg class="ap-a-ico">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#angle-down-solid"></use>
+                  </svg>
+                </div>
+                <ul class="nav-list level-2">
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/advertising-analytics/amphtml_ads_vs_non_amp_ads/">AMP Ads vs non-AMP Ads</a>
+                  </li>
+                  <li class="nav-item level-2  ap--stories " >
+                    <a class="nav-link" href="/documentation/examples/advertising-analytics/doubleclick_amp_story_ads/">DoubleClick AMP Story Ads</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/advertising-analytics/joining_analytics_sessions/">Joining Analytics Sessions</a>
+                  </li>
+                  <li class="nav-item level-2  ap--stories " >
+                    <a class="nav-link" href="/documentation/examples/advertising-analytics/publisher_served_amp_story_ads/">Publisher Served AMP Story Ads</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul class="nav-list level-1">
+              <li class="nav-item level-1 ">
+                <span class="nav-link">
+                  <span>e-commerce</span>
+                </span>
+                <input class="nav-trigger" type="checkbox" >
+                <div class="nav-icon">
+                  <svg class="ap-a-ico">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#angle-down-solid"></use>
+                  </svg>
+                </div>
+                <ul class="nav-list level-2">
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/e-commerce/amp_for_e-commerce_getting_started/">AMP for E-Commerce Getting Started</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/e-commerce/checkout_flow/">Checkout Flow</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/e-commerce/hotel/">Hotel</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/e-commerce/housing/">Housing</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/e-commerce/payments_in_amp/">Payments in AMP</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/e-commerce/product_browse_page/">Product Browse Page</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/e-commerce/product_page/">Product Page</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/e-commerce/shopping_cart/">Shopping Cart</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul class="nav-list level-1">
+              <li class="nav-item level-1 ">
+                <span class="nav-link">
+                  <span>interactivity-dynamic-content</span>
+                </span>
+                <input class="nav-trigger" type="checkbox" >
+                <div class="nav-icon">
+                  <svg class="ap-a-ico">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#angle-down-solid"></use>
+                  </svg>
+                </div>
+                <ul class="nav-list level-2">
+                  <li class="nav-item level-2  ap--email " >
+                    <a class="nav-link" href="/documentation/examples/interactivity-dynamic-content/advanced_server_request/">Advanced Server Request</a>
+                  </li>
+                  <li class="nav-item level-2  ap--email " >
+                    <a class="nav-link" href="/documentation/examples/interactivity-dynamic-content/article_bookmark_email/">Article Bookmark Email</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/interactivity-dynamic-content/autosuggest_form/">Autosuggest form</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/interactivity-dynamic-content/client-side_filtering/">Client-side filtering</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/interactivity-dynamic-content/comment_section/">Comment Section</a>
+                  </li>
+                  <li class="nav-item level-2  ap--email " >
+                    <a class="nav-link" href="/documentation/examples/interactivity-dynamic-content/conference_survey_email/">Conference Survey Email</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/interactivity-dynamic-content/copy_button/">Copy Button</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/interactivity-dynamic-content/dynamic_content_after_user-interaction/">Dynamic Content After User-Interaction</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/interactivity-dynamic-content/favorite_button/">Favorite Button</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/interactivity-dynamic-content/linked_dropdowns/">Linked Dropdowns</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/interactivity-dynamic-content/mixing_dynamic_and_cached_data/">Mixing Dynamic and Cached Data</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/interactivity-dynamic-content/multi_page_flow/">Multi Page Flow</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/interactivity-dynamic-content/paged_list/">Paged List</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/interactivity-dynamic-content/poll/">Poll</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/interactivity-dynamic-content/seatmap/">SeatMap</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/interactivity-dynamic-content/seatmap_multiple_selection/">SeatMap Multiple Selection</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/interactivity-dynamic-content/show_more_button/">Show More Button</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/interactivity-dynamic-content/simple_autosuggest/">Simple Autosuggest</a>
+                  </li>
+                  <li class="nav-item level-2  ap--ads " >
+                    <a class="nav-link" href="/documentation/examples/interactivity-dynamic-content/slides_ad/">Slides Ad</a>
+                  </li>
+                  <li class="nav-item level-2  ap--ads " >
+                    <a class="nav-link" href="/documentation/examples/interactivity-dynamic-content/stack_with_bind_ad/">Stack With Bind Ad</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/interactivity-dynamic-content/star_rating/">Star Rating</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul class="nav-list level-1">
+              <li class="nav-item level-1 ">
+                <span class="nav-link">
+                  <span>multimedia-animations</span>
+                </span>
+                <input class="nav-trigger" type="checkbox" >
+                <div class="nav-icon">
+                  <svg class="ap-a-ico">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#angle-down-solid"></use>
+                  </svg>
+                </div>
+                <ul class="nav-list level-2">
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/multimedia-animations/advanced_video_docking/">Advanced Video Docking</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/multimedia-animations/click-to-play_overlay_for_amp-video/">Click-to-play overlay for amp-video</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/multimedia-animations/custom_loading_indicators/">Custom Loading Indicators</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/multimedia-animations/image_galleries_with_amp-carousel/">Image Galleries with amp-carousel</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/multimedia-animations/integrating_videos_in_amp_an_overview/">Integrating Videos in AMP an Overview</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/multimedia-animations/rich_media_notifications/">Rich Media Notifications</a>
+                  </li>
+                  <li class="nav-item level-2  ap--ads " >
+                    <a class="nav-link" href="/documentation/examples/multimedia-animations/scrollbound_video_ad/">Scrollbound Video Ad</a>
+                  </li>
+                  <li class="nav-item level-2  ap--stories " >
+                    <a class="nav-link" href="/documentation/examples/multimedia-animations/supported_media_types_in_amp_stories/">Supported media types in AMP Stories</a>
+                  </li>
+                  <li class="nav-item level-2  ap--ads " >
+                    <a class="nav-link" href="/documentation/examples/multimedia-animations/video_ad/">Video Ad</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/multimedia-animations/video_carousels_with_amp-carousel/">Video Carousels with amp-carousel</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/multimedia-animations/video_rotate_to_fullscreen_with_hint/">Video rotate to fullscreen with hint</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul class="nav-list level-1">
+              <li class="nav-item level-1 ">
+                <span class="nav-link">
+                  <span>news-publishing</span>
+                </span>
+                <input class="nav-trigger" type="checkbox" >
+                <div class="nav-icon">
+                  <svg class="ap-a-ico">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#angle-down-solid"></use>
+                  </svg>
+                </div>
+                <ul class="nav-list level-2">
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/news-publishing/live_blog/">Live Blog</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/news-publishing/news_article/">News Article</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/news-publishing/recipe/">Recipe</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul class="nav-list level-1">
+              <li class="nav-item level-1 ">
+                <span class="nav-link">
+                  <span>personalization</span>
+                </span>
+                <input class="nav-trigger" type="checkbox" >
+                <div class="nav-icon">
+                  <svg class="ap-a-ico">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#angle-down-solid"></use>
+                  </svg>
+                </div>
+                <ul class="nav-list level-2">
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/personalization/geolocation_with_amp-list/">Geolocation with amp-list</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/personalization/oauth2_login/">OAuth2 Login</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul class="nav-list level-1">
+              <li class="nav-item level-1 ">
+                <span class="nav-link">
+                  <span>style-layout</span>
+                </span>
+                <input class="nav-trigger" type="checkbox" >
+                <div class="nav-icon">
+                  <svg class="ap-a-ico">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#angle-down-solid"></use>
+                  </svg>
+                </div>
+                <ul class="nav-list level-2">
+                  <li class="nav-item level-2  ap--stories " >
+                    <a class="nav-link" href="/documentation/examples/style-layout/amp_story_layouts/">AMP Story Layouts</a>
+                  </li>
+                  <li class="nav-item level-2  ap--ads " >
+                    <a class="nav-link" href="/documentation/examples/style-layout/banner_ad/">Banner Ad</a>
+                  </li>
+                  <li class="nav-item level-2  ap--ads " >
+                    <a class="nav-link" href="/documentation/examples/style-layout/carousel_ad/">Carousel Ad</a>
+                  </li>
+                  <li class="nav-item level-2  ap--stories " >
+                    <a class="nav-link" href="/documentation/examples/style-layout/desktop_and_landscape_mode_support/">Desktop and Landscape Mode Support</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/style-layout/how_to_support_images_with_unknown_dimensions/">How to support Images with unknown Dimensions</a>
+                  </li>
+                  <li class="nav-item level-2  ap--ads " >
+                    <a class="nav-link" href="/documentation/examples/style-layout/lightbox_ad/">Lightbox Ad</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/style-layout/tab_panels_with_amp-selector/">Tab Panels with amp-selector</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul class="nav-list level-1">
+              <li class="nav-item level-1 ">
+                <span class="nav-link">
+                  <span>user-consent</span>
+                </span>
+                <input class="nav-trigger" type="checkbox" >
+                <div class="nav-icon">
+                  <svg class="ap-a-ico">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#angle-down-solid"></use>
+                  </svg>
+                </div>
+                <ul class="nav-list level-2">
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/user-consent/advanced_user_consent_flow/">Advanced User Consent Flow</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/user-consent/basic_user_consent_flow/">Basic User Consent Flow</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/user-consent/external_user_consent_flow/">External User Consent Flow</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/user-consent/geolocation-based_consent_flow/">Geolocation-based Consent Flow</a>
+                  </li>
+                  <li class="nav-item level-2  ap--stories " >
+                    <a class="nav-link" href="/documentation/examples/user-consent/story_user_consent/">User Consent</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul class="nav-list level-1">
+              <li class="nav-item level-1 ">
+                <span class="nav-link">
+                  <span>visual-effects</span>
+                </span>
+                <input class="nav-trigger" type="checkbox" >
+                <div class="nav-icon">
+                  <svg class="ap-a-ico">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#angle-down-solid"></use>
+                  </svg>
+                </div>
+                <ul class="nav-list level-2">
+                  <li class="nav-item level-2  ap--stories " >
+                    <a class="nav-link" href="/documentation/examples/visual-effects/amp_story_animations/">AMP Story Animations</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/visual-effects/animated_snackbar/">Animated Snackbar</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/visual-effects/basics_of_orientation_effects/">Basics of orientation effects</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/visual-effects/basics_of_scrollbound_effects/">Basics of scrollbound effects</a>
+                  </li>
+                  <li class="nav-item level-2  ap--stories " >
+                    <a class="nav-link" href="/documentation/examples/visual-effects/ken_burns/">Ken Burns</a>
+                  </li>
+                  <li class="nav-item level-2  ap--websites " >
+                    <a class="nav-link" href="/documentation/examples/visual-effects/scroll_to_top/">Scroll to top</a>
+                  </li>
+                  <li class="nav-item level-2  ap--ads " >
+                    <a class="nav-link" href="/documentation/examples/visual-effects/scrollbound_animation_ad/">Scrollbound Animation Ad</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+      </section>
+    </ul>
+  </nav>
+</amp-sidebar><div class="ap--sidebar-toggle-observer">
+
+<amp-position-observer on="enter:slideTransition.start; exit:slideTransition.start,slideTransition.reverse"
+    intersection-ratios="1"
+    layout="nodisplay">
+  </amp-position-observer>
+
+  <amp-animation id="slideTransition"
+  layout="nodisplay">
+  <script type="application/json">
+    {
+      "duration": "200ms",
+      "fill": "both",
+      "easing": "ease-out",
+      "iterations": "1",
+      "animations": [{
+        "selector": ".label-title",
+        "keyframes": [{
+            "opacity": "0"
+          },
+          {
+            "opacity": "1"
+          }
+        ]
+      }]
+    }
+  </script>
+</amp-animation>
+
+</div><main class="ap--main ap-t-examples-manual">
+  <div class="ap--container">
+<input class="ap-a-sidebar-mobile-toggle-input ap-a-sidebar-mobile-toggle-input-sidebar" type="checkbox" name="sidebar" id="sidebar" autocomplete="off">
+
+<input class="ap-a-sidebar-desktop-toggle-input ap-a-sidebar-desktop-toggle-input-sidebar" type="checkbox" name="sidebar-desktop" id="sidebar-desktop" autocomplete="off">    <span id="ap--sidebar-content" class="ap--sidebar"></span>
+
+    <section class="ap--toc">
+
+      <div class="ap-o-toc" [class]="contentmenuopen ? 'ap-o-toc contentmenuopen' : 'ap-o-toc'">
+        <label class="ap-o-toc-toggle" for="toc" on="tap:AMP.setState({contentmenuopen: !contentmenuopen})" role="contentmenutrigger" tabindex="0">
+          <p class="ap-o-toc-hl">Table of contents</p>
+        </label>
+        <input class="ap-a-sidebar-toggle-input ap-a-sidebar-toggle-input-toc" type="checkbox" name="toc" id="toc" autocomplete="off">
+        <ul>
+          <li>
+            <a href="#amp-reach-player">amp-reach-player</a>
+            <ul>
+              <li>
+                <a href="#introduction">Introduction</a>
+                <a href="#setup">Setup</a>
+                <a href="#basic-usage">Basic usage</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="ap--content">
+
+
+
+
+
+<label class="ap-a-sidebar-toggle-label ap-a-sidebar-mobile-toggle-label ap-a-sidebar-mobile-toggle-label-sidebar" for="sidebar" on="tap:sidebar-left.toggle" role="categoriemenutrigger" tabindex="0">
+  <span class="label-icon"><svg class=""><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#sidebar-toggle"></use></svg></span><span class="label-title">Toggle Sidebar</span>
+</label>
+<label class="ap-a-sidebar-toggle-label ap-a-sidebar-desktop-toggle-label ap-a-sidebar-desktop-toggle-label-sidebar" for="sidebar-desktop" role="categoriemenutrigger-desktop" tabindex="0">
+  <span class="label-icon"><svg class=""><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#sidebar-toggle"></use></svg></span><span class="label-title">Toggle Sidebar</span>
+</label>
+      <ul class="ap--format-tags">
+        <li class="ap--format-tag ap-a-format-tag ap-a-format-tag-websites">websites</li>
+      </ul>
+
+
+<nav class="ap-m-breadcrumbs">
+  <a class="ap-m-breadcrumbs-crumb" href="/documentation/guides-and-tutorials/">Documentation</a>
+
+  <span class="ap-m-breadcrumbs-divider">
+    <svg class="ap-a-ico ap-m-breadcrumbs-angle"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#angle-down-solid"></use></svg>
+  </span>
+
+  <a class="ap-m-breadcrumbs-crumb" href="/documentation/examples/">Examples</a>
+</nav>
+      <h1 class="ap--title" id="amp-reach-player">amp-reach-player</h1>
+
+
+      <div class="ap--ctas">
+
+        <a class="ap-a-btn ap--playground-link " href="http://localhost:8082/?url=http://localhost:8082/documentation/examples/components/amp-reach-player">Open in playground</a>
+      </div>
+
+      <h2 id="introduction">Introduction</h2>
+<p>Use the <a href="/documentation/components/amp-reach-player"><code>amp-reach-player</code></a> component to embed videos hosted on Beachfront Reach in your AMP HTML pages.</p>
+
+      
+
+      <h2 id="setup">Setup</h2>
+
+      <p>Import the <code>amp-reach-player</code> component in the header.</p>
+
+      <div class="ap-o-code-preview">
+        <div class="ap-m-code-snippet"><pre><span></span><span class="p">&lt;</span><span class="nt">script</span> <span class="na">async</span> <span class="na">custom-element</span><span class="o">=</span><span class="s">&quot;amp-reach-player&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://cdn.ampproject.org/v0/amp-reach-player-0.1.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+      </div>
+
+      
+
+      <h2 id="basic-usage">Basic usage</h2>
+
+      <p>Embed videos hosted on Beachfront Reach via the <code>data-embed-id</code> attribute.  We recommend using the responsive layout for videos.</p>
+
+      <div class="ap-o-code-preview">
+        <div class="ap-o-code-preview-preview">
+            <amp-reach-player data-embed-id="default"
+    layout="responsive"
+    width="560"
+    height="315"></amp-reach-player>
+
+        </div>
+        <div class="ap-m-code-snippet"><pre><span></span><span class="p">&lt;</span><span class="nt">amp-reach-player</span> <span class="na">data-embed-id</span><span class="o">=</span><span class="s">&quot;default&quot;</span>
+  <span class="na">layout</span><span class="o">=</span><span class="s">&quot;responsive&quot;</span>
+  <span class="na">width</span><span class="o">=</span><span class="s">&quot;560&quot;</span>
+  <span class="na">height</span><span class="o">=</span><span class="s">&quot;315&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">amp-reach-player</span><span class="p">&gt;</span>
+</pre></div>
+      </div>
+
+      
+
+      
+
+    </section>
+
+    <section class="ap--content">
+      <div class="ap-o-help">
+        <span class="ap-o-help-hl">Need further explanation?</span>
+        <p class="ap-o-help-copy">If the explanations on this page don't cover all of your questions feel free to reach out to other AMP users to discuss your exact use case.</p>
+        <a href="https://stackoverflow.com/questions/tagged/amp-html" rel="noopener" class="ap-m-lnk">
+          <svg class="ap-a-ico ap-m-lnk-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#external"></use></svg>
+          <span class="ap-m-lnk-text">Go to Stack Overflow</span>
+        </a>
+        <div class="ap-o-help-divider"></div>
+        <span class="ap-o-help-hl">An unexplained feature?</span>
+        <p class="ap-o-help-copy">The AMP project strongly encourages your participation and contributions! We hope you'll become an ongoing participant in our open source community but we also welcome one-off contributions for the issues you're particularly passionate about.</p>
+        <a href="https://github.com/ampproject/docs/blob/future/examples/source/1.components/amp-reach-player.html" rel="noopener" class="ap-m-lnk link-preview-1">
+          <svg class="ap-a-ico ap-m-lnk-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#external"></use></svg>
+          <span class="ap-m-lnk-text">Edit sample on GitHub</span>
+        </a>
+        <div class="ap-o-help-divider"></div>
+      </div>
+    </section>
+  </div>
+<div class="ap--sidebar-toggle-visibility-observer">
+
+<amp-position-observer
+    on="enter:fadeTransition.start; exit:fadeTransition.start,fadeTransition.reverse"
+    intersection-ratios="0"
+    layout="nodisplay">
+  </amp-position-observer>
+
+  <amp-animation id="fadeTransition"
+    layout="nodisplay">
+    <script type="application/json">
+      {
+        "duration": "200ms",
+        "fill": "both",
+        "easing": "ease-out",
+        "iterations": "1",
+        "animations": [{
+          "selector": ".ap-a-sidebar-toggle-label",
+          "keyframes": [{
+              "opacity": "1"
+            },
+            {
+              "opacity": "0"
+            }
+          ]
+        }]
+      }
+    </script>
+  </amp-animation>
+</div></main>
+
+
+
+
+
+<footer class="ap--footer">
+  <div class="ap-o-footer">
+    <div class="ap-o-footer-line-top">
+      <div class="ap-o-footer-hint">Of course, this site is made with AMP!</div>
+
+      <div class="ap-o-footer-follow">
+        <h5 class="ap-o-footer-follow-title">Follow us</h5>
+        <ul class="ap-o-footer-follow-menu">
+          <li class="ap-o-footer-follow-item">
+            <a class="ap-a-ico ap-o-footer-follow-icon" href="https://twitter.com/AMPhtml" rel="noopener" title="Twitter">
+              <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#twitter"></use></svg>
+            </a>
+          </li>
+          <li class="ap-o-footer-follow-item">
+            <a class="ap-a-ico ap-o-footer-follow-icon" href="https://www.youtube.com/channel/UCXPBsjgKKG2HqsKBhWA4uQw" rel="noopener" title="YouTube">
+              <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#youtube"></use></svg>
+            </a>
+          </li>
+          <li class="ap-o-footer-follow-item">
+            <a class="ap-a-ico ap-o-footer-follow-icon" href="https://amphtml.wordpress.com/" rel="noopener">
+              <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#wordpress" title="Wordpress"></use></svg>
+            </a>
+          </li>
+          <li class="ap-o-footer-follow-item">
+            <a class="ap-a-ico ap-o-footer-follow-icon" href="https://github.com/ampproject" title="GitHub">
+              <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#github"></use></svg>
+            </a></li>
+          <li class="ap-o-footer-follow-item">
+            <a class="ap-a-ico ap-o-footer-follow-icon" href="https://stackoverflow.com/questions/tagged/amp-html" rel="noopener" title="Stackoverflow"><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#stackoverflow"></use></svg></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="ap-o-footer-nav">
+      <div class="ap-o-footer-nav-column">
+        <h5 class="ap-o-footer-nav-title">Overview</h5>
+        <ul class="ap-o-footer-nav-menu">
+          <li class="ap-o-footer-nav-item"><a href="/about/websites" class="ap-o-footer-nav-link"><div class="ap-a-ico ap-o-footer-nav-icon"><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#internal"></use></svg></div>AMP Framework</a></li>
+          <li class="ap-o-footer-nav-item"><a href="/about/use-cases" class="ap-o-footer-nav-link"><div class="ap-a-ico ap-o-footer-nav-icon"><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#internal"></use></svg></div>Use Cases</a></li>
+          <li class="ap-o-footer-nav-item"><a href="/success-stories/" class="ap-o-footer-nav-link"><div class="ap-a-ico ap-o-footer-nav-icon"><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#internal"></use></svg></div>Success stories</a></li>
+          <li class="ap-o-footer-nav-item"><a href="/about/how-amp-works" class="ap-o-footer-nav-link"><div class="ap-a-ico ap-o-footer-nav-icon"><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#internal"></use></svg></div>Functionality</a></li>
+        </ul>
+      </div>
+      <div class="ap-o-footer-nav-column">
+        <h5 class="ap-o-footer-nav-title">Docs</h5>
+        <ul class="ap-o-footer-nav-menu">
+          <li class="ap-o-footer-nav-item"><a href="/documentation/guides-and-tutorials/" class="ap-o-footer-nav-link"><div class="ap-a-ico ap-o-footer-nav-icon"><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#internal"></use></svg></div>Get Started</a></li>
+          <li class="ap-o-footer-nav-item"><a href="/documentation/guides-and-tutorials/" class="ap-o-footer-nav-link"><div class="ap-a-ico ap-o-footer-nav-icon"><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#internal"></use></svg></div>Guides and Tutorials</a></li>
+          <li class="ap-o-footer-nav-item"><a href="/documentation/components/" class="ap-o-footer-nav-link"><div class="ap-a-ico ap-o-footer-nav-icon"><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#internal"></use></svg></div>Components</a></li>
+          <li class="ap-o-footer-nav-item"><a href="/documentation/examples/" class="ap-o-footer-nav-link"><div class="ap-a-ico ap-o-footer-nav-icon"><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#internal"></use></svg></div>Examples</a></li>
+          <li class="ap-o-footer-nav-item"><a href="/documentation/templates/" class="ap-o-footer-nav-link"><div class="ap-a-ico ap-o-footer-nav-icon"><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#internal"></use></svg></div>Design Templates</a></li>
+          <li class="ap-o-footer-nav-item"><a href="/documentation/tools" class="ap-o-footer-nav-link"><div class="ap-a-ico ap-o-footer-nav-icon"><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#internal"></use></svg></div>Tools</a></li>
+        </ul>
+      </div>
+      <div class="ap-o-footer-nav-column">
+        <h5 class="ap-o-footer-nav-title">Community</h5>
+        <ul class="ap-o-footer-nav-menu">
+          <li class="ap-o-footer-nav-item"><a href="/community/platform-and-vendor-partners" class="ap-o-footer-nav-link"><div class="ap-a-ico ap-o-footer-nav-icon"><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#internal"></use></svg></div>Platform and Vendor Partners</a></li>
+          <li class="ap-o-footer-nav-item"><a href="/documentation/guides-and-tutorials/contribute/" class="ap-o-footer-nav-link"><div class="ap-a-ico ap-o-footer-nav-icon"><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#internal"></use></svg></div>Contribute</a></li>
+          <li class="ap-o-footer-nav-item"><a href="/community/roadmap" class="ap-o-footer-nav-link"><div class="ap-a-ico ap-o-footer-nav-icon"><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#internal"></use></svg></div>Roadmap</a></li>
+        </ul>
+      </div>
+      <div class="ap-o-footer-nav-column">
+        <h5 class="ap-o-footer-nav-title">Events</h5>
+        <ul class="ap-o-footer-nav-menu">
+          <li class="ap-o-footer-nav-item"><a href="/events/amp-conf-2019" class="ap-o-footer-nav-link"><div class="ap-a-ico ap-o-footer-nav-icon"><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#internal"></use></svg></div>AMP Conf 2019</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="ap-o-footer-line-bottom">
+      <ul class="ap-o-footer-legal-nav-menu">
+        <li class="ap-o-footer-legal-nav-item"><a class="ap-o-footer-legal-nav-link" href="https://www.google.com/intl/en/policies/privacy/" rel="noopener">Privacy Policy</a></li>
+      </ul>
+      <div class="ap-o-footer-copyright">&copy; 2019 AMP Open Source Project</div>
+    </div>
+
+  </div>
+
+</footer>
+
+    <amp-font layout="nodisplay" font-family="Noto Sans" timeout="3000"></amp-font>
+    <amp-font layout="nodisplay" font-family="Poppins" timeout="3000"></amp-font>
+    <amp-font layout="nodisplay" font-family="Fira Mono" timeout="3000"></amp-font>
+
+
+<amp-geo layout="nodisplay">
+  <script type="application/json">
+    {
+      "ISOCountryGroups": {
+        "eu": ["preset-eea"],
+        "doubleOptIn": ["de", "at", "no", "gr", "lu"]
+      }
+    }
+  </script>
+</amp-geo>
+
+<amp-consent id="consent" class="ap-o-consent" layout="nodisplay">
+  <script type="application/json">
+    {
+      "consents": {
+        "eu": {
+          "promptIfUnknownForGeoGroup": "eu",
+          "promptUI": "consent-popup"
+        }
+      }
+    }
+  </script>
+
+  <div id="consent-popup" class="consent-popup">
+    <button type="reset" class="ap-o-consent-close" on="tap:consent.dismiss" role="button" tabindex="0" aria-label="Dismiss consent">
+      <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close"></use></svg>
+    </button>
+    <p class="ap-o-consent-text">
+        We use cookies to understand how you use our site and to improve your experience. By continuing to use our site, you accept our <a href="https://policies.google.com/technologies/cookies">use of cookies</a> and <a href="https://policies.google.com/privacy">privacy policy</a>.
+    </p>
+    <button on="tap:consent.accept" class="ap-a-btn" role="button" aria-label="Accept use of cookies">Got it!</button>
+  </div>
+</amp-consent><amp-analytics type="gtag" data-credentials="include">
+  <script type="application/json">
+  {
+    "vars" : {
+      "gtag_id": "UA-67833617-1",
+      "config" : {
+        "UA-67833617-1": {
+          "groups": "default"
+        }
+      }
+    }
+  }
+  </script>
+</amp-analytics>
+<amp-install-serviceworker src="/serviceworker.js" data-iframe-src="http://localhost:8080/serviceworker.html" layout="nodisplay"></amp-install-serviceworker>  </body>
+</html>
