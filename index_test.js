@@ -20,6 +20,9 @@ const through = require('through2');
 const AmpUncss= require('./lib/main/amp-uncss.js');
 
 module.exports = function(options) {
+
+
+
   /**
    * @param {File} vinyl
    * @param {string} enc
@@ -27,7 +30,6 @@ module.exports = function(options) {
    */
   function gulpUnCss(vinyl, enc, cb) {
     if (vinyl.isBuffer() ) {
-      console.log('Starting AMPUnCSS')
       const processOpts = Object.assign(
           options, {
             streamable: true,
