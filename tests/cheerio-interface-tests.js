@@ -1,13 +1,17 @@
 const assert = require('assert');
 const fs = require('fs');
-const cheerioInt = require('../lib/interfaces/cheerio-interface');
+const CheerioInt = require('../lib/interfaces/cheerio-interface');
 
 const fileLoc = './tests/selectors/static/staticDom.html';
 const html = fs.readFileSync(fileLoc, 'utf-8');
 
+const fakeAmpFile = {
+  selectorWhiteList: [],
+};
+
 
 describe('CheerioInterface', () => {
-  const pageRep = new cheerioInt(html).init();
+  const pageRep = new CheerioInt(html).init(fakeAmpFile);
 
   it('should execute .init() the first time', () => {
     assert.ok(pageRep.page);
@@ -48,14 +52,22 @@ describe('CheerioInterface', () => {
 
 
   it('should remove custom styles', () => {
-    assert.strictEqual(pageRep.page('style[amp-custom=""]').toArray().length, 1);
+    assert.strictEqual(
+        pageRep.page('style[amp-custom=""]').toArray().length,
+        1);
     pageRep.removeCustomStyles();
-    assert.strictEqual(pageRep.page('style[amp-custom=""]').toArray().length, 0);
+    assert.strictEqual(
+        pageRep.page('style[amp-custom=""]').toArray().length,
+        0);
   });
 
   it('should append custom style', () => {
-    assert.strictEqual(pageRep.page('style[amp-custom=""]').toArray().length, 0);
+    assert.strictEqual(
+        pageRep.page('style[amp-custom=""]').toArray().length,
+        0);
     pageRep.appendOriginal('head', '<style amp-custom>h1{color: blue}</style>');
-    assert.strictEqual(pageRep.page('style[amp-custom=""]').toArray().length, 1);
+    assert.strictEqual(
+        pageRep.page('style[amp-custom=""]').toArray().length,
+        1);
   });
 });

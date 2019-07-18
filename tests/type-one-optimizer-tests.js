@@ -46,7 +46,7 @@ describe('Type 1 Optimizer Functions', function() {
         {},
         defaultConfig,
         {optimizationLevel: 1},
-        {selectorWhiteList: new Set(testConfigFile.selectorWhiteList)}
+        {selectorWhiteList: [...testConfigFile.selectorWhiteList]}
     );
 
     const ampFile = await new AmpFile(inputHtml, defaultOptions, browser)
