@@ -15,45 +15,73 @@
  */
 
 
-
 const through = require('through2');
-const AmpUncss= require('./lib/main/amp-uncss.js');
+const {Signale} = require('signale');
+
+const AmpUnCss= require('./lib/main/amp-uncss.js');
 
 module.exports = function(options) {
+  const logger = new Signale({
+    interactive: false,
+    scope: 'AMP UnCss',
+  });
 
+  logger.start('Starting AMP UnCSS');
 
+  const processOpts = Object.assign(
+      options, {
+        streamable: true,
+        report:
+            !!options.report ||
+            !!options.reportDirectory ||
+            !!options.reportName,
+      });
+
+  const unCss = new AmpUnCss([], processOpts);
+  if (processOpts.optimizationLevel > 0) {
+    // Initialize Puppeteer browser that will be shared across all pages.
+    unCss.init();
+    logger.note('Opening headless Puppeteer instance.');
+  }
+  if (processOpts.report) {
+    unCss.initializeReport();
+    logger.note('Initializing a report document.');
+  }
 
   /**
-   * @param {File} vinyl
+   * @param {File} chunk
    * @param {string} enc
    * @param {function} cb
    */
-  function gulpUnCss(vinyl, enc, cb) {
-    if (vinyl.isBuffer() ) {
-      const processOpts = Object.assign(
-          options, {
-            streamable: true,
-            report:
-                !!options.report
-                || !!options.reportDirectory
-                || !!options.reportName,
-          });
-      const uncss = new AmpUncss([vinyl], processOpts);
-      uncss.init()
-          .then((uf) => uf.run())
-          .then(({optimizedHtmlString, reporting}) => {
+  function newFunc(chunk, enc, cb) {
+    if (chunk.isBuffer()) {
+      unCss.run(chunk)
+          .then((optimizedHtmlString) => {
             if (typeof optimizedHtmlString !== 'undefined') {
               // Only update stream data if the optimization was successful.
-              vinyl.contents = Buffer.from(optimizedHtmlString);
+              chunk.contents = Buffer.from(optimizedHtmlString);
             }
-            uncss.end()
-                .then( () => {
-                  cb(null, vinyl);
-                });
+            logger.complete(`Completed ${chunk.relative}.`);
+            cb(null, chunk);
           });
     } else {
-      cb(null, vinyl);
+      cb(null, chunk);
     }
   }
-  return through.obj(gulpUnCss);
+
+  /**
+   * Closes browser if open.
+   * @param {function} done
+   */
+  function browserClose(done) {
+    logger._interactive = false;
+    if (unCss.browser) {
+      unCss.browser.close();
+      logger.note('Closing headless Puppeteer instasnce.');
+    }
+    logger.success('AMP UnCss Complete!');
+    done();
+  }
+  logger._interactive = true;
+  return through.obj(newFunc, browserClose);
 };
