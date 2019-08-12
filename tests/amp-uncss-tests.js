@@ -92,7 +92,7 @@ describe('unCss functions', async function() {
         if (af.filePath === badDomHtmlPath) {
           // Exception for malformed.html;
           assert.strictEqual(didFail, true);
-        } else if (af.filePath){
+        } else if (af.filePath) {
           assert.strictEqual(isOptimized, true);
           assert.strictEqual(didFail, false);
         }

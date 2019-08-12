@@ -52,8 +52,8 @@ describe('Type 1 Optimizer Functions', function() {
     const ampFile = await new AmpFile(inputHtml, defaultOptions, browser)
         .prep();
     await typeOneOptimizations
-        .optimize(ampFile)
-        .then(async (ampFile) => ampFile.rewriteHtmlWithNewCss());
+        .optimize2(ampFile);
+    await ampFile.rewriteHtmlWithNewCss();
 
     const resultingHtml = ampFile
         .optimizedHtml

@@ -1,4 +1,4 @@
-[data-section=''] > section > h4 [data-section-title] {
+[data-section] > section > h4 [data-section-title] {
   color: cyan;
 }
 

@@ -7,6 +7,6 @@ h1, h3, .slideRightAndFade::after {
   background-color: #00AA88;
 }
 
-.navy, blockquote, .unused {
+.navy {
   margin-left: 40px;
 }
